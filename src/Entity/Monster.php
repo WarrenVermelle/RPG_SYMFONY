@@ -57,6 +57,11 @@ class Monster
      */
     private $gold;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $xp;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +159,18 @@ class Monster
     public function setGold(int $gold): self
     {
         $this->gold = $gold;
+
+        return $this;
+    }
+
+    public function getXp(): ?int
+    {
+        return $this->xp;
+    }
+
+    public function setXp(int $xp): self
+    {
+        $this->xp = $xp;
 
         return $this;
     }
