@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Champion;
+use App\Form\CreatePersoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,8 +18,18 @@ class AccountController extends AbstractController
     }
 
     #[Route('/creation/personnage', name: 'account_create_perso')]
-    public function accountCreatePerso(): Response
+    public function accountCreatePerso(Request $request): Response
     {
-        return $this->render("account/create-perso.html.twig", []);
+        $champion = new Champion();
+        $form = $this->createForm(CreatePersoType::class, $champion);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            // TODO : Insérer les caractéristique du personnage en fonction de sa race et de sa faction
+            
+        }
+
+        return $this->render("account/create-perso.html.twig", ['formPerso' => $form->createView()]);
     }
 }
