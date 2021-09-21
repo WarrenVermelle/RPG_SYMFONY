@@ -92,6 +92,11 @@ class Champion
      */
     private $faction;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $xp;
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
@@ -284,6 +289,18 @@ class Champion
     public function setFaction(?Faction $faction): self
     {
         $this->faction = $faction;
+
+        return $this;
+    }
+
+    public function getXp(): ?int
+    {
+        return $this->xp;
+    }
+
+    public function setXp(int $xp): self
+    {
+        $this->xp = $xp;
 
         return $this;
     }

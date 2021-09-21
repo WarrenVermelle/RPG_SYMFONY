@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Plaine{% endblock %}
+
+
+
+{% block body %}
+
+<div id="plaine">
+    <div>
+        <a href="../ville"><img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheht"></a>
+        <p id="pville"> Direction ville </p>
+    </div>
+    <div>
+        <p id="pville"> Direction foret </p>
+        <a href="../forest"><img src="{{asset('img/fleche.png')}}" alt="" id="imgflechep"></a>
+    </div>
+</div>
+{% endblock %}
