@@ -1,0 +1,137 @@
+body {
+    background-color: lightgray;
+    margin: 0;
+}
+
+
+/*-------------------header----------------------*/
+
+header{
+    background-color: black;
+    color:white;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    padding: 5px;
+}
+h1{
+    font-family: Brush Script MT, Brush Script Std, cursive;   
+}
+.aheader{
+    text-decoration: none;
+    color: white;
+}
+
+/*-----------------maps générale -------------------*/
+
+#imgfleche{
+    width: 150px;
+}
+
+/*---------------page de la ville------------*/
+
+#ville{
+    background-image: url("../../public/img/ville2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: space-between;
+    height: 89vh;
+}
+
+#iconeboutique{
+    width: 20vh;
+    margin-top: 10vh;
+    padding: 22vh;
+    margin-right: 60vh;
+}
+#pville{
+    color: white;
+    font-size: 20px;
+    margin-bottom: -2vh;
+}
+
+/*---------------page de la plaine------------*/
+
+#plaine{
+    background-image: url("../../public/img/plaine.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    height: 89vh;
+}
+#imgflecheht{
+    width: 150px;
+    transform: rotate(180deg);
+    margin-bottom: -5vh;
+}
+#imgflechep{
+    width: 150px;
+    margin-bottom: 5vh;
+}
+
+/*---------------page de la foret------------*/
+
+#foret{
+    background-image: url("../../public/img/foret1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    height: 89vh;
+}
+
+/*---------------page de la boutique------------*/
+
+#marchant{
+    background-image: url("../../public/img/boutique.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: space-between;
+    height: 89vh;
+}
+
+#imgmarchant{
+    margin-top: 10vh;
+    padding: 10vh;
+    height: 40vh;
+}
+#pboutique{
+    color: white;
+    font-size: 20px;
+    margin-bottom: -2vh;
+}
+
+/*---------------footer-----------------------*/
+
+footer{
+    display: flex;
+    justify-content: flex-end;
+    background-color: black;
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+.iconefooter{
+    width: 50px;
+    border: gray 2px solid;
+    margin: 10px;
+    margin-left: 0px;
+}
