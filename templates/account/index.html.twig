@@ -7,5 +7,64 @@
 
     <a href="{{ path("account_create_perso") }}">Créer un nouveau personnage</a>
 
+    {% for champion in champions %}
+    <table>
+        <thead>
+            <tr>
+                <th>Pseudo : </th>
+                <th>{{ champion.name }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Genre : </td>
+                <td>{{ champion.gender }}</td>
+            </tr>
+            <tr>
+                <td>Race : </td>
+                <td>{{ champion.race }}</td>
+            </tr>
+            <tr>
+                <td>Faction : </td>
+                <td>{{ champion.faction }}</td>
+            </tr>
+            <tr>
+                <td>Level : </td>
+                <td>{{ champion.level }}</td>
+            </tr>
+            <tr>
+                <td>Or : </td>
+                <td>{{ champion.gold }}</td>
+            </tr>
+            <tr>
+                <td>Vie : </td>
+                <td>{{ champion.hp }}</td>
+            </tr>
+            <tr> 
+                <td>Mana : </td>
+                <td>{{ champion.mp }}</td>
+            </tr>
+            <tr>  
+                <td>Force : </td>
+                <td>{{ champion.strength }}</td>
+            </tr>
+            <tr> 
+                <td>Agilité : </td>
+                <td>{{ champion.agi }}</td>
+            </tr>
+            <tr> 
+                <td>Intelligence : </td>
+                <td>{{ champion.intel }}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><button type="submit" class="btn">Jouer !</button></td>
+            </tr>
+        </tfoot>
+    </table>
+        
+    {% endfor %}
+
 
 {% endblock %}

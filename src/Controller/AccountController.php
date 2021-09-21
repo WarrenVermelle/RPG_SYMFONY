@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Champion;
+use App\Entity\User;
 use App\Form\CreatePersoType;
 use App\Service\CreatePersoService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +16,10 @@ class AccountController extends AbstractController
     #[Route('/account', name: 'account_index')]
     public function accountIndex(): Response
     {
-        return $this->render("account/index.html.twig", []);
+        return $this->render("account/index.html.twig", 
+            [
+                "champions" => $this->getUser()->getChampions()->getValues()
+            ]);
     }
 
     #[Route('/creation/character', name: 'account_create_perso')]
