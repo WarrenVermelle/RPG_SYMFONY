@@ -165,4 +165,9 @@ class Race
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->race;
+    }
 }

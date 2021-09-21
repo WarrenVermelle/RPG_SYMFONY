@@ -26,7 +26,7 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) 
         {
-            // TODO : Insérer les caractéristique du personnage en fonction de sa race et de sa faction
+            // TODO : Insérer les caractéristiques du personnage en fonction de sa race et de sa faction
             
         }
 

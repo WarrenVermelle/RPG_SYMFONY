@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Champion;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,12 @@ class CreatePersoType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('gender')
+            ->add('gender', ChoiceType::class, [
+                "choices" => [
+                    "Femme" => 0,
+                    "Homme" => 1
+                ]
+            ])
             ->add('race')
             ->add('faction')
         ;
