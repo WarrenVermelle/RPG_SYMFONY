@@ -11,8 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ChampionRepository::class)
  */
-class Champion extends Humanoide
+class Champion
 {
+    
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
     /**
      * @ORM\Column(type="smallint")
@@ -47,12 +53,23 @@ class Champion extends Humanoide
      */
     private $faction;
 
-
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
     }
 
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     public function getGender(): ?int
     {
@@ -143,4 +160,6 @@ class Champion extends Humanoide
 
         return $this;
     }
+
+    use Humanoide;
 }

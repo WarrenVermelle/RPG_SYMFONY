@@ -6,7 +6,7 @@ namespace App\Entity\Abstract;
 use Doctrine\ORM\Mapping as ORM;
 
 
-abstract class Humanoide
+trait Humanoide
 {
     /**
      * @ORM\Id
@@ -14,11 +14,6 @@ abstract class Humanoide
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
 
     /**
      * @ORM\Column(type="integer")
@@ -63,18 +58,6 @@ abstract class Humanoide
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getLevel(): ?int

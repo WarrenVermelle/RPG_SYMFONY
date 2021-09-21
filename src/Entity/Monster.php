@@ -9,7 +9,28 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=MonsterRepository::class)
  */
-class Monster extends Humanoide
+class Monster
 {
     
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $monster;
+
+    
+
+    public function getMonster(): ?string
+    {
+        return $this->monster;
+    }
+
+    public function setMonster(string $monster): self
+    {
+        $this->monster = $monster;
+
+        return $this;
+    }
+
+    use Humanoide;
 }
