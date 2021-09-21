@@ -5,8 +5,9 @@
 {% block body %}
     <h1>Mon compte</h1>
 
-    <a href="{{ path("account_create_perso") }}">Créer un nouveau personnage</a>
+    <h2><a href="{{ path("account_create_perso") }}">Créer un nouveau personnage</a></h2>
 
+    <h3>Liste de mes Champions</h3>
     {% for champion in champions %}
     <table>
         <thead>
