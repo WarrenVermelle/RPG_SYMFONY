@@ -20,7 +20,7 @@ class InventoryController extends AbstractController
             //'active' => true
         ]);
     
-        return $this->render('default/inventory.html.twig',[
+        return $this->render('inventory/inventory.html.twig',[
             'inventory' => $champion->getInventories()->getValues()
         ]);
     }
