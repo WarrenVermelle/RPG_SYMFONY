@@ -33,6 +33,24 @@ class FightService
         return $resultHp;
     }
     
+    public function xpWin(Champion $champion, Monster $monster)
+    {
+        $champion->setXp($champion->getXp()+$monster->getXp());
+        $resultXp = $champion->getXp();
+        $this->em->persist($champion);
+        $this->em->flush();
+        return $resultXp;
+    }
+
+    public function goldWin(Champion $champion, Monster $monster)
+    {
+        $champion->setGold($champion->getGold()+$monster->getGold());
+        $resultGold = $champion->getGold();
+        $this->em->persist($champion);
+        $this->em->flush();
+        return $resultGold;
+    }
+
     
 
 }
