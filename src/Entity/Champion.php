@@ -31,9 +31,6 @@ class Champion
     private $img;
 
     /**
-<<<<<<< HEAD
-     * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="champ")
-=======
      * @ORM\Column(type="integer")
      */
     private $level;
@@ -70,7 +67,6 @@ class Champion
 
     /**
      * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="champ", cascade={"persist","remove"})
->>>>>>> a201143ccf7ef4e645ce4692d47c72c8b6353655
      */
     private $inventories;
 
