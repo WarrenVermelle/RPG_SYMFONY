@@ -70,7 +70,7 @@ class Champion
     private $agi;
 
     /**
-     * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="champ")
+     * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="champ", cascade={"persist","remove"})
      */
     private $inventories;
 
@@ -245,15 +245,14 @@ class Champion
         return $this;
     }
 
-    public function removeInventory(Inventory $inventory): self
+    /*
+    ** On passe le manager afin de suprimer l'objet d'une table many to many plus avancé
+    */
+    public function removeInventory(Inventory $inventory, $manager): self
     {
         if ($this->inventories->removeElement($inventory)) {
-            // set the owning side to null (unless already changed)
-            if ($inventory->getChamp() === $this) {
-                $inventory->setChamp(null);
-            }
+            $manager->remove($inventory);            
         }
-
         return $this;
     }
 

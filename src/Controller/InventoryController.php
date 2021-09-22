@@ -67,6 +67,7 @@ class InventoryController extends AbstractController
                     $manager->flush();
                 }
             }
+
             // équipe l'élément cliqué
             $clickedInventoryLine->setEquiped(true);
 
@@ -80,6 +81,16 @@ class InventoryController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($clickedInventoryLine);
             $manager->flush();
+
+            // si l'élément cliqué est une potion
+            if($clickedInventoryLine->getItem()->getType()->getType() === 'potion')
+            {
+                // supprime la ligne inventaire
+                $manager = $this->getDoctrine()->getManager();
+                $champion->removeInventory($clickedInventoryLine,$manager);
+                $manager->persist($champion);
+                $manager->flush();
+            }
         }
         // si l'élément cliqué est équipé
         else
