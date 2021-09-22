@@ -21,7 +21,7 @@ class FightController extends AbstractController
      */
     public function start(MonsterRepository $monster, ChampionRepository $champion): Response
     {
-        return $this->render('default/fightStart.html.twig',[
+        return $this->render('fight/fightStart.html.twig',[
             'monster' => $monster->findAll()[0],
             'champion' => $champion->findAll()[0]
         ]);
@@ -52,7 +52,7 @@ class FightController extends AbstractController
         }
         
         
-        return $this->render('default/fightAtk.html.twig',[
+        return $this->render('fight/fightAtk.html.twig',[
             'monster' => $monsterRepository->findAll()[0],
             'champion' => $championRepository->findAll()[0],          
         ]);
