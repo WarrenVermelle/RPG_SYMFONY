@@ -8,33 +8,38 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
-let divSelected = document.querySelector('#btninventaire');
+let divSelected = document.querySelector('#btnStart');
 
-divSelected.addEventListener('click',async ()=>{
-    let path = divSelected.getAttribute('data-target')
-    fetch(path)
-    .then((response)=>{
-        return response.text()
-    }).then((newDom)=>{
-        let parser = new DOMParser();
-        let doc = parser.parseFromString(newDom, 'text/html');
-
-        document.querySelector('#inventaire').replaceWith(doc.querySelector('#testjs'))
+document.addEventListener('readystatechange', ()=>{
+    divSelected.addEventListener('click',async ()=>{
+        let path = divSelected.getAttribute('data-start')
+        fetch(path)
+        .then((response)=>{
+            return response.text()
+        }).then((newDom)=>{
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(newDom, 'text/html');
+    
+            document.querySelector('#Combat').replaceWith(doc.querySelector('#startCombat'))
+        })
     })
 })
 
-let btnLeave = document.querySelector('#btnLeaveFight');
 
- btnLeave.addEventListener('click',async ()=>{
-    let path = btnLeave.getAttribute('data-return')
-    fetch(path)
-    .then((response)=>{
-        return response.text()
-    }).then((newDom)=>{
-        let parser = new DOMParser();
-        let doc = parser.parseFromString(newDom, 'text/html');
-        document.querySelector('#testjs').replaceWith(doc.querySelector('#inventaire'))
-    })
-})
+// let btnAtt = document.querySelector('#btnAtt');
+
+//  btnAtt.addEventListener('click',async ()=>{
+//      console.log('coucou');
+//     let path = btnAtt.getAttribute('data-Att')
+//     fetch(path)
+//     .then((response)=>{
+//         return response.text()
+//     }).then((newDom)=>{
+//         let parser = new DOMParser();
+//         let doc = parser.parseFromString(newDom, 'text/html');
+
+//         document.querySelector('#startCombat').replaceWith(doc.querySelector('#combat'))
+//     })
+// })
 
 
