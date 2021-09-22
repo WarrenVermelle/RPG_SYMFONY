@@ -47,13 +47,4 @@ class ChampionRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findOneBySomeField($value): ?Champion
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
 }
