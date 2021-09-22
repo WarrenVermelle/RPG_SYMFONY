@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Champion;
 use App\Repository\ChampionRepository;
 use App\Repository\InventoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,50 +30,81 @@ class InventoryController extends AbstractController
      */
     public function equipItem($id, InventoryRepository $inventoryRepo, ChampionRepository $championRepo)
     {
-        $inventory = $championRepo->findOneBy([
+        $champion = $championRepo->findOneBy([
             'player' => $this->getUser(),
             //'active' => true
         ]);
-
         $clickedInventoryLine = $inventoryRepo->findOneBy([
             'id' => $id
         ]);
         $equipedList = $inventoryRepo->findBy([
             'equiped' => true
         ]);
-
-
-
-        if($clickedInventoryLine->getEquiped() === false)
-        {
-            $clickedInventoryLine->setEquiped(true);
-        }
-        else
-        {
-            foreach ($equipedList as $equipedItem)
-            {
-                if($equipedItem->getItem()->getType()->getId() === $clickedInventoryLine->getItem()->getType()->getId())
-                {
-                    $equipedItem->setEquiped(false);
-                    $clickedInventoryLine->setEquiped(true);
-                }
-            }
-        }
         
 
+        // si élément cliqué n'est pas équipé
+        if($clickedInventoryLine->getEquiped() === false)
+        {
+            // on compare dans la liste des élèments equipés
+            foreach($equipedList as $item)
+            {
+                // si l'élément cliqué est du même type qu'un équipement déjà équipé
+                if($item->getItem()->getType()->getId() === $clickedInventoryLine->getItem()->getType()->getId())
+                {
+                    // déséquipe l'élément déjà équipé
+                    $item->setEquiped(false);
 
+                    // enleve les caract de l'ancien élément
+                    $champion->setHp($champion->getHp() - $item->getItem()->getHp());
+                    $champion->setMp($champion->getMp() - $item->getItem()->getMp());
+                    $champion->setIntel($champion->getIntel() - $item->getItem()->getIntel());
+                    $champion->setStrength($champion->getStrength() - $item->getItem()->getStrength());
+                    $champion->setAgi($champion->getAgi() - $item->getItem()->getAgi());
 
-        // if($clickedInventoryLine->getEquiped() === false){
-        //     $clickedInventoryLine->setEquiped(true);
-        // }else{
-        //     $clickedInventoryLine->setEquiped(false);
-        // }
+                    $manager = $this->getDoctrine()->getManager();
+                    $manager->persist($item);
+                    $manager->persist($champion);
+                    $manager->flush();
+                }
+            }
+            // équipe l'élément cliqué
+            $clickedInventoryLine->setEquiped(true);
 
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($clickedInventoryLine);
-        $manager->persist($equipedItem);
-        $manager->flush();
+            // ajoute les caract de l'élément cliqué
+            $champion->setHp($champion->getHp() + $clickedInventoryLine->getItem()->getHp());
+            $champion->setMp($champion->getMp() + $clickedInventoryLine->getItem()->getMp());
+            $champion->setIntel($champion->getIntel() + $clickedInventoryLine->getItem()->getIntel());
+            $champion->setStrength($champion->getStrength() + $clickedInventoryLine->getItem()->getStrength());
+            $champion->setAgi($champion->getAgi() + $clickedInventoryLine->getItem()->getAgi());
 
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($clickedInventoryLine);
+            $manager->flush();
+        }
+        // si l'élément cliqué est équipé
+        else
+        {
+            // déséquipe l'élément cliqué
+            $clickedInventoryLine->setEquiped(false);
+
+            // enlève les caract de l'élément cliqué
+            $champion->setHp($champion->getHp() - $clickedInventoryLine->getItem()->getHp());
+            $champion->setMp($champion->getMp() - $clickedInventoryLine->getItem()->getMp());
+            $champion->setIntel($champion->getIntel() - $clickedInventoryLine->getItem()->getIntel());
+            $champion->setStrength($champion->getStrength() - $clickedInventoryLine->getItem()->getStrength());
+            $champion->setAgi($champion->getAgi() - $clickedInventoryLine->getItem()->getAgi());
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($clickedInventoryLine);
+            $manager->persist($champion);
+            $manager->flush();
+        }
         return $this->redirectToRoute('show_inventory');
     }
 }
+
+// si élément cliqué de type 'potion'
+
+// ajout de la caract de la potion
+
+// supprime l'item cliqué
