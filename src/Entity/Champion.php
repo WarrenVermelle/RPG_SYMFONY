@@ -31,7 +31,46 @@ class Champion
     private $img;
 
     /**
+<<<<<<< HEAD
      * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="champ")
+=======
+     * @ORM\Column(type="integer")
+     */
+    private $level;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $gold;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $hp;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $mp;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $intel;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $strength;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $agi;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="champ", cascade={"persist","remove"})
+>>>>>>> a201143ccf7ef4e645ce4692d47c72c8b6353655
      */
     private $inventories;
 
@@ -105,23 +144,23 @@ class Champion
 
     public function addInventory(Inventory $inventory): self
     {
-        if (!$this->inventories->contains($inventory)) {
-            $this->inventories[] = $inventory;
-            $inventory->setChamp($this);
-        }
+            $newInventory = new Inventory();
+            $newInventory ->setEquiped(false);
+            $newInventory -> setItem($inventory->getItem());
+            $this->inventories[] = $newInventory;
+            $newInventory ->setChamp($this);
 
         return $this;
     }
 
-    public function removeInventory(Inventory $inventory): self
+    /*
+    ** On passe le manager afin de suprimer l'objet d'une table many to many plus avancé
+    */
+    public function removeInventory(Inventory $inventory, $manager): self
     {
         if ($this->inventories->removeElement($inventory)) {
-            // set the owning side to null (unless already changed)
-            if ($inventory->getChamp() === $this) {
-                $inventory->setChamp(null);
-            }
+            $manager->remove($inventory);            
         }
-
         return $this;
     }
 

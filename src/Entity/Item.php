@@ -65,6 +65,11 @@ class Item
      */
     private $inventories;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $price;
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
@@ -197,6 +202,18 @@ class Item
                 $inventory->setItem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }

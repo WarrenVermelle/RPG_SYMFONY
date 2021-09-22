@@ -119,6 +119,82 @@ h1{
     margin-bottom: -2vh;
 }
 
+
+
+/*--------------page achat vente----------------*/
+
+#titremarchand{
+    display: flex;
+    color: white;
+    background-color: rgb(54,54,47);
+    border:1px solid grey;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    margin: 0; 
+}
+#titreinv{
+    display: flex;
+    color: white;
+    background-color: rgb(54,54,47);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    margin: 0;
+    padding-right: 100px;
+}
+#background{
+    background-image: url("../../public/img/boutique.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 89vh;
+}
+#interfboutique{
+    display: flex; 
+    justify-content:space-around;
+}
+#interfvente{
+    display: flex; 
+    flex-direction:column; 
+    width: 500px;
+    padding-top: 2%;
+}
+#interfventeinter{
+    display: flex; 
+    background-color: rgb(54,54,47); 
+    text-align: center;
+    align-items: center;
+    color:white; 
+    justify-content:space-around;
+    border:1px solid grey;
+    padding: 1%;
+}
+#sizeintervente{
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+#interfventeintergold{
+    display: flex; 
+    background-color: rgb(54,54,47); 
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color:white; 
+    border:1px solid grey;
+    padding: 1%;
+}
+#imgarme{
+    width: 50px;
+}
+#iconeav{
+    width: 50px;
+}
+
+
 /*---------------footer-----------------------*/
 
 footer{
