@@ -88,6 +88,11 @@ class Champion
      */
     private $faction;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $actif;
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
@@ -197,4 +202,16 @@ class Champion
     }
 
     use Humanoide;
+
+    public function getActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): self
+    {
+        $this->actif = $actif;
+
+        return $this;
+    }
 }
