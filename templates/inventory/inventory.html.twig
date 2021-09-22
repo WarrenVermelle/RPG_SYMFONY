@@ -1,5 +1,12 @@
 {% extends "base.html.twig" %}
 {% block body %}
+<div class="popup">
+    <div class="barre">
+        <div class="titreinvit">Inventaire</div>
+        <div><a onclick="fermerpopup()"><img src="src/img/croix.png" class="ferm" id="btnclose"></a></div>
+    </div>
+</div>
+<div id="centrepopup">
 <table>
     <tr>
         <td>Item</td>
@@ -36,4 +43,5 @@
     </tr>   
     {% endfor %}
 </table>
+</div>
 {% endblock %}
