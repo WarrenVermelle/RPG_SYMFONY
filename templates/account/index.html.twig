@@ -1,0 +1,71 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    <h1>Mon compte</h1>
+
+    <h2><a href="{{ path("account_create_perso") }}">Créer un nouveau personnage</a></h2>
+
+    <h3>Liste de mes Champions</h3>
+    {% for champion in champions %}
+    <table>
+        <thead>
+            <tr>
+                <th>Pseudo : </th>
+                <th>{{ champion.name }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Genre : </td>
+                <td>{{ champion.gender == 0 ? "Femme" : "Homme" }}</td>
+            </tr>
+            <tr>
+                <td>Race : </td>
+                <td>{{ champion.race }}</td>
+            </tr>
+            <tr>
+                <td>Faction : </td>
+                <td>{{ champion.faction }}</td>
+            </tr>
+            <tr>
+                <td>Level : </td>
+                <td>{{ champion.level }}</td>
+            </tr>
+            <tr>
+                <td>Or : </td>
+                <td>{{ champion.gold }}</td>
+            </tr>
+            <tr>
+                <td>Vie : </td>
+                <td>{{ champion.hp }}</td>
+            </tr>
+            <tr> 
+                <td>Mana : </td>
+                <td>{{ champion.mp }}</td>
+            </tr>
+            <tr>  
+                <td>Force : </td>
+                <td>{{ champion.strength }}</td>
+            </tr>
+            <tr> 
+                <td>Agilité : </td>
+                <td>{{ champion.agi }}</td>
+            </tr>
+            <tr> 
+                <td>Intelligence : </td>
+                <td>{{ champion.intel }}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><button type="submit" class="btn">Jouer !</button></td>
+            </tr>
+        </tfoot>
+    </table>
+        
+    {% endfor %}
+
+
+{% endblock %}
