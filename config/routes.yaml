@@ -1,9 +1,3 @@
-<<<<<<< HEAD
 index:
    path: /
    controller: App\Controller\DefaultController::defaultIndex
-=======
-# index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
->>>>>>> 5efdae47203c4804838effe4a658397de9a1c817
