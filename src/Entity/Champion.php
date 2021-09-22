@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Abstract\Humanoide;
 use App\Repository\ChampionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,12 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Champion
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -70,7 +66,7 @@ class Champion
     private $agi;
 
     /**
-     * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="champ")
+     * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="champ", cascade={"persist","remove"})
      */
     private $inventories;
 
@@ -93,19 +89,15 @@ class Champion
     private $faction;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="boolean")
      */
-    private $xp;
+    private $actif;
 
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getName(): ?string
     {
@@ -143,90 +135,6 @@ class Champion
         return $this;
     }
 
-    public function getLevel(): ?int
-    {
-        return $this->level;
-    }
-
-    public function setLevel(int $level): self
-    {
-        $this->level = $level;
-
-        return $this;
-    }
-
-    public function getGold(): ?int
-    {
-        return $this->gold;
-    }
-
-    public function setGold(int $gold): self
-    {
-        $this->gold = $gold;
-
-        return $this;
-    }
-
-    public function getHp(): ?int
-    {
-        return $this->hp;
-    }
-
-    public function setHp(int $hp): self
-    {
-        $this->hp = $hp;
-
-        return $this;
-    }
-
-    public function getMp(): ?int
-    {
-        return $this->mp;
-    }
-
-    public function setMp(int $mp): self
-    {
-        $this->mp = $mp;
-
-        return $this;
-    }
-
-    public function getIntel(): ?int
-    {
-        return $this->intel;
-    }
-
-    public function setIntel(int $intel): self
-    {
-        $this->intel = $intel;
-
-        return $this;
-    }
-
-    public function getStrength(): ?int
-    {
-        return $this->strength;
-    }
-
-    public function setStrength(int $strength): self
-    {
-        $this->strength = $strength;
-
-        return $this;
-    }
-
-    public function getAgi(): ?int
-    {
-        return $this->agi;
-    }
-
-    public function setAgi(int $agi): self
-    {
-        $this->agi = $agi;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Inventory[]
      */
@@ -237,23 +145,23 @@ class Champion
 
     public function addInventory(Inventory $inventory): self
     {
-        if (!$this->inventories->contains($inventory)) {
-            $this->inventories[] = $inventory;
-            $inventory->setChamp($this);
-        }
+            $newInventory = new Inventory();
+            $newInventory ->setEquiped(false);
+            $newInventory -> setItem($inventory->getItem());
+            $this->inventories[] = $newInventory;
+            $newInventory ->setChamp($this);
 
         return $this;
     }
 
-    public function removeInventory(Inventory $inventory): self
+    /*
+    ** On passe le manager afin de suprimer l'objet d'une table many to many plus avancé
+    */
+    public function removeInventory(Inventory $inventory, $manager): self
     {
         if ($this->inventories->removeElement($inventory)) {
-            // set the owning side to null (unless already changed)
-            if ($inventory->getChamp() === $this) {
-                $inventory->setChamp(null);
-            }
+            $manager->remove($inventory);            
         }
-
         return $this;
     }
 
@@ -293,14 +201,16 @@ class Champion
         return $this;
     }
 
-    public function getXp(): ?int
+    use Humanoide;
+
+    public function getActif(): ?bool
     {
-        return $this->xp;
+        return $this->actif;
     }
 
-    public function setXp(int $xp): self
+    public function setActif(bool $actif): self
     {
-        $this->xp = $xp;
+        $this->actif = $actif;
 
         return $this;
     }

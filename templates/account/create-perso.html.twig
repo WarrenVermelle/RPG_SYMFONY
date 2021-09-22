@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création de personnage{% endblock %}
+
+{% block body %}
+    <h1>Créer votre personnage</h1>
+
+    {{ form_start(formPerso) }}
+        {{ form_row(formPerso.name) }}
+        {{ form_row(formPerso.gender) }}
+        {{ form_row(formPerso.race) }}
+        {{ form_row(formPerso.faction) }}
+        
+        <button type="submit" class="btn">Créez !</button>
+    {{ form_end(formPerso) }}
+
+
+{% endblock %}

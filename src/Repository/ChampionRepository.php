@@ -47,4 +47,5 @@ class ChampionRepository extends ServiceEntityRepository
         ;
     }
     */
+
 }

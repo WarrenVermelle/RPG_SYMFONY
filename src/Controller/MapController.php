@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\ChampionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -11,6 +13,7 @@ class MapController extends AbstractController
     #[Route('/map', name: 'map')]
     public function index(): Response
     {
+        
         return $this->render('game/index.html.twig', [
             'controller_name' => 'MapController',
         ]);
@@ -27,6 +30,8 @@ class MapController extends AbstractController
     #[Route('/ville', name: 'ville')]
     public function ville(): Response
     {
+        
+
         return $this->render('game/ville.html.twig', [
             'controller_name' => 'MapController',
         ]);
@@ -44,6 +49,14 @@ class MapController extends AbstractController
     public function boutique(): Response
     {
         return $this->render('game/boutique.html.twig', [
+            'controller_name' => 'MapController',
+        ]);
+    }
+
+    #[Route('/mob', name: 'mob')]
+    public function apparitionMob(): Response
+    {
+        return $this->render('game/mob.html.twig', [
             'controller_name' => 'MapController',
         ]);
     }

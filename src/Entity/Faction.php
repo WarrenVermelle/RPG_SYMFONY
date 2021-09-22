@@ -165,4 +165,9 @@ class Faction
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->faction;
+    }
 }
