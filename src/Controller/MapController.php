@@ -11,6 +11,7 @@ class MapController extends AbstractController
     #[Route('/map', name: 'map')]
     public function index(): Response
     {
+        
         return $this->render('game/index.html.twig', [
             'controller_name' => 'MapController',
         ]);
