@@ -26,9 +26,12 @@ export default class extends Controller
             return response.text()
             
         }).then((text)=>{
-            console.log(text);
             if(text == "\"\\/forest\""){
                 window.location.href = "/forest";
+            }else if (text == "\"\\/ville\"")
+            {
+                console.log(text)
+                window.location.href = "/ville";
             }
             else{
                 let parser = new DOMParser();
