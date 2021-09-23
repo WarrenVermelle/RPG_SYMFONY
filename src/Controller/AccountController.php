@@ -42,4 +42,16 @@ class AccountController extends AbstractController
 
         return $this->render("account/create-perso.html.twig", ['formPerso' => $form->createView()]);
     }
+
+    #[Route('/{id}', name: 'champion_delete', methods: ['POST'])]
+    public function delete(Request $request, Champion $champion): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$champion->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($champion);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('account_index', [], Response::HTTP_SEE_OTHER);
+    }
 }
