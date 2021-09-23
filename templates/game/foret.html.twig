@@ -8,7 +8,7 @@
 
 <div id="foret">
     <div>
-        <a href="../forest"><img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheht"></a>
+        <a href="{{path('forest')}}"><img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheht"></a>
         <p id="pville"> Direction foret</p>
     </div>
     <div data-controller="combat" id="Combat">
@@ -17,7 +17,7 @@
     </div>
     <div>
         <p id="pville"> Direction Plaine </p>
-        <a href="../plaine"><img src="{{asset('img/fleche.png')}}" alt="" id="imgflechep"></a>
+        <a href="{{path('plaine')}}"><img src="{{asset('img/fleche.png')}}" alt="" id="imgflechep"></a>
     </div>
 </div>
 {% endblock %}
