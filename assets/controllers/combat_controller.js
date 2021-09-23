@@ -22,13 +22,20 @@ export default class extends Controller
         let btn = this.element.querySelector('button');
         let path = btn.getAttribute('data-attak');
         await fetch(path).then((response)=>{
+            
             return response.text()
             
         }).then((text)=>{
-            let parser = new DOMParser();
+            console.log(text);
+            if(text == "\"\\/forest\""){
+                window.location.href = "/forest";
+            }
+            else{
+                let parser = new DOMParser();
             let doc = parser.parseFromString(text, 'text/html');
 
             this.element.replaceWith(doc.querySelector('#startCombat'))
+            }
         })
     }
 }
