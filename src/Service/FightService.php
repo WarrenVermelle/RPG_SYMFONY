@@ -51,6 +51,18 @@ class FightService
         return $resultGold;
     }
 
-    
+    public function levelUp(Champion $champion){
+        $champion->setLevel($champion->getLevel() + 1);
+        $this->em->persist($champion);
+        $this->em->flush();
+    }
+
+    public function xpReset(Champion $champion){
+        $champion->setXp(0);
+        $resultXp = $champion->getXp();
+        $this->em->persist($champion);
+        $this->em->flush();
+        return $resultXp;
+    }
 
 }
