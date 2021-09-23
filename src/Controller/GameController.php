@@ -42,6 +42,7 @@ class GameController extends AbstractController
             // Pv champion = pv max
             $champion->setHp($champion->getMaxHp());
             $champion->setMp($champion->getMaxMp());
+            $champion->setGold($champion->getGold() - 200);
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($champion);
             $manager->flush();
