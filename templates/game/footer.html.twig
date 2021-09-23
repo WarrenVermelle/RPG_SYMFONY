@@ -1,10 +1,12 @@
-<div class="inventaire" id="inventaire">
-</div>
-<footer>
-        <div>
-            <a href="#"><img src="{{asset('img/inventaire.png')}}" alt="" class="iconefooter" id="btninventaire"></a>
-            <img src="{{asset('img/book.png')}}" alt="" class="iconefooter">
-            <img src="{{asset('img/carac.png')}}" alt="" class="iconefooter">
-            <img src="{{asset('img/carte.png')}}" alt="" class="iconefooter">
-        </div>
-</footer>
+{% if (app.user) %}
+    <div class="inventaire" id="inventaire">
+    </div>
+    <footer>
+            <div>
+                <a href="#"><img src="{{asset('img/inventaire.png')}}" alt="" class="iconefooter" id="btninventaire"></a>
+                <img src="{{asset('img/book.png')}}" alt="" class="iconefooter">
+                <img src="{{asset('img/carac.png')}}" alt="" class="iconefooter">
+                <img src="{{asset('img/carte.png')}}" alt="" class="iconefooter">
+            </div>
+    </footer>
+{% endif %}

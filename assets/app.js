@@ -8,6 +8,10 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
+require('jquery-ui/ui/widgets/draggable');
+
+import $ from 'jquery';
+
 let divSelected = document.querySelector('#btninventaire');
 
 divSelected.addEventListener('click',async ()=>{
@@ -38,3 +42,27 @@ let btnLeave = document.querySelector('#btnLeaveFight');
 })
 
 
+
+
+
+// $(".inventaire").load("show_inventory")
+        
+// $('.inventaire').css('display','none');
+
+// let btninventaire = document.getElementById('btninventaire');
+//     let overlay = document.getElementById('inventaire');
+//     btninventaire.addEventListener('click',openModal);
+//     function openModal() {
+//         console.log("test");
+//         overlay.style.display='block';
+//     }
+
+// function fermerpopup(){   
+//     $('.inventaire').css('display','none');
+// }
+
+// $(function(){
+//     $( ".inventaire" ).draggable({
+//         containment: "body",
+//     });
+// });
