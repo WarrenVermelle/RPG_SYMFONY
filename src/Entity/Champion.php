@@ -93,6 +93,16 @@ class Champion
      */
     private $actif;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $max_hp;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $max_mp;
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
@@ -211,6 +221,30 @@ class Champion
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    public function getMaxHp(): ?int
+    {
+        return $this->max_hp;
+    }
+
+    public function setMaxHp(int $max_hp): self
+    {
+        $this->max_hp = $max_hp;
+
+        return $this;
+    }
+
+    public function getMaxMp(): ?int
+    {
+        return $this->max_mp;
+    }
+
+    public function setMaxMp(int $max_mp): self
+    {
+        $this->max_mp = $max_mp;
 
         return $this;
     }
