@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div id='inventaire' >
+    <a href="#" data-target="{{path('apparition_mob')}}" id='btninventaire'>Lancer le combat !</a>
+    <h1> Poney Niv2 ! </h1>
+</div>
+<div id="LeaveFight" >
+    <button id="btnLeaveFight" data-return="{{path('game_mob')}}" > Quitter </button>
+</div>
+{% endblock %}

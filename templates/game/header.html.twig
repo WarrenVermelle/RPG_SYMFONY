@@ -1,0 +1,12 @@
+        
+        {% if (app.user) %}
+                <div><a href="{{ path('account_index')}}" class="aheader">{{app.user.username}}</a></div>
+        {% else %}
+                <div><a href="{{ path('app_login')}}" class="aheader">Connection</a></div>
+        {% endif %}
+        <h1>Tales Of Symfonya</h1>
+        {% if (app.user) %}
+                <div class="divdeco"><a href="{{ path('app_logout')}}" class="aheader">Deconnection</a></div>
+        {% else %}
+                <div><a href="{{ path('app_register')}}" class="aheader">Inscription</a></div>
+        {% endif %}

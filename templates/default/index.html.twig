@@ -1,1 +1,13 @@
 {% extends "base.html.twig" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div class="accueil">
+        <h1>Bienvenue sur Tales Of Symfonya</h1>
+        <div>
+            <h2><a href= "{{ path("app_register") }}">Inscrivez-vous</a></h2>
+            <h2><a href= "{{ path("app_login") }}">Connectez-vous</a></h2>
+        </div>    
+    </div>
+{% endblock %}

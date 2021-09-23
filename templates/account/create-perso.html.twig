@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création de personnage{% endblock %}
+
+{% block body %}
+<div id="affcrepers">
+    <h1 id="titremoncompte">Créer votre personnage</h1>
+
+    <div id="formcreaperso">
+        {{ form_start(formPerso ) }}
+                {{ form_row(formPerso.name , {
+                    label: 'Name : '
+                }) }}
+                {{ form_row(formPerso.gender , {
+                    label: 'Genre : '
+                }) }}
+                {{ form_row(formPerso.race, {
+                    label: 'Race : '
+                }) }}
+                {{ form_row(formPerso.faction
+                , {
+                    label: 'Faction : ' 
+                }) }}
+                <button type="submit" class="btn" id="subcreapers">Créez !</button>
+        {{ form_end(formPerso) }}
+    </div>
+</div>
+
+{% endblock %}

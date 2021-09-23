@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ville{% endblock %}
+
+
+
+{% block body %}
+
+
+<div id="ville">
+    <a href="{{path('boutique')}}"><img src="{{asset('img/pancarteboutique.png')}}" alt="" id="iconeboutique"></a>
+    <p id="pville"> Direction plaine </p>
+    <a href="{{path('plaine')}}"><img src="{{asset('img/fleche.png')}}" alt="" id="imgfleche"></a>
+</div>
+{% endblock %}
