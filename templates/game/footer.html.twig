@@ -1,4 +1,6 @@
-{% if (app.user) %}
+{% if (app.request.requestUri starts with '/game') %}
+{% dump(app.request.requestUri) %}
+
     <div class="inventaire" id="inventaire">
     </div>
     <footer>
