@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
+use App\Repository\MonsterRepository;
 use App\Repository\ChampionRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MapController extends AbstractController
 {
@@ -20,9 +21,12 @@ class MapController extends AbstractController
     }
 
     #[Route('/forest', name: 'forest')]
-    public function forest(): Response
+    public function forest(MonsterRepository $monster): Response
     {
+        $idRandom = random_int(1, 3);
+
         return $this->render('game/foret.html.twig', [
+            'monster' => $monster->find($idRandom),
             'controller_name' => 'MapController',
         ]);
     }

@@ -11,6 +11,10 @@
         <a href="../forest"><img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheht"></a>
         <p id="pville"> Direction foret</p>
     </div>
+    <div data-controller="combat" id="Combat">
+        <p> {{ monster.monster }} niv {{ monster.level }} apparait </p>
+        <button data-action="click->combat#startCombat"  data-start="{{path('start', {'id':monster.id})}}">Lancer le combat !</button>
+    </div>
     <div>
         <p id="pville"> Direction Plaine </p>
         <a href="../plaine"><img src="{{asset('img/fleche.png')}}" alt="" id="imgflechep"></a>
