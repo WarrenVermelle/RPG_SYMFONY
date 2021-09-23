@@ -24,7 +24,7 @@ class GameController extends AbstractController
                 $manager->persist($championFromDb);
             }
 
-            // Activer le champion avec lequel joue
+            // Activer le champion avec lequel on joue
             $champion->setActif(true);
             $manager->persist($champion);
             $manager->flush();           

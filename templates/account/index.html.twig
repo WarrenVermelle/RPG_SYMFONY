@@ -60,7 +60,10 @@
         </tbody>
         <tfoot>
             <tr>
-                <td><a href="{{ path("game", {"id":champion.id}) }}" class="btn">Jouer !</a></td>
+                <td>
+                    <a href="{{ path("game", {"id":champion.id}) }}" class="btn">Jouer !</a>
+                    {{ include('account/_delete_form.html.twig') }}
+                </td>
             </tr>
         </tfoot>
     </table>
