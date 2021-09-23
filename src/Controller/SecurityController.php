@@ -16,7 +16,7 @@ class SecurityController extends AbstractController
     {
         if ($this->getUser())
         {
-            return $this->redirectToRoute('game');
+            return $this->redirectToRoute('account_index');
         }
         else
         {

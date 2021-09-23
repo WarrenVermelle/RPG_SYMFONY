@@ -11,9 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+#[Route('/account')]
 class AccountController extends AbstractController
 {
-    #[Route('/account', name: 'account_index')]
+    #[Route('/', name: 'account_index')]
     public function accountIndex(): Response
     {
         return $this->render("account/index.html.twig", 
