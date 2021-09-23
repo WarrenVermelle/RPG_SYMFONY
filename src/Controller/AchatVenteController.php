@@ -21,14 +21,15 @@ class AchatVenteController extends AbstractController
         $marchand = $ChampionRepo->find(2);
         $InventMarchand = $marchand->getInventories()->getValues();
 
-        $gold = $InventPlayer[0];
-        $affgold = $gold->getChamp()->getGold();
+        
+        $gold = $Player->getGold();
+        
 
         return $this->render('achat_vente/index.html.twig', [
             'controller_name' => 'AchatVenteController',
             'InventMarch' => $InventMarchand,
             'InventPlayer' => $InventPlayer,
-            "affgold" => $affgold
+            "affgold" => $gold
         ]);
     }
 
