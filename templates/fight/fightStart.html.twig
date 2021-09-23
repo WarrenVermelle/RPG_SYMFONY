@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-<div id="startCombat" >
+<div data-controller="combat" id="startCombat" >
     <div>
         <p>{{champion.name}}</p>
         <p>Level: {{champion.level}}</p>
@@ -13,7 +13,7 @@
         <p>Hp: {{monster.hp}}</p>
     </div>
     {# <a href="#" id="btnAtt" data-Att="{{path('combat')}}">Attaquer</a> #}
-    <a href={{path('combat')}}>Attaquer</a>
+    <button data-action="click->combat#attakMonster" data-attak="{{path('combat')}}" >Attaquer</button>
 </div>
 {% endblock %}
 {# {% block javascripts %}
