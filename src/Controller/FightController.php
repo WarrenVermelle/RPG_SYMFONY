@@ -43,29 +43,34 @@ class FightController extends AbstractController
     {
        
         
-        
+        $champion = $championRepository->findAll()[0];
         //mise a jour des hp du monstre
-        $updateHpMonster = $fight->atkChamp($championRepository->findAll()[0], $monster);
+        $updateHpMonster = $fight->atkChamp($champion, $monster);
         //mise a jour des hp du champion
-        $updateHpChamp = $fight->atkMonster($championRepository->findAll()[0], $monster);
+        $updateHpChamp = $fight->atkMonster($champion, $monster);
+
+        if ($champion->getHp() <= 0 ) {
+            return new JsonResponse($generator->generate('ville'));
+        }
+
         //Si les hp du monstre tombe a 0
         if ( $monster->getHp() <= 0) {
             
             //alors le champion obtient son xp
-            $fight->xpWin($championRepository->findAll()[0],$monster);
+            $fight->xpWin($champion,$monster);
             //et son or
-            $fight->goldWin($championRepository->findAll()[0],$monster);
+            $fight->goldWin($champion,$monster);
 
-            $levelUp = $championRepository->findAll()[0]->getLevel() * 100;
+            $levelUp = $champion->getLevel() * 100;
             //si l'xp total du champion est égale au level du champion fois 100
             $monsterReset = $monster->getHpMax();
             $monster->setHp($monsterReset);
             
-            if ($championRepository->findAll()[0]->getXp() >= $levelUp) {
+            if ($champion->getXp() >= $levelUp) {
                 //alors on execute la fonction levelUp
-                $fight->levelUp($championRepository->findAll()[0]);
+                $fight->levelUp($champion);
                 //et on remet à 0 l'xp du champion
-                // ----> $fight->xpReset($championRepository->findAll()[0]);
+                // ----> $fight->xpReset($champion);
             }
             
 
