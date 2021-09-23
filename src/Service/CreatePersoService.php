@@ -16,6 +16,8 @@ class CreatePersoService
         $champion->setIntel(20*$champion->getRace()->getRatioIntel()*$champion->getFaction()->getCoefIntel());
         $champion->setStrength(20*$champion->getRace()->getRatioStrength()*$champion->getFaction()->getCoefStrength());
         $champion->setAgi(20*$champion->getRace()->getRatioAgi()*$champion->getFaction()->getCoefAgi());
+        $champion->setXp(0);
+        $champion->setActif(false);
 
         return $champion;
     }
