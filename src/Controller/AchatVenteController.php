@@ -20,7 +20,6 @@ class AchatVenteController extends AbstractController
         $InventPlayer = $Player->getInventories()->getValues();
         $marchand = $ChampionRepo->find(2);
         $InventMarchand = $marchand->getInventories()->getValues();
-
         $gold = $InventPlayer[0];
         $affgold = $gold->getChamp()->getGold();
 
