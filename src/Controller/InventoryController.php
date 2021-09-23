@@ -55,8 +55,8 @@ class InventoryController extends AbstractController
                     $item->setEquiped(false);
 
                     // enleve les caract de l'ancien élément
-                    $champion->setHp($champion->getHp() - $item->getItem()->getHp());
-                    $champion->setMp($champion->getMp() - $item->getItem()->getMp());
+                    $champion->setMaxHp($champion->getMaxHp() - $item->getItem()->getHp());
+                    $champion->setMaxMp($champion->getMaxMp() - $item->getItem()->getMp());
                     $champion->setIntel($champion->getIntel() - $item->getItem()->getIntel());
                     $champion->setStrength($champion->getStrength() - $item->getItem()->getStrength());
                     $champion->setAgi($champion->getAgi() - $item->getItem()->getAgi());
@@ -71,9 +71,40 @@ class InventoryController extends AbstractController
             // équipe l'élément cliqué
             $clickedInventoryLine->setEquiped(true);
 
-            // ajoute les caract de l'élément cliqué
-            $champion->setHp($champion->getHp() + $clickedInventoryLine->getItem()->getHp());
-            $champion->setMp($champion->getMp() + $clickedInventoryLine->getItem()->getMp());
+            // ajoute les caract de l'élément cliqué ou remonte pv/pm
+            if($clickedInventoryLine->getItem()->getType()->getType() === 'potion')
+            {
+                if($champion->getHp() < $champion->getMaxHp() || $champion->getMp() < $champion->getMaxMp())
+                {
+                    if($clickedInventoryLine->getItem()->getHp() > $champion->getHp()){
+                        $champion->setHp($champion->getMaxHp());
+                        return $this->redirectToRoute('show_inventory');
+                    }
+                    else if($clickedInventoryLine->getItem()->getMp() > $champion->getMp())
+                    {
+                        $champion->setMp($champion->getMaxMp());
+                        return $this->redirectToRoute('show_inventory');
+                    }
+                    else
+                    {
+                        $champion->setHp($champion->getHp() + $clickedInventoryLine->getItem()->getHp());
+                        $champion->setMp($champion->getMp() + $clickedInventoryLine->getItem()->getMp());
+        
+                        // supprime la ligne inventaire
+                        $manager = $this->getDoctrine()->getManager();
+                        $champion->removeInventory($clickedInventoryLine,$manager);
+                        $manager->persist($champion);
+                        $manager->flush();
+                    }
+                }
+                return $this->redirectToRoute('show_inventory');
+            }
+            else
+            {
+                $champion->setMaxHp($champion->getMaxHp() + $clickedInventoryLine->getItem()->getHp());
+                $champion->setMaxMp($champion->getMaxMp() + $clickedInventoryLine->getItem()->getMp());
+            }
+
             $champion->setIntel($champion->getIntel() + $clickedInventoryLine->getItem()->getIntel());
             $champion->setStrength($champion->getStrength() + $clickedInventoryLine->getItem()->getStrength());
             $champion->setAgi($champion->getAgi() + $clickedInventoryLine->getItem()->getAgi());
@@ -81,16 +112,6 @@ class InventoryController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($clickedInventoryLine);
             $manager->flush();
-
-            // si l'élément cliqué est une potion
-            if($clickedInventoryLine->getItem()->getType()->getType() === 'potion')
-            {
-                // supprime la ligne inventaire
-                $manager = $this->getDoctrine()->getManager();
-                $champion->removeInventory($clickedInventoryLine,$manager);
-                $manager->persist($champion);
-                $manager->flush();
-            }
         }
         // si l'élément cliqué est équipé
         else
@@ -99,8 +120,8 @@ class InventoryController extends AbstractController
             $clickedInventoryLine->setEquiped(false);
 
             // enlève les caract de l'élément cliqué
-            $champion->setHp($champion->getHp() - $clickedInventoryLine->getItem()->getHp());
-            $champion->setMp($champion->getMp() - $clickedInventoryLine->getItem()->getMp());
+            $champion->setMaxHp($champion->getMaxHp() - $clickedInventoryLine->getItem()->getHp());
+            $champion->setMaxMp($champion->getMaxMp() - $clickedInventoryLine->getItem()->getMp());
             $champion->setIntel($champion->getIntel() - $clickedInventoryLine->getItem()->getIntel());
             $champion->setStrength($champion->getStrength() - $clickedInventoryLine->getItem()->getStrength());
             $champion->setAgi($champion->getAgi() - $clickedInventoryLine->getItem()->getAgi());
