@@ -113,9 +113,3 @@ class InventoryController extends AbstractController
         return $this->redirectToRoute('show_inventory');
     }
 }
-
-// si élément cliqué de type 'potion'
-
-// ajout de la caract de la potion
-
-// supprime l'item cliqué
