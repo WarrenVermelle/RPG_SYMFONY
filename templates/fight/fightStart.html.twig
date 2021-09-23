@@ -13,7 +13,7 @@
         <p>Hp: {{monster.hp}}</p>
     </div>
     {# <a href="#" id="btnAtt" data-Att="{{path('combat')}}">Attaquer</a> #}
-    <button data-action="click->combat#attakMonster" data-attak="{{path('combat')}}" >Attaquer</button>
+    <button  data-action="click->combat#attakMonster" data-attak="{{path('combat',{'id':monster.id})}}" >Attaquer</button>
 </div>
 {% endblock %}
 {# {% block javascripts %}
