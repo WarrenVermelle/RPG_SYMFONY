@@ -1,47 +1,43 @@
-{% extends "base.html.twig" %}
-{% block body %}
-<div class="popup">
+
+
+<div class="popup" id="popup" >
     <div class="barre">
         <div class="titreinvit">Inventaire</div>
-        <div><a onclick="fermerpopup()"><img src="{{asset('img/croix.png')}}" class="ferm" id="btnclose"></a></div>
+        <div><a data-action="click->inventaire#disableinventaire"><img src="{{asset('img/croix.png')}}" class="ferm" id="btnclose"></a></div>
     </div>
-</div>
+
 <div id="centrepopup">
-<table>
-    <tr>
-        <td>Item</td>
-        <td></td>
-        <td>Hp</td>
-        <td>Mp</td>
-        <td>Intelligence</td>
-        <td>Strength</td>
-        <td>Agility</td>
-        <td>Equiped</td>
-        <td></td>
-    </tr>
+<div>
+    <div id="lignetable">
+        <div>Item</div>
+        {# <div></div> #}
+        <div>Hp</div>
+        <div>Mp</div>
+        <div>Intel</div>
+        <div>Strength</div>
+        <div>Agility</div>
+        <div>Equiped</div>
+        <div></div>
+    </div>
     {% for item in inventory %}
-    <tr>
-        <td>{{item.item.item}}</td>
-        <td>{{item.item.img}}</td>
-        <td>{{item.item.hp}}</td>
-        <td>{{item.item.mp}}</td>
-        <td>{{item.item.intel}}</td>
-        <td>{{item.item.strength}}</td> 
-        <td>{{item.item.agi}}</td>
+    <div id="lignetable">
+        <div>{{item.item.item}}</div>
+        {# <div>{{item.item.img}}</div> #}
+        <div>{{item.item.hp}}</div>
+        <div>{{item.item.mp}}</div>
+        <div>{{item.item.intel}}</div>
+        <div>{{item.item.strength}}</div> 
+        <div>{{item.item.agi}}</div>
         {% if item.equiped %}
-            <td>equiped</td>
+            <div>equiped</div>
         {% else %}
-            <td>not equiped</td>
+            <div>not equiped</div>
         {% endif %}
-        <td>
-        {# {% if item.item.type.type == 'potion' %}
-            
-        {% else %} #}
-            <a href={{ path('equip_item',{"id":item.id}) }}>{{item.equiped ? 'unequip' : 'equip'}}</a>
-        {# {% endif %} #}
-        </td>
-    </tr>   
+        <div>
+            <a href="#" class="equip" data-action="click->inventaire#equip"  data-start="{{ path('equip_item', {"id":item.id} ) }}">{{item.equiped ? 'unequip' : 'equip'}}</a>
+        </div>
+    </div>   
     {% endfor %}
-</table>
 </div>
-{% endblock %}
+</div>
+</div>

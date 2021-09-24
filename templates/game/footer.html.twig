@@ -1,11 +1,10 @@
 {% if (app.request.requestUri starts with '/game') %}
-{% dump(app.request.requestUri) %}
 
-    <div class="inventaire" id="inventaire">
+    <div id="insertpopup" id="inventaire" data-controller="inventaire">
     </div>
-    <footer>
+    <footer  data-controller="inventaire">
             <div>
-                <a href="#"><img src="{{asset('img/inventaire.png')}}" alt="" class="iconefooter" id="btninventaire"></a>
+                <a href="#" data-action="click->inventaire#inventaire"  data-start="{{path('show_inventory')}}"><img src="{{asset('img/inventaire.png')}}" alt="" class="iconefooter" id="btninventaire"></a>
                 <img src="{{asset('img/book.png')}}" alt="" class="iconefooter">
                 <img src="{{asset('img/carac.png')}}" alt="" class="iconefooter">
                 <img src="{{asset('img/carte.png')}}" alt="" class="iconefooter">

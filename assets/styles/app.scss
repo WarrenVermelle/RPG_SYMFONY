@@ -253,6 +253,31 @@ h1{
     height: 89vh;
 }
 
+#Combat{
+    background-color: grey;
+    width: 25vh;
+    height: 15vh;
+    border: 2px black solid;
+    border-radius: 20px;
+    p{
+        font-size: 20px;
+    }
+    button{
+        width: 100px;
+        height: 40px;
+        margin-top: 15px;
+        border-radius: 5px;
+        border: 1px solid black;
+        cursor: pointer;
+    }
+    button:hover,
+    button:focus {
+        box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+        transform: translateY(-0.40em);
+        
+    }
+}
+
 /*---------------page de la boutique------------*/
 
 #marchant{
@@ -365,20 +390,52 @@ h1{
 
 #startCombat{
     background-color: grey;
-    width: 40vh;
-    height: 20vh;
+    width: 50vh;
+    height: 30vh;
     border: 2px black solid;
     border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center ;
+    padding: 20px;
     div{
         display: flex;
         justify-content: space-around;
+        #fightChampion{
+            border: 1px solid black;
+            background-color: rgba(59, 59, 59, 0.644);;
+            border-radius: 5px;
+            width: 150px;
+        }
+        #fightMonstre{
+            border: 1px solid black;
+            background-color: rgba(59, 59, 59, 0.644);
+            border-radius: 5px;
+            width: 150px;
+        }
+        #vs{
+            width: 150px;
+        }
         div{
             display: flex;
             flex-direction: column;
+            margin-bottom: 40px;
+            div:first-child{
+                padding-top: 5px;
+                font-size: 30px;
+            }
         }
+    }
+    button{
+        width: 100px;
+        height: 40px;
+        margin: 15px;
+        border-radius: 5px;
+        border: 1px solid black;
+        cursor: pointer;
+    }
+    button:hover,
+    button:focus {
+        box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+        transform: translateY(-0.40em);
+        
     }
 }
 
@@ -397,4 +454,60 @@ footer{
     border: gray 2px solid;
     margin: 10px;
     margin-left: 0px;
+}
+
+#insertpopup{
+    position: absolute;
+    border: 1px solid grey;
+    background-color: rgb(54,54,47);
+    color: white;
+    top: -70vh;
+    left: 60vh;
+}
+
+ .barre{ 
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: rgb(24, 24, 24);
+    border: 1px solid grey;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60vh;
+}
+.titreinvit{
+margin-left: 10px;
+font-size: 20px;
+}
+.ferm{ 
+width: 15px;
+margin-right: 10px;
+}
+
+#centrepopup{
+display: flex;
+text-align: center;
+justify-content: center;
+}
+
+#lignetable{
+    margin: 10px;
+    display: flex;
+    border: solid white 1px;
+    border-radius: 5px;
+    height: 50px;
+    align-items: center;
+    div:first-child{
+        font-weight: bold;
+    }
+    div{
+        margin: 5px;
+        width: 50px;
+    }
+    a{
+        text-decoration: none;
+        color:rgb(151, 151, 151)
+    }
+    
 }

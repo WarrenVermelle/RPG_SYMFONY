@@ -3,10 +3,13 @@
 {% block body %}
 <div data-controller="combat" id="startCombat" >
     <div>
-        <div id="fightchampion">
+        <div id="fightChampion">
             <div>{{champion.name}}</div>
             <div>Level: {{champion.level}}</div>
             <div>Hp: {{champion.hp}}</div>    
+        </div>
+        <div>
+            <img src="{{asset('img/vs.png')}}" alt="vs" id="vs">
         </div>
         <div id="fightMonstre">
             <div>{{monster.monster}}</div>
@@ -15,7 +18,7 @@
         </div>
     </div>
 
-    <button  data-action="click->combat#attakMonster" data-attak="{{path('combat',{'id':monster.id})}}" >Attaquer</button>
+    <button  data-action="click->combat#attakMonster" data-attak="{{path('combat',{'id':monster.id})}}">Attaquer</button>
     <button>popo</button>
 </div>
 {% endblock %}
