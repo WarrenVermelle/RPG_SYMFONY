@@ -41,9 +41,8 @@ class FightController extends AbstractController
      */
     public function combat(Monster $monster, ChampionRepository $championRepository, FightService $fight, UrlGeneratorInterface $generator): Response
     {
-       
-        
-        $champion = $championRepository->findAll()[0];
+        // $test2 = $test->findOneBy(['actif' => 1]);
+        $champion = $championRepository->findOneBy(['actif' => true]);
         //mise a jour des hp du monstre
         $updateHpMonster = $fight->atkChamp($champion, $monster);
         //mise a jour des hp du champion
@@ -75,17 +74,20 @@ class FightController extends AbstractController
             
 
         return new JsonResponse($generator->generate('forest'));
-            
-            
         }
-
-        
-        
-    
+        //je récupère le calcul d'xp max avec le level du champion
+        $levelUp = $championRepository->findAll()[0]->getLevel() * 100;
+        //si l'xp total du champion est égale au level du champion fois 100
+        if ($championRepository->findAll()[0]->getXp() === $levelUp) {
+            //alors on execute la fonction levelUp
+            $fight->levelUp($championRepository->findAll()[0]);
+            //et on remet à 0 l'xp du champion
+            $fight->xpReset($championRepository->findAll()[0]);
+        }
         
         return $this->render('fight/fightStart.html.twig',[
             'monster' => $monster,
-            'champion' => $championRepository->findAll()[0],          
+            'champion' => $champion,          
         ]);
     }
 
