@@ -10,8 +10,11 @@ use App\Service\FightService;
 use Doctrine\ORM\Mapping\Id;
 use phpDocumentor\Reflection\Location;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class FightController extends AbstractController
 {
@@ -36,21 +39,43 @@ class FightController extends AbstractController
      * @Route("/combat/{id}", name="combat")
      * 
      */
-    public function combat(Monster $monster, ChampionRepository $championRepository, FightService $fight): Response
+    public function combat(Monster $monster, ChampionRepository $championRepository, FightService $fight, UrlGeneratorInterface $generator): Response
     {
+        
+        $champion = $championRepository->findAll()[0];
         //mise a jour des hp du monstre
-        $updateHpMonster = $fight->atkChamp($championRepository->findAll()[0], $monster);
+        $updateHpMonster = $fight->atkChamp($champion, $monster);
         //mise a jour des hp du champion
-        $updateHpChamp = $fight->atkMonster($championRepository->findAll()[0], $monster);
+        $updateHpChamp = $fight->atkMonster($champion, $monster);
+
+        if ($champion->getHp() <= 0 ) {
+            return new JsonResponse($generator->generate('ville'));
+        }
+
         //Si les hp du monstre tombe a 0
-        if ( $monster->getHp() === 0) {
+        if ( $monster->getHp() <= 0) {
+            
             //alors le champion obtient son xp
-            $fight->xpWin($championRepository->findAll()[0],$monster);
+            $fight->xpWin($champion,$monster);
             //et son or
-            $fight->goldWin($championRepository->findAll()[0],$monster);
-            return $this->redirectToRoute('start', [
-                'id' => $monster->getId()
-            ]);
+            $fight->goldWin($champion,$monster);
+
+            $levelUp = $champion->getLevel() * 100;
+            //si l'xp total du champion est égale au level du champion fois 100
+            $monsterReset = $monster->getHpMax();
+            $monster->setHp($monsterReset);
+            
+            if ($champion->getXp() >= $levelUp) {
+                //alors on execute la fonction levelUp
+                $fight->levelUp($champion);
+                //et on remet à 0 l'xp du champion
+                // ----> $fight->xpReset($champion);
+            }
+            
+
+        return new JsonResponse($generator->generate('forest'));
+            
+            
         }
         //je récupère le calcul d'xp max avec le level du champion
         $levelUp = $championRepository->findAll()[0]->getLevel() * 100;

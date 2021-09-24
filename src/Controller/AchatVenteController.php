@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/game/boutique')]
 class AchatVenteController extends AbstractController
 {
     #[Route('/achatvente', name: 'achat_vente')]
@@ -19,15 +20,14 @@ class AchatVenteController extends AbstractController
         $InventPlayer = $Player->getInventories()->getValues();
         $marchand = $ChampionRepo->find(2);
         $InventMarchand = $marchand->getInventories()->getValues();
-
-        $gold = $InventPlayer[0];
-        $affgold = $gold->getChamp()->getGold();
+         $gold = $Player->getGold();
+        
 
         return $this->render('achat_vente/index.html.twig', [
             'controller_name' => 'AchatVenteController',
             'InventMarch' => $InventMarchand,
             'InventPlayer' => $InventPlayer,
-            "affgold" => $affgold
+            "affgold" => $gold
         ]);
     }
 

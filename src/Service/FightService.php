@@ -53,10 +53,8 @@ class FightService
 
     public function levelUp(Champion $champion){
         $champion->setLevel($champion->getLevel() + 1);
-        $resultLevel = $champion->getLevel();
         $this->em->persist($champion);
         $this->em->flush();
-        return $resultLevel;
     }
 
     public function xpReset(Champion $champion){

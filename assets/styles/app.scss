@@ -22,6 +22,165 @@ h1{
     color: white;
 }
 
+/*------------- formulaire général--------------------*/
+
+.formbase{
+    color: white;
+    background-color: rgb(54,54,47);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    width: 50vh;
+    margin-top: 20vh;
+    height: 30vh;
+    div{
+        input{
+            margin: 15px;;
+        }
+        label{
+            margin-right: 10px;           
+        }
+    }
+}
+.posform{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.fondecran{
+    background-image: url(../../public/img/fondbase.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90.4vh;
+}
+
+/*-----------------Accueil-------------------*/
+
+.accueil{
+    background-image: url(../../public/img/fondacceuil.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90.4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    h1{
+        margin-top: 0;
+        font-size: 80px;
+        color: white;
+    }
+    h2{
+        a{
+        text-decoration: none;
+        color: rgb(85, 85, 85);
+        font-size: 30px;
+        }
+    }
+}
+
+
+/*------------------ Mon compte------------------------*/
+
+#divperso{
+    display: flex;
+    justify-content: space-around;
+}
+#affmoncompte{
+    color: white;
+    background-color: rgb(54,54,47);
+    margin-top: 10vh;
+}
+#titremoncompte{
+    text-align: center;
+    font-size: 50px;
+    padding-top: 30px;
+}
+
+#creaperso{
+    margin-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+    font-size: 30px;
+    a{
+        text-decoration: none;
+        color: White;
+    }
+}
+
+#affperso{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    align-items: center;
+    background-image: url(../../public/img/elfeguerriere.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: black 1px solid;
+    border-radius: 20px;
+    
+    tbody{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+#textelisteperso{
+    margin: 30px;
+    font-size: 30px;
+
+}
+#btnjouer{
+    display: flex;
+    text-align: center;
+    a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: black;
+        background-color: white;
+        border-radius: 4px;
+        width: 80px;
+        height: 40px;
+        margin: 20px;
+    }
+}
+
+/*--------Création de nouveaux personnage------------*/
+
+#affcrepers{
+    color: white;
+    background-color: rgb(54,54,47);
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#formcreaperso{
+    display: flex;
+    flex-direction: column;
+
+    form{
+        div{
+            margin: 10px;
+            font-size: 30px;
+            select{
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+#subcreapers{
+    margin-bottom: 30px;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: 80px;
+}
+
 /*-----------------maps générale -------------------*/
 
 #imgfleche{

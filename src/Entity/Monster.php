@@ -18,6 +18,11 @@ class Monster
      */
     private $monster;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $hpMax;
+
     
 
     public function getMonster(): ?string
@@ -33,4 +38,16 @@ class Monster
     }
 
     use Humanoide;
+
+    public function getHpMax(): ?int
+    {
+        return $this->hpMax;
+    }
+
+    public function setHpMax(int $hpMax): self
+    {
+        $this->hpMax = $hpMax;
+
+        return $this;
+    }
 }
