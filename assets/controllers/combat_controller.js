@@ -35,9 +35,10 @@ export default class extends Controller
             else{
                 let parser = new DOMParser();
             let doc = parser.parseFromString(text, 'text/html');
-
+                console.log(doc)
             this.element.replaceWith(doc.querySelector('#startCombat'))
             }
         })
     }
+    
 }
