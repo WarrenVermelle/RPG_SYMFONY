@@ -8,6 +8,8 @@ use App\Repository\ChampionRepository;
 use App\Repository\MonsterRepository;
 use App\Service\FightService;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\Expr\Func;
 use phpDocumentor\Reflection\Location;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -89,4 +91,65 @@ class FightController extends AbstractController
         ]);
     }
 
+
+    /**
+     * Undocumented function
+     *
+     * @Route("/potioHeal/{id}", name="potioHeal")
+     * 
+     */
+    public function potioHeal(Monster $monster, ChampionRepository $championRepository, FightService $fight, UrlGeneratorInterface $generator): Response
+    {
+       
+        
+        $champion = $championRepository->findAll()[0];
+
+        $champion->setHp($champion->getHp() + 20);  
+
+        // //mise a jour des hp du champion
+         $updateHpChamp = $fight->atkMonster($champion, $monster);
+
+        //mise a jour des hp du monstre
+        //$updateHpMonster = $fight->atkChamp($champion, $monster);
+        
+
+        if ($champion->getHp() <= 0 ) {
+            return new JsonResponse($generator->generate('ville'));
+        }
+
+        //Si les hp du monstre tombe a 0
+        if ( $monster->getHp() <= 0) {
+            
+            //alors le champion obtient son xp
+            $fight->xpWin($champion,$monster);
+            //et son or
+            $fight->goldWin($champion,$monster);
+
+            $levelUp = $champion->getLevel() * 100;
+            //si l'xp total du champion est égale au level du champion fois 100
+            $monsterReset = $monster->getHpMax();
+            $monster->setHp($monsterReset);
+            
+            if ($champion->getXp() >= $levelUp) {
+                //alors on execute la fonction levelUp
+                $fight->levelUp($champion);
+                //et on remet à 0 l'xp du champion
+                $fight->xpReset($champion);
+            }
+            
+
+        return new JsonResponse($generator->generate('forest'));
+            
+            
+        }
+
+        
+        
+    
+        
+        return $this->render('fight/fightStart.html.twig',[
+            'monster' => $monster,
+            'champion' => $championRepository->findAll()[0],          
+        ]);
+    }
 }

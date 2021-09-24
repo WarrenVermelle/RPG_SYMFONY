@@ -16,6 +16,6 @@
     </div>
 
     <button  data-action="click->combat#attakMonster" data-attak="{{path('combat',{'id':monster.id})}}" >Attaquer</button>
-    <button>popo</button>
+    <button id="popo"  data-action="click->combat#potionHeal" data-potion="{{path('potioHeal',{'id':monster.id})}}" >Potion</button>
 </div>
 {% endblock %}
