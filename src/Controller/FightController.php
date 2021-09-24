@@ -5,17 +5,14 @@ namespace App\Controller;
 use App\Entity\Champion;
 use App\Entity\Monster;
 use App\Repository\ChampionRepository;
-use App\Repository\MonsterRepository;
+use App\Repository\InventoryRepository;
+use App\Repository\ItemRepository;
+use App\Repository\TypeRepository;
 use App\Service\FightService;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Query\AST\Functions\FunctionNode;
-use Doctrine\ORM\Query\Expr\Func;
-use phpDocumentor\Reflection\Location;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class FightController extends AbstractController
@@ -52,6 +49,12 @@ class FightController extends AbstractController
         $updateHpChamp = $fight->atkMonster($champion, $monster);
 
         if ($champion->getHp() <= 0 ) {
+            $monsterReset = $monster->getHpMax();
+            $monster->setHp($monsterReset);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($monster);
+            $manager->flush();
+            
             return new JsonResponse($generator->generate('ville'));
         }
 
@@ -67,7 +70,10 @@ class FightController extends AbstractController
             //si l'xp total du champion est égale au level du champion fois 100
             $monsterReset = $monster->getHpMax();
             $monster->setHp($monsterReset);
-            
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($monster);
+            $manager->flush();
+
             if ($champion->getXp() >= $levelUp) {
                 //alors on execute la fonction levelUp
                 $fight->levelUp($champion);
@@ -98,13 +104,30 @@ class FightController extends AbstractController
      * @Route("/potioHeal/{id}", name="potioHeal")
      * 
      */
-    public function potioHeal(Monster $monster, ChampionRepository $championRepository, FightService $fight, UrlGeneratorInterface $generator): Response
+    public function potioHeal(
+        Monster $monster, ChampionRepository $championRepository,
+        FightService $fight, UrlGeneratorInterface $generator, TypeRepository $type): Response
     {
        
         
         $champion = $championRepository->findAll()[0];
+        
+        // $championPot = $champion->getInventories()->getValues();
 
-        $champion->setHp($champion->getHp() + 20);  
+        // dd($potions = $type->findBy([
+        //     'item.type' => 'potion'
+        // ]));
+        
+        // dd($test = $championRepository->findOneBy(['type' => 'potion']));
+
+        // foreach ($championPot as $championPots) {
+        //     $champion->setHp($champion->getHp() + $championPots[0]->getItem()->getHp());
+        //     $manager = $this->getDoctrine()->getManager();
+        //     $champion->removeInventory($championPots[0], $manager);
+        //     $manager->persist($champion);
+        //     $manager->flush();
+        // }
+          
 
         // //mise a jour des hp du champion
          $updateHpChamp = $fight->atkMonster($champion, $monster);
@@ -114,6 +137,11 @@ class FightController extends AbstractController
         
 
         if ($champion->getHp() <= 0 ) {
+            $monsterReset = $monster->getHpMax();
+            $monster->setHp($monsterReset);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($monster);
+            $manager->flush();
             return new JsonResponse($generator->generate('ville'));
         }
 
@@ -129,7 +157,10 @@ class FightController extends AbstractController
             //si l'xp total du champion est égale au level du champion fois 100
             $monsterReset = $monster->getHpMax();
             $monster->setHp($monsterReset);
-            
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($monster);
+            $manager->flush();
+    
             if ($champion->getXp() >= $levelUp) {
                 //alors on execute la fonction levelUp
                 $fight->levelUp($champion);

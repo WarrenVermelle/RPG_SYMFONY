@@ -37,24 +37,16 @@ export default class extends Controller
     {
         
         let btn = this.element.querySelector('button#popo');
-        console.log(btn);
         let path = btn.getAttribute('data-potion');
-        console.log(path);
         await fetch(path).then((response)=>{
             return response.text()
         }).then((text)=>{
-            console.log('marche2');
             if(text.startsWith("\"\\")){
-                console.log('marche3');
                 let redirectPath = JSON.parse(text);
                 window.location.href = redirectPath;
             }else{
-                console.log('marche4');
                 let parser = new DOMParser();
-                console.log(parser);
-                console.log(text);
                 let doc = parser.parseFromString(text, 'text/html');
-                console.log(doc);
                 this.element.replaceWith(doc.querySelector('#startCombat'))
             }
         })
