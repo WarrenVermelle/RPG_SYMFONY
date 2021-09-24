@@ -76,13 +76,13 @@ class FightController extends AbstractController
         return new JsonResponse($generator->generate('forest'));
         }
         //je récupère le calcul d'xp max avec le level du champion
-        $levelUp = $championRepository->findAll()[0]->getLevel() * 100;
+        $levelUp = $champion->getLevel() * 100;
         //si l'xp total du champion est égale au level du champion fois 100
-        if ($championRepository->findAll()[0]->getXp() === $levelUp) {
+        if ($champion->getXp() === $levelUp) {
             //alors on execute la fonction levelUp
-            $fight->levelUp($championRepository->findAll()[0]);
+            $fight->levelUp($champion);
             //et on remet à 0 l'xp du champion
-            $fight->xpReset($championRepository->findAll()[0]);
+            $fight->xpReset($champion);
         }
         
         return $this->render('fight/fightStart.html.twig',[
