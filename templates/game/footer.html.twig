@@ -4,11 +4,25 @@
     <div class="inventaire" id="inventaire">
     </div>
     <footer>
-            <div>
-                <a href="#"><img src="{{asset('img/inventaire.png')}}" alt="" class="iconefooter" id="btninventaire"></a>
-                <img src="{{asset('img/book.png')}}" alt="" class="iconefooter">
-                <img src="{{asset('img/carac.png')}}" alt="" class="iconefooter">
-                <img src="{{asset('img/carte.png')}}" alt="" class="iconefooter">
+            <div class="footer-items">
+
+                 <div class="footer-stats">
+                                <img src="{{asset('img/heart.png')}}" alt="" class="iconestats">
+                            <p class="stats-figure">{{champion.hp}}/{{champion.maxHp}}</p>
+                                <img src="{{asset('img/Mana.png')}}" alt="" class="iconestats">
+                            <p class="stats-figure">{{champion.mp}}/{{champion.maxMp}}</p>
+                                <img src="{{asset('img/exp.png')}}" alt="" class="iconestats">
+                            <p class="stats-figure">{{champion.xp}}</p>
+                                <img src="{{asset('img/fleche-exp.png')}}" alt="" class="iconestats">
+                            <p class="stats-figure">Next Level:{{champion.level+1}}</p>
+                    </div>
+                    <div class="footer-menu">
+                        <a href="#"><img src="{{asset('img/inventaire.png')}}" alt="" class="iconefooter" id="btninventaire"></a>
+                        <img src="{{asset('img/book.png')}}" alt="" class="iconefooter">
+                        <img src="{{asset('img/carac.png')}}" alt="" class="iconefooter">
+                        <img src="{{asset('img/carte.png')}}" alt="" class="iconefooter">
+                    </div>      
             </div>
+      
     </footer>
 {% endif %}
