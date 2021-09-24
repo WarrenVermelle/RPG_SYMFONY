@@ -70,7 +70,7 @@ class FightController extends AbstractController
                 //alors on execute la fonction levelUp
                 $fight->levelUp($champion);
                 //et on remet à 0 l'xp du champion
-                // ----> $fight->xpReset($champion);
+                $fight->xpReset($champion);
             }
             
 
