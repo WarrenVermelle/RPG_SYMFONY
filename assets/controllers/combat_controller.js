@@ -2,8 +2,8 @@ import { Controller } from "@stimulus/core";
 
 export default class extends Controller
 {
-    async startCombat(){
-        
+    async startCombat()
+    {
         let btn = this.element.querySelector('button');
         let path = btn.getAttribute('data-start');
         await fetch(path).then((response)=>{
@@ -12,7 +12,6 @@ export default class extends Controller
         }).then((text)=>{
             let parser = new DOMParser();
             let doc = parser.parseFromString(text, 'text/html');
-
             this.element.replaceWith(doc.querySelector('#startCombat'))
         })
     }
@@ -26,12 +25,12 @@ export default class extends Controller
             return response.text()
             
         }).then((text)=>{
-            if(text == "\"\\/forest\""){
-                window.location.href = "/forest";
-            }else if (text == "\"\\/ville\"")
+            let redirectPath = JSON.parse(text);
+            if(redirectPath == "/game/voyage/forest"){
+                window.location.href = redirectPath;
+            }else if (redirectPath == "/game/voyage/ville")
             {
-                console.log(text)
-                window.location.href = "/ville";
+                window.location.href = redirectPath;
             }
             else{
                 let parser = new DOMParser();
