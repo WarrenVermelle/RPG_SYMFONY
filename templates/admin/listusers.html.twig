@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des Utilisateurs</h1>
+
+    {% for user in users %}
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>User</th>
+                <th>Role</th>
+                <th>Supprimer l'utilisateur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ "roles" }}</td>
+                <td>{{ include('admin/delete.html.twig') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% endfor %}
+
+
+{% endblock %}
+
