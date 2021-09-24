@@ -14,7 +14,7 @@ class ChampionController extends AbstractController
     {
        // dd($championRepository->find(1));
         $champion = $championRepository->find(1);
-        return $this->render('champion/index.html.twig', [
+        return $this->render('game/footer.html.twig', [
             'controller_name' => 'ChampionController',
             'champion'=>$champion]);
     }

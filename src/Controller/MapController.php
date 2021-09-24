@@ -22,39 +22,42 @@ class MapController extends AbstractController
     }
 
     #[Route('/forest', name: 'forest')]
-    public function forest(MonsterRepository $monster): Response
+    public function forest(MonsterRepository $monster, ChampionRepository $ChampionRepo): Response
     {
         $idRandom = random_int(1, 3);
 
         return $this->render('game/foret.html.twig', [
             'monster' => $monster->find($idRandom),
             'controller_name' => 'MapController',
+            'champion' => $ChampionRepo->findOneBy(["player" => $this -> getUser(), 'actif' =>true])
         ]);
     }
 
     #[Route('/ville', name: 'ville')]
-    public function ville(): Response
+    public function ville(ChampionRepository $ChampionRepo): Response
     {
         
 
         return $this->render('game/ville.html.twig', [
             'controller_name' => 'MapController',
+            'champion' => $ChampionRepo->findOneBy(["player" => $this -> getUser(), 'actif' =>true])
         ]);
     }
 
     #[Route('/plaine', name: 'plaine')]
-    public function plaine(): Response
+    public function plaine(ChampionRepository $ChampionRepo): Response
     {
         return $this->render('game/plaine.html.twig', [
             'controller_name' => 'MapController',
+            'champion' => $ChampionRepo->findOneBy(["player" => $this -> getUser(), 'actif' =>true])
         ]);
     }
 
     #[Route('/boutique', name: 'boutique')]
-    public function boutique(): Response
+    public function boutique(ChampionRepository $ChampionRepo): Response
     {
         return $this->render('game/boutique.html.twig', [
-            'controller_name' => 'MapController',
+            'champion' => $ChampionRepo->findOneBy(["player" => $this -> getUser(), 'actif' =>true]),
         ]);
     }
 
