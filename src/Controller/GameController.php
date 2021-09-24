@@ -28,11 +28,32 @@ class GameController extends AbstractController
             $champion->setActif(true);
             $manager->persist($champion);
             $manager->flush();           
+        }        
+
+        return $this->redirectToRoute('ville');
+    }
+
+    #[Route('/sleep/{id}', name: 'sleep')]
+    public function sleep(Champion $champion)
+    {
+        # Si les Pv du champion sont inférieur aux pv max
+        if ($champion->getActif() && ($champion->getHp() < $champion->getMaxHp() || $champion->getMp() < $champion->getMaxMp()))
+        {
+            // Pv champion = pv max
+            $champion->setHp($champion->getMaxHp());
+            $champion->setMp($champion->getMaxMp());
+            $champion->setGold($champion->getGold() - 200);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($champion);
+            $manager->flush();
+            $this->addFlash("notice", "Vous êtes reposé");
+        }    
+        else
+        {
+            // Envoyer message "Vous déjà êtes reposé"
+            $this->addFlash("notice", "Vous êtes déjà reposé");
         }
         
-
-        return $this->render('game/ville.html.twig', [
-            'controller_name' => 'GameController',
-        ]);
+        return $this->redirectToRoute('ville');
     }
 }

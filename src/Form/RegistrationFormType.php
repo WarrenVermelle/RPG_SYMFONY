@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
@@ -24,6 +25,14 @@ class RegistrationFormType extends AbstractType
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
                     ]),
+                    new NotBlank([
+                        "message" => "Ce champs ne peut pas être vide"
+                    ]),
+                    new Regex([
+                        "pattern" => "/(?i)^(?:(?![×Þß÷þø])[-'0-9a-zÀ-ÿ])+$/mu",
+                        "match" => true,
+                        "message" => "Pas d'espace dans le pseudo ou de caractères spéciaux"
+                    ])
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
@@ -33,7 +42,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Vous devez entrer un mot de passe',
                     ]),
                     new Length([
                         'min' => 6,
