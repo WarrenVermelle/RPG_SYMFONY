@@ -62,6 +62,7 @@
             <tfoot>
                 <tr>
                     <td id="btnjouer"><a href="{{ path("game", {"id":champion.id}) }}" class="btn">Jouer !</a></td>
+                    {{ include('account/_delete_form.html.twig') }}
                 </tr>
             </tfoot>
         </table>
