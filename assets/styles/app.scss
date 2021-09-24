@@ -135,7 +135,8 @@ h1{
 #btnjouer{
     display: flex;
     text-align: center;
-    a{
+    a, .btn{
+        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
