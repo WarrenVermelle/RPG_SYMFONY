@@ -59,10 +59,8 @@ class FightService
 
     public function xpReset(Champion $champion){
         $champion->setXp(0);
-        $resultXp = $champion->getXp();
         $this->em->persist($champion);
         $this->em->flush();
-        return $resultXp;
     }
 
 }
