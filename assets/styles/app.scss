@@ -361,6 +361,27 @@ h1{
 
 }
 
+/*---------------popupFight-----------------------*/
+
+#startCombat{
+    background-color: grey;
+    width: 40vh;
+    height: 20vh;
+    border: 2px black solid;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center ;
+    div{
+        display: flex;
+        justify-content: space-around;
+        div{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+
 /*---------------footer-----------------------*/
 
 footer{
