@@ -6,7 +6,7 @@
 
     <h1>Liste des Utilisateurs</h1>
 
-    {% for user in users %}
+    
     <table>
         <thead>
             <tr>
@@ -16,11 +16,12 @@
                 <th>Supprimer l'utilisateur</th>
             </tr>
         </thead>
+        {% for user in users %}
         <tbody>
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
-                <td>{{ "roles" }}</td>
+                <td>{{ user.roles[0] }}</td>
                 <td>{{ include('admin/delete.html.twig') }}</td>
             </tr>
         </tbody>
