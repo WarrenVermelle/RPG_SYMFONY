@@ -13,7 +13,7 @@
 {% endfor %}
 
 <div id="ville">
-    <a href="../boutique"><img src="{{asset('img/pancarteboutique.png')}}" alt="" id="iconeboutique"></a>
+    <a href="{{path('boutique')}}"><img src="{{asset('img/pancarteboutique.png')}}" alt="" id="iconeboutique"></a>
     <a href= "{{ path("sleep", {"id":champion.id}) }}">Dormir</a>
     <p id="pville"> Direction plaine </p>
     <a href="{{path('plaine')}}"><img src="{{asset('img/fleche.png')}}" alt="" id="imgfleche"></a>

@@ -23,7 +23,11 @@ class AchatVenteController extends AbstractController
          $gold = $Player->getGold();
         
 
-        return $this->render('achat_vente/index.html.twig', [
+        return $this->render('achat_vente/index.html.twig',[
+            'champion' => $ChampionRepo->findOneBy([
+                "player" => $this->getUser(),
+                "actif" => true
+            ]), 
             'controller_name' => 'AchatVenteController',
             'InventMarch' => $InventMarchand,
             'InventPlayer' => $InventPlayer,
