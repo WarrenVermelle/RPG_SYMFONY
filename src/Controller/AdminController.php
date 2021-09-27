@@ -44,15 +44,15 @@ class AdminController extends AbstractController
     #[Route('/listMonster', name:'admin_listMonster')]
     public function listMonster(MonsterRepository $monster): Response
     {
-        $monster[] = $monster->findAll();
+        // dd($monster->findAll());
        return $this->render('admin/listMonster.html.twig', [
-            'monsters' => $monster
+            'monsters' => $monster->findAll()
         ]);
     }
 
-    // #[Route('/createMonster', name: 'admin_createMonster')]
-    // public function createMonster():Response
-    // {
-
-    // }
+    #[Route('/createMonster', name: 'admin_createMonster')]
+    public function createMonster():Response
+    {
+        return $this->render('admin/create-monster.html.twig', []);
+    }
 }

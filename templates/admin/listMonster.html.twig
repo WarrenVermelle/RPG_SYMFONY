@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des utilisateurs{% endblock %}
+{% block title %}Liste des monstres{% endblock %}
 
 {% block body %}
 
-    <h1>Liste des Utilisateurs</h1>
+    <h1>Liste des Monstres</h1>
 
-    
+    <a href="{{ path("admin_createMonster") }}">Créer new monstre</a>
     <table>
         <thead>
             <tr>
@@ -22,8 +22,10 @@
                 <th>XP</th>
             </tr>
         </thead>
-        {% for monster in monsters %}
+        
+        
         <tbody>
+        {% for monster in monsters %}
             <tr>
                 <td>{{ monster.id }}</td>
                 <td>{{ monster.monster }}</td>
@@ -36,10 +38,11 @@
                 <td>{{ monster.gold }}</td>
                 <td>{{ monster.xp }}</td>
             </tr>
+        {% endfor %}
         </tbody>
     </table>
 
-    {% endfor %}
+    
 
 
 {% endblock %}
