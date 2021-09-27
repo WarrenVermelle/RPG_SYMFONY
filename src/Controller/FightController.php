@@ -24,10 +24,13 @@ class FightController extends AbstractController
      */
     public function start(Monster $monster, ChampionRepository $champion): Response
     {
+        
         return $this->render('fight/fightStart.html.twig',[
             
             'monster' => $monster,
-            'champion' => $champion->findAll()[0]
+            'champion' => $champion->findOneBy([
+                'player' => $this->getUser(),
+                'actif' => true])
         ]);
         
     }
@@ -41,7 +44,9 @@ class FightController extends AbstractController
     public function combat(Monster $monster, ChampionRepository $championRepository, FightService $fight, UrlGeneratorInterface $generator): Response
     {
         // $test2 = $test->findOneBy(['actif' => 1]);
-        $champion = $championRepository->findOneBy(['actif' => true]);
+        $champion = $championRepository->findOneBy([
+            'player' => $this->getUser(),
+            'actif' => true]);
         //mise a jour des hp du monstre
         $updateHpMonster = $fight->atkChamp($champion, $monster);
         //mise a jour des hp du champion
@@ -112,7 +117,9 @@ class FightController extends AbstractController
     {
        
         
-        $champion = $championRepository->findAll()[0];
+        $champion = $championRepository->findOneBy([
+            'player' => $this->getUser(),
+            'actif' => true]);
         
         // $championPot = $champion->getInventories()->getValues();
 
@@ -182,7 +189,9 @@ class FightController extends AbstractController
         
         return $this->render('fight/fightStart.html.twig',[
             'monster' => $monster,
-            'champion' => $championRepository->findAll()[0],          
+            'champion' => $championRepository->findOneBy([
+                'player' => $this->getUser(),
+                'actif' => true]),          
         ]);
     }
 }
