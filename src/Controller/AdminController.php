@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\MonsterRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,4 +40,19 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('account_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/listMonster', name:'admin_listMonster')]
+    public function listMonster(MonsterRepository $monster): Response
+    {
+        $monster[] = $monster->findAll();
+       return $this->render('admin/listMonster.html.twig', [
+            'monsters' => $monster
+        ]);
+    }
+
+    // #[Route('/createMonster', name: 'admin_createMonster')]
+    // public function createMonster():Response
+    // {
+
+    // }
 }
