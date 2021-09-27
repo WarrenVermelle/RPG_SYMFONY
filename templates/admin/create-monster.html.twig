@@ -3,7 +3,7 @@
 {% block title %}Création de personnage{% endblock %}
 
 {% block body %}
-<div id="affcrepers">
+<div id="">
     <h1 id="titremoncompte">Créer new monster</h1>
 
     <div id="">
@@ -16,6 +16,9 @@
                 }) }}
                 {{ form_row(formMonster.hp, {
                     label: 'HP : '
+                }) }}
+                {{ form_row(formMonster.hpMax, {
+                    label: 'hpMax : ' 
                 }) }}
                 {{ form_row(formMonster.mp, {
                     label: 'MP : ' 

@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Monster;
 use App\Entity\User;
+use App\Form\CreateMonsterType;
 use App\Repository\MonsterRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,8 +53,17 @@ class AdminController extends AbstractController
     }
 
     #[Route('/createMonster', name: 'admin_createMonster')]
-    public function createMonster():Response
+    public function createMonster(Request $request):Response
     {
-        return $this->render('admin/create-monster.html.twig', []);
+        $monster = new Monster;
+        $form = $this->createForm(CreateMonsterType::class, $monster);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            
+        }
+
+        return $this->render('admin/create-monster.html.twig', ['formMonster' => $form->createView()]);
     }
 }
