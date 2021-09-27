@@ -31,17 +31,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('account_index', [], Response::HTTP_SEE_OTHER);
-    }
+  
 
     #[Route('/listMonster', name:'admin_listMonster')]
     public function listMonster(MonsterRepository $monster): Response
@@ -58,12 +48,28 @@ class AdminController extends AbstractController
         $monster = new Monster;
         $form = $this->createForm(CreateMonsterType::class, $monster);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) 
-        {
-            
+        {   
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($monster);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin');
         }
 
         return $this->render('admin/create-monster.html.twig', ['formMonster' => $form->createView()]);
+    }
+
+    #[Route('/{id}', name: 'user_delete', methods: ['POST'])]
+    public function delete(Request $request, User $user): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('account_index', [], Response::HTTP_SEE_OTHER);
     }
 }
