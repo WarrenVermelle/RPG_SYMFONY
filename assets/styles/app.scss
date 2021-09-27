@@ -492,7 +492,7 @@ footer{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 65vh;
+    width: 68vh;
 }
 .titreinvit{
 margin-left: 10px;
@@ -504,9 +504,11 @@ margin-right: 10px;
 }
 
 #centrepopup{
+height: 400px;
 display: flex;
 text-align: center;
 justify-content: center;
+overflow: auto;
 }
 
 #lignetable{
