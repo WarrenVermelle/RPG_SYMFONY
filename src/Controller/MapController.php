@@ -49,8 +49,9 @@ class MapController extends AbstractController
     }
 
     #[Route('/plaine', name: 'plaine')]
-    public function plaine(ChampionRepository $ChampionRepo): Response
+    public function plaine(ChampionRepository $ChampionRepo, Request $request): Response
     {
+        dump($request->getSession()->get('championActif'));
         return $this->render('game/plaine.html.twig', [
             'controller_name' => 'MapController',
             'champion' => $ChampionRepo->findOneBy(["player" => $this -> getUser(), 'actif' =>true])
