@@ -204,7 +204,7 @@ h1{
 
 #iconeboutique{
     width: 20vh;
-    margin-top: 20vh;
+    margin-top: 32vh;
     margin-bottom: 22vh;
     margin-right: 60vh;
 }
@@ -391,7 +391,7 @@ h1{
 #startCombat{
     background-color: grey;
     width: 50vh;
-    height: 30vh;
+    height: 35vh;
     border: 2px black solid;
     border-radius: 20px;
     padding: 20px;
@@ -426,7 +426,7 @@ h1{
     button{
         width: 100px;
         height: 40px;
-        margin: 15px;
+        margin-left: 15px;
         border-radius: 5px;
         border: 1px solid black;
         cursor: pointer;
@@ -443,7 +443,7 @@ h1{
 
 footer{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     background-color: black;
     position:absolute;
     bottom:0;
@@ -469,10 +469,13 @@ footer{
     color: white;
     display: flex;
     padding-top: 5px;
+    padding-left: 10px;
 }
 .stats-figure{
     padding-right: 15px;
 }
+
+/*-------------------popup inventaire -------------------------*/
 
 #insertpopup{
     position: absolute;
@@ -481,6 +484,10 @@ footer{
     color: white;
     top: -70vh;
     left: 60vh;
+}
+
+#goldinventpopup{
+    margin: 5px;
 }
 
  .barre{ 
@@ -530,4 +537,41 @@ overflow: auto;
         color:rgb(151, 151, 151)
     }
     
+}
+
+/*-------------------popup Carac -------------------------*/
+
+#insertpopupcara{
+    position: absolute;
+    border: 1px solid grey;
+    background-color: rgb(54,54,47);
+    color: white;
+    top: -70vh;
+    left: 60vh;
+}
+
+#centrepopupcara{
+    height: 400px;
+    text-align: center;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    }
+
+.lignetablecara{
+        margin: 10px;
+        display: flex;
+        border: solid white 1px;
+        border-radius: 5px;
+        height: 50px;
+        align-items: center;
+        width: 200px;
+        div{
+            img{
+                width: 40px;
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+        }
 }
