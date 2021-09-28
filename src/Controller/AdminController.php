@@ -61,7 +61,26 @@ class AdminController extends AbstractController
         return $this->render('admin/create-monster.html.twig', ['formMonster' => $form->createView()]);
     }
 
-    #[Route('/user/{id}', name: 'user_delete', methods: ['POST'])]
+    #[Route('/monster/edit/{id}', name: 'monster_edit', methods: ['POST', 'GET'])]
+    public function editMonster(Request $request, Monster $monster): Response
+    {
+        $form = $this->createForm(CreateMonsterType::class, $monster);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($monster);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_listMonster');
+        }
+
+        return $this->render('admin/edit_monster.html.twig', ['formMonster' => $form->createView()]);
+
+    }
+
+    #[Route('/user/delete/{id}', name: 'user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
@@ -70,10 +89,10 @@ class AdminController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('account_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_userslist', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/monster/{id}', name: 'monster_delete', methods: ['POST'])]
+    #[Route('/monster/delete/{id}', name: 'monster_delete', methods: ['POST'])]
     public function deleteMonster(Request $request, Monster $monster): Response
     {
         if ($this->isCsrfTokenValid('delete'.$monster->getId(), $request->request->get('_token'))) {
