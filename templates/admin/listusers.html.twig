@@ -16,18 +16,19 @@
                 <th>Supprimer l'utilisateur</th>
             </tr>
         </thead>
-        {% for user in users %}
         <tbody>
+        {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.roles[0] }}</td>
                 <td>{{ include('admin/delete.html.twig') }}</td>
             </tr>
+        {% endfor %}
         </tbody>
     </table>
 
-    {% endfor %}
+
 
 
 {% endblock %}
