@@ -18,7 +18,7 @@ export default class extends Controller
         setTimeout(()=>{
             this.element.innerHTML = ""
         },
-        1000)
+        2000)
         
     }
 
@@ -39,21 +39,18 @@ export default class extends Controller
         
         let btn = this.element.querySelector('a.equip');
         let path = btn.getAttribute('data-potion');
-        console.log(path)
         await fetch(path).then((response)=>{
             
             return response.text()
         }).then((text)=>{
-            console.log('1')
             if(text.startsWith("\"\\")){
-                console.log('2')
                 let redirectPath = JSON.parse(text);
                 window.location.href = redirectPath;
             }else{
-                console.log(text)
                 let parser = new DOMParser();
                 let doc = parser.parseFromString(text, 'text/html');
-                this.element.replaceWith(doc.querySelector('#startCombat'))
+                console.log(this.element)
+                document.querySelector('#startCombat').replaceWith(doc.querySelector('#startCombat'))
             }
         })
     }

@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Champion;
-use App\Entity\Monster;
+
+
 use App\Repository\ChampionRepository;
-use App\Repository\InventoryRepository;
-use App\Repository\ItemRepository;
-use App\Repository\TypeRepository;
 use App\Service\FightService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,14 +18,14 @@ class FightController extends AbstractController
     /**
      * Undocumented function
      *
-     * @Route("/start/{id}", name="start")
+     * @Route("/start", name="start")
      */
-    public function start(Monster $monster, ChampionRepository $champion): Response
+    public function start( ChampionRepository $champion, Request $request): Response
     {
         
         return $this->render('fight/fightStart.html.twig',[
             
-            'monster' => $monster,
+            'monster' => $request->getSession()->get('monster'),
             'champion' => $champion->findOneBy([
                 'player' => $this->getUser(),
                 'actif' => true])
@@ -39,11 +36,15 @@ class FightController extends AbstractController
     /**
      * Undocumented function
      *
-     * @Route("/combat/{id}", name="combat")
+     * @Route("/game/combat", name="combat")
      * 
      */
-    public function combat(Monster $monster, ChampionRepository $championRepository, FightService $fight, UrlGeneratorInterface $generator): Response
-    {
+    public function combat(ChampionRepository $championRepository, FightService $fight,
+                        UrlGeneratorInterface $generator, Request $request): Response
+    {   
+
+        $monster = $request->getSession()->get('monster');
+        //dd($request->getSession()->get('monster'));
         // $test2 = $test->findOneBy(['actif' => 1]);
         $champion = $championRepository->findOneBy([
             'player' => $this->getUser(),
@@ -114,13 +115,15 @@ class FightController extends AbstractController
     /**
      * Undocumented function
      *
-     * @Route("game/potioHeal/{id}", name="potioHeal")
+     * @Route("game/potioHeal", name="potioHeal")
      * 
      */
     public function potioHeal(
         ChampionRepository $championRepository,
         FightService $fight, UrlGeneratorInterface $generator, Request $request): Response
     {
+
+
 
         $manager = $this->getDoctrine()->getManager();
         $monster = $request->getSession()->get('monster');
@@ -135,7 +138,7 @@ class FightController extends AbstractController
         
         //$champion->removeInventory($item, $manager);
         
-        $champion->setHp($champion->getHp() + $item->getHp());
+        //$champion->setHp($champion->getHp() + $item->getHp());
 
 
         // //mise a jour des hp du champion
