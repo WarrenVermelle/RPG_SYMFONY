@@ -40,7 +40,7 @@
                 <td>{{ monster.gold }}</td>
                 <td>{{ monster.xp }}</td>
                 <td><a href="{{ path('monster_edit', {"id":monster.id}) }}">Editer</a></td>
-                <td>{{ include('admin/_delete_monster.html.twig') }}</td>
+                <td>{{ include('admin/monsters/_delete_monster.html.twig') }}</td>
             </tr>
         {% endfor %}
         </tbody>
