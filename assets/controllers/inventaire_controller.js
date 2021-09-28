@@ -17,10 +17,9 @@ export default class extends Controller
     {
         this.element.innerHTML = ""
     }
-    async equip()
+    async equip(event)
     {
-        let btn = this.element.querySelector('a.equip');
-        let path = btn.getAttribute('data-start');
+        let path = event.target.getAttribute('data-start');
         await fetch(path).then((response)=>{
             return response.text()
             
