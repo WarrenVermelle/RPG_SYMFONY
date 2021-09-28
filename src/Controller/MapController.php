@@ -22,12 +22,13 @@ class MapController extends AbstractController
     }
 
     #[Route('/forest', name: 'forest')]
-    public function forest(MonsterRepository $monster, ChampionRepository $ChampionRepo): Response
+    public function forest(MonsterRepository $monsterRepo, ChampionRepository $ChampionRepo, Request $request): Response
     {
-        $idRandom = random_int(1, 3);
+        $monsters = $monsterRepo->findAll();
+        $request->getSession()->set('monster', $monsters[rand(0,count($monsters)-1)]);
 
         return $this->render('game/foret.html.twig', [
-            'monster' => $monster->find($idRandom),
+            'monster' => $request->getSession()->get('monster'),
             'controller_name' => 'MapController',
             'champion' => $ChampionRepo->findOneBy(["player" => $this -> getUser(), 'actif' =>true])
         ]);
