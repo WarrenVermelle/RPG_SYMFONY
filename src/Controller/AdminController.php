@@ -31,8 +31,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-  
-
     #[Route('/listMonster', name:'admin_listMonster')]
     public function listMonster(MonsterRepository $monster): Response
     {
