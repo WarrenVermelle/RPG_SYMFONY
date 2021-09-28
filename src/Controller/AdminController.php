@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Monster;
 use App\Entity\User;
+use App\Form\CreateMonsterType;
+use App\Repository\MonsterRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +29,36 @@ class AdminController extends AbstractController
         return $this->render('admin/listusers.html.twig', [
             "users" => $userRepository->findAll()
         ]);
+    }
+
+  
+
+    #[Route('/listMonster', name:'admin_listMonster')]
+    public function listMonster(MonsterRepository $monster): Response
+    {
+        // dd($monster->findAll());
+       return $this->render('admin/listMonster.html.twig', [
+            'monsters' => $monster->findAll()
+        ]);
+    }
+
+    #[Route('/createMonster', name: 'admin_createMonster')]
+    public function createMonster(Request $request):Response
+    {
+        $monster = new Monster;
+        $form = $this->createForm(CreateMonsterType::class, $monster);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) 
+        {   
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($monster);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/create-monster.html.twig', ['formMonster' => $form->createView()]);
     }
 
     #[Route('/{id}', name: 'user_delete', methods: ['POST'])]

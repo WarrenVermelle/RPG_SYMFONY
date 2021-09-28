@@ -17,7 +17,7 @@ class InventoryController extends AbstractController
     {
         $champion = $championRepo->findOneBy([
             'player' => $this->getUser(),
-            //'active' => true
+            'actif' => true
         ]);
     
         return $this->render('inventory/inventory.html.twig',[

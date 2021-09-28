@@ -8,7 +8,6 @@ export default class extends Controller
         let path = btn.getAttribute('data-start');
         await fetch(path).then((response)=>{
             return response.text()
-            
         }).then((text)=>{
             let parser = new DOMParser();
             let doc = parser.parseFromString(text, 'text/html');
@@ -21,22 +20,34 @@ export default class extends Controller
         let btn = this.element.querySelector('button');
         let path = btn.getAttribute('data-attak');
         await fetch(path).then((response)=>{
-            
             return response.text()
-            
         }).then((text)=>{
-            let redirectPath = JSON.parse(text);
-            if(redirectPath == "/game/voyage/forest"){
+            if(text.startsWith("\"\\")){
+                let redirectPath = JSON.parse(text);
                 window.location.href = redirectPath;
-            }else if (redirectPath == "/game/voyage/ville")
-            {
-                window.location.href = redirectPath;
-            }
-            else{
+            }else{
                 let parser = new DOMParser();
             let doc = parser.parseFromString(text, 'text/html');
-
             this.element.replaceWith(doc.querySelector('#startCombat'))
+            }
+        })
+    }
+    
+    async potionHeal()
+    {
+        
+        let btn = this.element.querySelector('button#popo');
+        let path = btn.getAttribute('data-potion');
+        await fetch(path).then((response)=>{
+            return response.text()
+        }).then((text)=>{
+            if(text.startsWith("\"\\")){
+                let redirectPath = JSON.parse(text);
+                window.location.href = redirectPath;
+            }else{
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(text, 'text/html');
+                this.element.replaceWith(doc.querySelector('#startCombat'))
             }
         })
     }

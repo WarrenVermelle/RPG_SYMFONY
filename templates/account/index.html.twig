@@ -71,6 +71,10 @@
         {% endfor %}
         </div>
         <h2 id="creaperso"><a href="{{ path("account_create_perso") }}">Créer un nouveau personnage</a></h2>
+        {% if is_granted('ROLE_ADMIN') %}
+            <h3><a href="{{ path("admin") }}">Page administrateur</a></h3>
+        {% endif %}
+        
     </div>
 
 {% endblock %}

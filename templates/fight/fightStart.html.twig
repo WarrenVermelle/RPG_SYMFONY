@@ -3,36 +3,22 @@
 {% block body %}
 <div data-controller="combat" id="startCombat" >
     <div>
-        <p>{{champion.name}}</p>
-        <p>Level: {{champion.level}}</p>
-        <p>Hp: {{champion.hp}}</p>    
+        <div id="fightChampion">
+            <div>{{champion.name}}</div>
+            <div>Level: {{champion.level}}</div>
+            <div>Hp: {{champion.hp}}</div>    
+        </div>
+        <div>
+            <img src="{{asset('img/vs.png')}}" alt="vs" id="vs">
+        </div>
+        <div id="fightMonstre">
+            <div>{{monster.monster}}</div>
+            <div>Level: {{monster.level}}</div>
+            <div>Hp: {{monster.hp}}</div>
+        </div>
     </div>
-    <div>
-        <p>{{monster.monster}}</p>
-        <p>Level: {{monster.level}}</p>
-        <p>Hp: {{monster.hp}}</p>
-    </div>
-    {# <a href="#" id="btnAtt" data-Att="{{path('combat')}}">Attaquer</a> #}
+
     <button  data-action="click->combat#attakMonster" data-attak="{{path('combat',{'id':monster.id})}}" >Attaquer</button>
+    <button id="popo"  data-action="click->combat#potionHeal" data-potion="{{path('potioHeal',{'id':monster.id})}}" >Potion</button>
 </div>
 {% endblock %}
-{# {% block javascripts %}
-    {{ parent() }} 
-    <script>
-        let btnAtt = document.querySelector('#btnAtt');
-
- btnAtt.addEventListener('click',async ()=>{
-     console.log('coucou');
-    let path = btnAtt.getAttribute('data-Att')
-    fetch(path)
-    .then((response)=>{
-        return response.text()
-    }).then((newDom)=>{
-        let parser = new DOMParser();
-        let doc = parser.parseFromString(newDom, 'text/html');
-
-        document.querySelector('#startCombat').replaceWith(doc.querySelector('#combat'))
-    })
-})
-    </script>
-{% endblock %} #}
