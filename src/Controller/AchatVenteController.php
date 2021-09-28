@@ -44,11 +44,15 @@ class AchatVenteController extends AbstractController
 
         $manager = $this->getDoctrine()->getManager();
 
-        $champion -> addInventory($item);
-        $champion->setGold($champion->getGold() - $item->getItem()->getPrice());
-        $manager-> persist($champion);
-        $manager -> flush();
-        return $this->redirectToRoute('achat_vente');
+        if($champion->getGold() >= $item->getItem()->getPrice()){
+            $champion -> addInventory($item);
+            $champion->setGold($champion->getGold() - $item->getItem()->getPrice());
+            $manager-> persist($champion);
+            $manager -> flush();
+            return $this->redirectToRoute('achat_vente');
+        }else{
+            return $this->redirectToRoute('achat_vente');
+        }
 
     }
 
