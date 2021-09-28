@@ -140,7 +140,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin_items_listItems');
         }
 
-        return $this->render('admin/monsters/create-monster.html.twig', ['formMonster' => $form->createView()]);
+        return $this->render('admin/items/create-item.html.twig', ['formItem' => $form->createView()]);
     }
 
     #[Route('/type/delete/{id}', name: 'type_delete', methods: ['POST'])]
