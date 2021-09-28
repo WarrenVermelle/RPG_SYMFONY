@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administrateur{% endblock %}
+
+{% block body %}
+
+    <h1>Bienvenue Ô grand Administrateur {{app.user.username}}</h1>
+
+    <h2><a href="{{ path("admin_userslist") }}">Liste des utilisateurs</a></h2>
+    <h2><a href="{{ path("admin_listMonster") }}">Liste Monstres</a></h2>
+
+{% endblock %}
