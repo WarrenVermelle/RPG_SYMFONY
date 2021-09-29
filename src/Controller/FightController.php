@@ -2,15 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Champion;
-use App\Entity\Monster;
+
+
 use App\Repository\ChampionRepository;
-use App\Repository\InventoryRepository;
-use App\Repository\ItemRepository;
-use App\Repository\TypeRepository;
 use App\Service\FightService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -20,14 +18,14 @@ class FightController extends AbstractController
     /**
      * Undocumented function
      *
-     * @Route("/start/{id}", name="start")
+     * @Route("/start", name="start")
      */
-    public function start(Monster $monster, ChampionRepository $champion): Response
+    public function start( ChampionRepository $champion, Request $request): Response
     {
         
         return $this->render('fight/fightStart.html.twig',[
             
-            'monster' => $monster,
+            'monster' => $request->getSession()->get('monster'),
             'champion' => $champion->findOneBy([
                 'player' => $this->getUser(),
                 'actif' => true])
@@ -38,11 +36,15 @@ class FightController extends AbstractController
     /**
      * Undocumented function
      *
-     * @Route("/combat/{id}", name="combat")
+     * @Route("/game/combat", name="combat")
      * 
      */
-    public function combat(Monster $monster, ChampionRepository $championRepository, FightService $fight, UrlGeneratorInterface $generator): Response
-    {
+    public function combat(ChampionRepository $championRepository, FightService $fight,
+                        UrlGeneratorInterface $generator, Request $request): Response
+    {   
+
+        $monster = $request->getSession()->get('monster');
+        //dd($request->getSession()->get('monster'));
         // $test2 = $test->findOneBy(['actif' => 1]);
         $champion = $championRepository->findOneBy([
             'player' => $this->getUser(),
@@ -56,9 +58,14 @@ class FightController extends AbstractController
             $monsterReset = $monster->getHpMax();
             $monster->setHp($monsterReset);
             $manager = $this->getDoctrine()->getManager();
+            
+            
+            $monsterReset = $monster->getHpMax();
+            $monster->setHp($monsterReset);
+            $manager = $this->getDoctrine()->getManager();
             $manager->persist($monster);
             $manager->flush();
-            
+
             return new JsonResponse($generator->generate('ville'));
         }
 
@@ -108,35 +115,31 @@ class FightController extends AbstractController
     /**
      * Undocumented function
      *
-     * @Route("/potioHeal/{id}", name="potioHeal")
+     * @Route("game/potioHeal", name="potioHeal")
      * 
      */
     public function potioHeal(
-        Monster $monster, ChampionRepository $championRepository,
-        FightService $fight, UrlGeneratorInterface $generator, TypeRepository $type): Response
+        ChampionRepository $championRepository,
+        FightService $fight, UrlGeneratorInterface $generator, Request $request): Response
     {
-       
-        
+
+
+
+        $manager = $this->getDoctrine()->getManager();
+        $monster = $request->getSession()->get('monster');
+        $inventory = $request->getSession()->get('inventory');
+        //dump($inventory);
+
+        $item = $request->getSession()->get('Item');
+
         $champion = $championRepository->findOneBy([
             'player' => $this->getUser(),
             'actif' => true]);
         
-        // $championPot = $champion->getInventories()->getValues();
-
-        // dd($potions = $type->findBy([
-        //     'item.type' => 'potion'
-        // ]));
+        //$champion->removeInventory($item, $manager);
         
-        // dd($test = $championRepository->findOneBy(['type' => 'potion']));
+        //$champion->setHp($champion->getHp() + $item->getHp());
 
-        // foreach ($championPot as $championPots) {
-        //     $champion->setHp($champion->getHp() + $championPots[0]->getItem()->getHp());
-        //     $manager = $this->getDoctrine()->getManager();
-        //     $champion->removeInventory($championPots[0], $manager);
-        //     $manager->persist($champion);
-        //     $manager->flush();
-        // }
-          
 
         // //mise a jour des hp du champion
          $updateHpChamp = $fight->atkMonster($champion, $monster);
@@ -148,9 +151,15 @@ class FightController extends AbstractController
         if ($champion->getHp() <= 0 ) {
             $monsterReset = $monster->getHpMax();
             $monster->setHp($monsterReset);
+            
+           
+
+            $monsterReset = $monster->getHpMax();
+            $monster->setHp($monsterReset);
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($monster);
             $manager->flush();
+
             return new JsonResponse($generator->generate('ville'));
         }
 

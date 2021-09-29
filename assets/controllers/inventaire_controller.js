@@ -15,8 +15,14 @@ export default class extends Controller
     }
     disableinventaire()
     {
-        this.element.innerHTML = ""
+        setTimeout(()=>{
+            this.element.innerHTML = ""
+        },
+        2000)
+        
     }
+
+
     async equip(event)
     {
         let path = event.target.getAttribute('data-start');
@@ -25,6 +31,27 @@ export default class extends Controller
             
         }).then((text)=>{
             document.querySelector('#insertpopup').innerHTML = text
+        })
+    }
+
+    async potionHeal()
+    {
+        
+        let btn = this.element.querySelector('a.equip');
+        let path = btn.getAttribute('data-potion');
+        await fetch(path).then((response)=>{
+            
+            return response.text()
+        }).then((text)=>{
+            if(text.startsWith("\"\\")){
+                let redirectPath = JSON.parse(text);
+                window.location.href = redirectPath;
+            }else{
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(text, 'text/html');
+                console.log(this.element)
+                document.querySelector('#startCombat').replaceWith(doc.querySelector('#startCombat'))
+            }
         })
     }
 }
