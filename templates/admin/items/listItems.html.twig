@@ -24,7 +24,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <h2><a href="{{ path("admin_items_createType") }}">Créer un nouveau type</a></h2>
     <h1>Liste des Objets</h1>
     
     <table>
@@ -55,7 +55,7 @@
                 <td>{{ item.intel }}</td>
                 <td>{{ item.strength }}</td>
                 <td>{{ item.agi }}</td>
-                <td>{{ item.type.type }}</td>
+                <td>{{ item.type }}</td>
                 <td>{{ item.price }}</td>
                 <td>Edit</td>
                 <td>{{ include('admin/items/_delete_item.html.twig') }}</td>

@@ -8,6 +8,7 @@ use App\Entity\Type;
 use App\Entity\User;
 use App\Form\CreateItemType;
 use App\Form\CreateMonsterType;
+use App\Form\CreateTypeType;
 use App\Repository\ItemRepository;
 use App\Repository\MonsterRepository;
 use App\Repository\TypeRepository;
@@ -124,7 +125,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/createItem', name: 'admin_items_createItem')]
+    #[Route('/items/createItem', name: 'admin_items_createItem')]
     public function createItem(Request $request):Response
     {
         $item = new Item();
@@ -141,6 +142,25 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/items/create-item.html.twig', ['formItem' => $form->createView()]);
+    }
+
+    #[Route('/types/createType', name: 'admin_items_createType')]
+    public function createType(Request $request):Response
+    {
+        $type = new Type();
+        $form = $this->createForm(CreateTypeType::class, $type);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) 
+        {   
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($type);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_items_listItems');
+        }
+
+        return $this->render('admin/items/create-type.html.twig', ['formType' => $form->createView()]);
     }
 
     #[Route('/type/delete/{id}', name: 'type_delete', methods: ['POST'])]
