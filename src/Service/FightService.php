@@ -17,10 +17,7 @@ class FightService
     public function atkChamp(Champion $champion, Monster $monster)
     {
         $monster->setHp($monster->getHp()-($champion->getStrength()/2));
-        $resultHp = $monster->getHp();
-        $this->em->persist($monster);
-        $this->em->flush();
-        return $resultHp;
+        return $monster;
     }
 
     public function atkMonster(Champion $champion, Monster $monster)
