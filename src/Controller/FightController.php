@@ -39,8 +39,10 @@ class FightController extends AbstractController
      * @Route("/game/combat", name="combat")
      * 
      */
-    public function combat(ChampionRepository $championRepository, FightService $fight,
-                        UrlGeneratorInterface $generator, Request $request): Response
+    public function combat(ChampionRepository $championRepository, 
+                           FightService $fight, 
+                           UrlGeneratorInterface $generator, 
+                           Request $request): Response
     {   
         $session = $request->getSession();
         $monster = $session->get('monster');
@@ -87,6 +89,8 @@ class FightController extends AbstractController
             //alors on execute la fonction levelUp
             $fight->levelUp($champion);
             //et on remet à 0 l'xp du champion
+            $champion->setHp($champion->getMaxHp());
+            $champion->setMp($champion->getMaxMp());
             $fight->xpReset($champion);
         }
         
