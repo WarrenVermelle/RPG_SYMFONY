@@ -5,7 +5,6 @@
 {% block body %}
 
     <h1>Liste des Utilisateurs</h1>
-
     
     <table>
         <thead>
@@ -16,19 +15,17 @@
                 <th>Supprimer l'utilisateur</th>
             </tr>
         </thead>
-        {% for user in users %}
         <tbody>
+        {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.roles[0] }}</td>
-                <td>{{ include('admin/delete.html.twig') }}</td>
+                <td>{{ include('admin/users/_delete_user.html.twig') }}</td>
             </tr>
-        </tbody>
         {% endfor %}
+        </tbody>
     </table>
-    
-
-
+    <a href="{{ path("admin") }}">Retour</a>
 {% endblock %}
 

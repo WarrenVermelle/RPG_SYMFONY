@@ -6,7 +6,7 @@
 
     <h1>Liste des Monstres</h1>
 
-    <a href="{{ path("admin_createMonster") }}">Créer new monstre</a>
+    <a href="{{ path("admin_createMonster") }}">Créer un nouveau monstre</a>
     <table>
         <thead>
             <tr>
@@ -20,6 +20,8 @@
                 <th>Agi</th>
                 <th>Gold</th>
                 <th>XP</th>
+                <th>Editer</th>
+                <th>Suppression</th>
             </tr>
         </thead>
         
@@ -37,11 +39,13 @@
                 <td>{{ monster.agi }}</td>
                 <td>{{ monster.gold }}</td>
                 <td>{{ monster.xp }}</td>
+                <td><a href="{{ path('monster_edit', {"id":monster.id}) }}">Editer</a></td>
+                <td>{{ include('admin/monsters/_delete_monster.html.twig') }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
+    <a href="{{ path("admin") }}">Retour</a>
     
 
 
