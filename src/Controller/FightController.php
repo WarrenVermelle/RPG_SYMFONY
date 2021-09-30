@@ -18,7 +18,7 @@ class FightController extends AbstractController
     /**
      * Undocumented function
      *
-     * @Route("/start", name="start")
+     * @Route("/combat/start", name="start")
      */
     public function start( ChampionRepository $champion, Request $request): Response
     {
@@ -36,7 +36,7 @@ class FightController extends AbstractController
     /**
      * Undocumented function
      *
-     * @Route("/game/combat", name="combat")
+     * @Route("/combat/combat", name="combat")
      * 
      */
     public function combat(ChampionRepository $championRepository, FightService $fight,
@@ -112,7 +112,7 @@ class FightController extends AbstractController
     /**
      * Undocumented function
      *
-     * @Route("game/potioHeal", name="potioHeal")
+     * @Route("/combat/potioHeal", name="potioHeal")
      * 
      */
     public function potioHeal(ChampionRepository $championRepository,
