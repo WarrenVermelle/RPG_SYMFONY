@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MapRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,32 +32,47 @@ class Map
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $map_top;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $map_right;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $map_bottom;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $map_left;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
     private $shop;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $fight;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $marchand;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Map::class, inversedBy="maps")
+     */
+    private $map_top;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Map::class, inversedBy="maps_right")
+     */
+    private $map_right;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Map::class, inversedBy="map_bot")
+     */
+    private $map_bottom;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Map::class, inversedBy="maps")
+     */
+    private $map_left;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Map::class, mappedBy="map_left")
+     */
+    private $maps;
+
+    public function __construct()
+    {
+        $this->maps = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,60 +103,12 @@ class Map
         return $this;
     }
 
-    public function getMapTop(): ?int
-    {
-        return $this->map_top;
-    }
-
-    public function setMapTop(?int $map_top): self
-    {
-        $this->top = $map_top;
-
-        return $this;
-    }
-
-    public function getMapRight(): ?int
-    {
-        return $this->map_right;
-    }
-
-    public function setMapRight(?int $map_right): self
-    {
-        $this->map_right = $map_right;
-
-        return $this;
-    }
-
-    public function getMapBottom(): ?int
-    {
-        return $this->map_bottom;
-    }
-
-    public function setMapBottom(?int $map_bottom): self
-    {
-        $this->map_bottom = $map_bottom;
-
-        return $this;
-    }
-
-    public function getMapLeft(): ?int
-    {
-        return $this->map_left;
-    }
-
-    public function setMapLeft(?int $map_left): self
-    {
-        $this->map_left = $map_left;
-
-        return $this;
-    }
-
-    public function getShop(): ?bool
+    public function getShop(): ?int
     {
         return $this->shop;
     }
 
-    public function setShop(?bool $shop): self
+    public function setShop(?int $shop): self
     {
         $this->shop = $shop;
 
@@ -157,4 +126,95 @@ class Map
 
         return $this;
     }
+
+    public function getMarchand(): ?bool
+    {
+        return $this->marchand;
+    }
+
+    public function setMarchand(?bool $marchand): self
+    {
+        $this->marchand = $marchand;
+
+        return $this;
+    }
+
+    public function getMapTop(): ?self
+    {
+        return $this->map_top;
+    }
+
+    public function setMapTop(?self $map_top): self
+    {
+        $this->map_top = $map_top;
+
+        return $this;
+    }
+
+    public function getMapRight(): ?self
+    {
+        return $this->map_right;
+    }
+
+    public function setMapRight(?self $map_right): self
+    {
+        $this->map_right = $map_right;
+
+        return $this;
+    }
+
+    public function getMapBottom(): ?self
+    {
+        return $this->map_bottom;
+    }
+
+    public function setMapBottom(?self $map_bottom): self
+    {
+        $this->map_bottom = $map_bottom;
+
+        return $this;
+    }
+
+    public function getMapLeft(): ?self
+    {
+        return $this->map_left;
+    }
+
+    public function setMapLeft(?self $map_left): self
+    {
+        $this->map_left = $map_left;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getMaps(): Collection
+    {
+        return $this->maps;
+    }
+
+    public function addMap(self $map): self
+    {
+        if (!$this->maps->contains($map)) {
+            $this->maps[] = $map;
+            $map->setMapLeft($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMap(self $map): self
+    {
+        if ($this->maps->removeElement($map)) {
+            // set the owning side to null (unless already changed)
+            if ($map->getMapLeft() === $this) {
+                $map->setMapLeft(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
