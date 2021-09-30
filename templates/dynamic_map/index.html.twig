@@ -10,7 +10,7 @@
         <div id="flecheTop">
         {% if topfleche %}
             <a href="{{path('dynamic_map', {'id':topfleche.id} ) }}">
-                <img src="{{asset('img/fleche.png')}}" alt="" id="imgfleche">
+                <img src="{{asset('img/fleche.png')}}" alt="" class="imgfleche">
             </a>
             <p> Direction {{topfleche.mapName}}</p>
         {% endif %}
@@ -20,7 +20,7 @@
         <div id="flecheRight">
         {% if rightfleche %}
             <a href="{{path('dynamic_map', {'id':rightfleche.id} ) }}">
-                <img src="{{asset('img/fleche.png')}}" alt="" id="imgfleche">
+                <img src="{{asset('img/fleche.png')}}" alt="" class="imgfleche">
             </a>
             <p> Direction {{rightfleche.mapName}}</p>
         {% endif %}
@@ -32,7 +32,7 @@
         {% if bottomfleche %}
             <p> Direction {{bottomfleche.mapName}}</p>
             <a href="{{path('dynamic_map', {'id':bottomfleche.id} ) }}">
-                <img src="{{asset('img/fleche.png')}}" alt="" id="imgfleche">
+                <img src="{{asset('img/fleche.png')}}" alt="" class="imgfleche">
             </a>
         {% endif %}
         </div>
@@ -41,7 +41,7 @@
         <div id="flecheLeft">
         {% if leftfleche %}
             <a href="{{path('dynamic_map', {'id':leftfleche.id} ) }}">
-                <img src="{{asset('img/fleche.png')}}" alt="" id="imgfleche">
+                <img src="{{asset('img/fleche.png')}}" alt="" class="imgfleche">
             </a>
             <p> Direction {{leftfleche.mapName}}</p>
         {% endif %}
