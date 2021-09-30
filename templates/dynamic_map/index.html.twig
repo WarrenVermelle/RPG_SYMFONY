@@ -7,49 +7,56 @@
     <div id="backgroundMap" style="background-image: url({{ asset(img)}});">
 
         {# div qui va injecter la fleche du haut #}
-        {% if topfleche %}
+        
         <div id="flecheTop">
-            <a href="{{path('dynamic_map', {'id':topfleche} ) }}">
-                <img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheht">
-            </a>
-            <p> Direction {{topfleche}}</p>
+            {% if topfleche %}
+                <a href="{{path('dynamic_map', {'id':topfleche} ) }}">
+                    <img src="{{asset('img/fleche.png')}}" alt="" class="imgfleche">
+                </a>
+                <p> Direction {{topfleche}}</p>
+            {% endif %}
         </div>
-        {% endif %}
+        
 
         {# div qui va injecter la fleche de droite #}
-        {% if rightfleche %}
+        
         <div id="flecheRight">
-            <a href="{{path('dynamic_map', {'id':rightfleche} ) }}">
-                <img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheRt">
-            </a>
-            <p> Direction {{rightfleche}}</p>
+            {% if rightfleche %}
+                <a href="{{path('dynamic_map', {'id':rightfleche} ) }}">
+                    <img src="{{asset('img/fleche.png')}}" alt="" class="imgfleche">
+                </a>
+                <p> Direction {{rightfleche}}</p>
+            {% endif %}
         </div>
-        {% endif %}
+        
 
         {# div qui va injecter la fleche du bas #}
-        {% if bottomfleche %}
+        
         <div id="flecheBottom">
-            <p> Direction {{bottomfleche}}</p>
-            <a href="{{path('dynamic_map', {'id':bottomfleche} ) }}">
-                <img src="{{asset('img/fleche.png')}}" alt="" id="imgflechep">
-            </a>
+            {% if bottomfleche %}
+                <p> Direction {{bottomfleche}}</p>
+                <a href="{{path('dynamic_map', {'id':bottomfleche} ) }}">
+                    <img src="{{asset('img/fleche.png')}}" alt="" class="imgfleche">
+                </a>
+            {% endif %}
         </div>
-        {% endif %}
+        
         {# div qui va injecter la fleche de gauche #}
-        {% if leftfleche %}
         <div id="flecheLeft">
-            <a href="{{path('dynamic_map', {'id':leftfleche} ) }}">
-                <img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheLt">
-            </a>
-            <p> Direction {{leftfleche}}</p>
+            {% if leftfleche %}
+                <a href="{{path('dynamic_map', {'id':leftfleche} ) }}">
+                    <img src="{{asset('img/fleche.png')}}" alt="" class="imgfleche">
+                </a>
+                <p> Direction {{leftfleche}}</p>
+            {% endif %}
         </div>
-        {% endif %}
+        
 
         {# div qui va injecter l'icone de la boutique si il y en a une #}
         {% if  shop %}
         <div id="shop">
             <a href="{{path('dynamic_map', {'id':shop})}}">
-                <img src="{{asset('img/pancarteboutique.png')}}" alt="" id="iconeboutique">
+                <img src="{{asset('img/pancarteboutique.png')}}" alt="">
             </a>
         </div>
         {% endif %}
@@ -66,7 +73,7 @@
         {% if  marchand %}
         <div id="marchand">
             <a href="{{path('achat_vente')}}">
-                <img src="{{asset('img/Marchant.png')}}" alt="" id="imgmarchant">
+                <img src="{{asset('img/Marchant.png')}}" alt="">
             </a>
         </div>
         {% endif %}
