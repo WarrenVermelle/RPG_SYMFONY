@@ -7,43 +7,45 @@
     <div id="backgroundMap" style="background-image: url({{ asset(img)}});">
 
         {# div qui va injecter la fleche du haut #}
-        {% if topfleche %}
         <div id="flecheTop">
-            <a href="{{path('dynamic_map', {'id':topfleche} ) }}">
+        {% if topfleche %}
+            <a href="{{path('dynamic_map', {'id':topfleche.id} ) }}">
                 <img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheht">
             </a>
-            <p> Direction {{topfleche}}</p>
-        </div>
+            <p> Direction {{topfleche.mapName}}</p>
         {% endif %}
+        </div>
 
         {# div qui va injecter la fleche de droite #}
-        {% if rightfleche %}
         <div id="flecheRight">
-            <a href="{{path('dynamic_map', {'id':rightfleche} ) }}">
+        {% if rightfleche %}
+            <a href="{{path('dynamic_map', {'id':rightfleche.id} ) }}">
                 <img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheRt">
             </a>
-            <p> Direction {{rightfleche}}</p>
-        </div>
+            <p> Direction {{rightfleche.mapName}}</p>
         {% endif %}
+        </div>
 
         {# div qui va injecter la fleche du bas #}
-        {% if bottomfleche %}
+        
         <div id="flecheBottom">
-            <p> Direction {{bottomfleche}}</p>
-            <a href="{{path('dynamic_map', {'id':bottomfleche} ) }}">
+        {% if bottomfleche %}
+            <p> Direction {{bottomfleche.mapName}}</p>
+            <a href="{{path('dynamic_map', {'id':bottomfleche.id} ) }}">
                 <img src="{{asset('img/fleche.png')}}" alt="" id="imgflechep">
             </a>
-        </div>
         {% endif %}
+        </div>
+
         {# div qui va injecter la fleche de gauche #}
-        {% if leftfleche %}
         <div id="flecheLeft">
-            <a href="{{path('dynamic_map', {'id':leftfleche} ) }}">
+        {% if leftfleche %}
+            <a href="{{path('dynamic_map', {'id':leftfleche.id} ) }}">
                 <img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheLt">
             </a>
-            <p> Direction {{leftfleche}}</p>
-        </div>
+            <p> Direction {{leftfleche.mapName}}</p>
         {% endif %}
+        </div>
 
         {# div qui va injecter l'icone de la boutique si il y en a une #}
         {% if  shop %}

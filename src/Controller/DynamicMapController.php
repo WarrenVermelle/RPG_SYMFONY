@@ -18,7 +18,7 @@ class DynamicMapController extends AbstractController
     {
         $monsters = $monsterRepo->findAll();
         $request->getSession()->set('monster', $monsters[rand(0,count($monsters)-1)]);
-        
+
         $mapSelect = $mapRepo->findOneBy(["id" => $id]);
         return $this->render('dynamic_map/index.html.twig', [
             'champion' => $ChampionRepo->findOneBy([
