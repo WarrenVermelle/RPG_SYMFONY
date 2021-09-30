@@ -39,31 +39,37 @@ class FightController extends AbstractController
      * @Route("/game/combat", name="combat")
      * 
      */
-    public function combat(ChampionRepository $championRepository, 
-                           FightService $fight, 
-                           UrlGeneratorInterface $generator, 
-                           Request $request): Response
+    public function combat(ChampionRepository $championRepository, FightService $fight,
+                        UrlGeneratorInterface $generator, Request $request): Response
     {   
-        $session = $request->getSession();
-        $monster = $session->get('monster');
-        
+
+        $monster = $request->getSession()->get('monster');
+        //dd($request->getSession()->get('monster'));
         $champion = $championRepository->findOneBy([
             'player' => $this->getUser(),
-            'actif' => true
-        ]);
+            'actif' => true]);
         //mise a jour des hp du monstre
-        $session->set('monster', $fight->atkChamp($champion, $monster));
-        //mise à jour des hp du champion
-        $fight->atkMonster($champion, $monster);
+        $updateHpMonster = $fight->atkChamp($champion, $monster);
+        //mise a jour des hp du champion
+        $updateHpChamp = $fight->atkMonster($champion, $monster);
 
-        if($champion->getHp() <= 0)
-        {
-            $champion->setHp(1);
+        if ($champion->getHp() <= 0 ) {
+            // $monsterReset = $monster->getHpMax();
+            // $monster->setHp($monsterReset);
+            // $manager = $this->getDoctrine()->getManager();
+            
+            
+            $monsterReset = $monster->getHpMax();
+            $monster->setHp($monsterReset);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($monster);
+            $manager->flush();
+
             return new JsonResponse($generator->generate('ville'));
         }
 
         //Si les hp du monstre tombe a 0
-        if ($monster->getHp() <= 0) {
+        if ( $monster->getHp() <= 0) {
             
             //alors le champion obtient son xp
             $fight->xpWin($champion,$monster);
@@ -71,17 +77,23 @@ class FightController extends AbstractController
             $fight->goldWin($champion,$monster);
 
             $levelUp = $champion->getLevel() * 100;
-
             //si l'xp total du champion est égale au level du champion fois 100
+            $monsterReset = $monster->getHpMax();
+            $monster->setHp($monsterReset);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($monster);
+            $manager->flush();
+
             if ($champion->getXp() >= $levelUp) {
                 //alors on execute la fonction levelUp
                 $fight->levelUp($champion);
                 //et on remet à 0 l'xp du champion
                 $fight->xpReset($champion);
             }
+            
+
         return new JsonResponse($generator->generate('forest'));
         }
-
         //je récupère le calcul d'xp max avec le level du champion
         $levelUp = $champion->getLevel() * 100;
         //si l'xp total du champion est égale au level du champion fois 100
@@ -89,8 +101,6 @@ class FightController extends AbstractController
             //alors on execute la fonction levelUp
             $fight->levelUp($champion);
             //et on remet à 0 l'xp du champion
-            $champion->setHp($champion->getMaxHp());
-            $champion->setMp($champion->getMaxMp());
             $fight->xpReset($champion);
         }
         
