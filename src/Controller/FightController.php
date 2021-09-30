@@ -76,6 +76,8 @@ class FightController extends AbstractController
             if ($champion->getXp() >= $levelUp) {
                 //alors on execute la fonction levelUp
                 $fight->levelUp($champion);
+                $champion->setHp($champion->getMaxHp());
+                $champion->setMp($champion->getMaxMp());
                 //et on remet à 0 l'xp du champion
                 $fight->xpReset($champion);
             }
