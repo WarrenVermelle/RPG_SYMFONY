@@ -13,7 +13,6 @@ export default class extends Controller
         let btn = this.element.querySelector('button');
         let path = btn.getAttribute('data-start');
         await fetch(path).then((response)=>{
-            
             return response.text()
         }).then((text)=>{
             let parser = new DOMParser();

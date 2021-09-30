@@ -16,7 +16,7 @@ export default class extends Controller
     
     disableinventaire()
     {
-        if (window.location.pathname == '/game/voyage/forest' ){
+        if (window.location.pathname == '/game/voyage/4' ){
             setTimeout(()=>{
                 this.element.innerHTML = ""
             },
@@ -38,11 +38,11 @@ export default class extends Controller
             document.querySelector('#insertpopup').innerHTML = text
         })
 
-        if ( window.location.pathname == '/game/voyage/forest'){
+        if ( window.location.pathname == '/game/voyage/4'){
             
             let btn = this.element.querySelector('a.equip');
             let path = btn.getAttribute('data-potion');
-            console.log(path)
+
             if (localStorage.getItem('cbtStart')  == "true"){
                 
                 await fetch(path).then((response)=>{

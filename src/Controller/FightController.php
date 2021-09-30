@@ -65,7 +65,7 @@ class FightController extends AbstractController
             $manager->persist($champion);
             $manager->flush();
             // renvoi à la ville
-            return new JsonResponse($generator->generate('ville'));
+            return new JsonResponse($generator->generate('dynamic_map', ['id' => 1]));
         }
 
         // base de la prise de niveau
@@ -88,7 +88,7 @@ class FightController extends AbstractController
                 $fight->xpReset($champion);
             }
             // renvoi à la forêt après le combat
-            return new JsonResponse($generator->generate('forest'));
+            return new JsonResponse($generator->generate('dynamic_map', ['id' => 4]));
         }
 
         // si l'xp totale du champion est égale à la base de prise de niveau
