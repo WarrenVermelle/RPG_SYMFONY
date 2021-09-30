@@ -16,11 +16,11 @@ class AchatVenteController extends AbstractController
     #[Route('/achatvente', name: 'achat_vente')]
     public function achatvente(ChampionRepository $ChampionRepo): Response
     {
-        $Player = $ChampionRepo->findOneBy(["player" => $this -> getUser()]);
+        $Player = $ChampionRepo->findOneBy(["player" => $this -> getUser(),'actif' => true]);
         $InventPlayer = $Player->getInventories()->getValues();
         $marchand = $ChampionRepo->find(2);
         $InventMarchand = $marchand->getInventories()->getValues();
-         $gold = $Player->getGold();
+        $gold = $Player->getGold();
         
 
         return $this->render('achat_vente/index.html.twig',[
@@ -40,7 +40,7 @@ class AchatVenteController extends AbstractController
      */
     public function achat(Inventory $item, ChampionRepository $champ)
     {
-        $champion = $champ ->findOneBy(["player" => $this -> getUser()]);
+        $champion = $champ ->findOneBy(["player" => $this -> getUser(),'actif' => true]);
 
         $manager = $this->getDoctrine()->getManager();
 
@@ -61,10 +61,9 @@ class AchatVenteController extends AbstractController
      */
     public function vente(Inventory $item, ChampionRepository $champ)
     {
-        $champion = $champ ->findOneBy(["player" => $this -> getUser()]);
+        $champion = $champ ->findOneBy(["player" => $this -> getUser(),'actif' => true]);
 
         $manager = $this->getDoctrine()->getManager();
-        // dd($champion, $manager, $item);
         $champion->setGold($champion->getGold() + $item->getItem()->getPrice()/2);
         $champion -> removeInventory($item, $manager);
         $manager-> persist($champion);

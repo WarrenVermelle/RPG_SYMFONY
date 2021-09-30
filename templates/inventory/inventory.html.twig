@@ -38,7 +38,12 @@
                 </div>
             </div>   
             {% endfor %}
-            <div id="goldinventpopup"><img src="{{asset('img/or.png')}}" id="imgarme">Gold : {{inventory[0].champ.gold}}</div>
+            {% if inventory %}
+                <div id="goldinventpopup"><img src="{{asset('img/or.png')}}" id="imgarme">Gold : {{inventory[0].champ.gold}}</div>
+            {% else %}
+                <div></div>
+            {% endif %}
+
         </div>
         
     </div>

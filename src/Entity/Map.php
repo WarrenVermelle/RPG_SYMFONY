@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MapRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,7 +50,7 @@ class Map
     private $map_left;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $shop;
 
@@ -56,6 +58,12 @@ class Map
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $fight;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $marchand;
+
 
     public function getId(): ?int
     {
@@ -134,12 +142,12 @@ class Map
         return $this;
     }
 
-    public function getShop(): ?bool
+    public function getShop(): ?int
     {
         return $this->shop;
     }
 
-    public function setShop(?bool $shop): self
+    public function setShop(?int $shop): self
     {
         $this->shop = $shop;
 
@@ -157,4 +165,17 @@ class Map
 
         return $this;
     }
+
+    public function getMarchand(): ?bool
+    {
+        return $this->marchand;
+    }
+
+    public function setMarchand(?bool $marchand): self
+    {
+        $this->marchand = $marchand;
+
+        return $this;
+    }
+
 }
