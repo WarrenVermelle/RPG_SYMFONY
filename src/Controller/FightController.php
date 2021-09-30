@@ -116,6 +116,7 @@ class FightController extends AbstractController
      * 
      */
     public function potioHeal(ChampionRepository $championRepository,
+                              FightService $fight,
                               UrlGeneratorInterface $generator, 
                               Request $request): Response
     {
@@ -126,6 +127,7 @@ class FightController extends AbstractController
             'player' => $this->getUser(),
             'actif' => true]);
 
+        $fight->atkMonster($champion, $monster);
         // si les pv du champion tombent à 0 ou moins
         if ($champion->getHp() <= 0 ) {
             $manager = $this->getDoctrine()->getManager();
