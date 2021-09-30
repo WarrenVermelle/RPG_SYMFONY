@@ -34,11 +34,16 @@
                     <div>not equiped</div>
                 {% endif %}
                 <div>
-                    <a href="#" class="equip" data-action="click->inventaire#equip click->inventaire#disableinventaire click->inventaire#potionHeal" data-potion="{{path('potioHeal')}}" data-start="{{ path('equip_item', {"id":item.id} ) }}">{{item.equiped ? 'unequip' : 'equip'}}</a>
+                    <a href="#" class="equip" data-action="click->inventaire#equip click->inventaire#disableinventaire" data-potion="{{path('potioHeal')}}" data-start="{{ path('equip_item', {"id":item.id} ) }}">{{item.equiped ? 'unequip' : 'equip'}}</a>
                 </div>
             </div>   
             {% endfor %}
-            <div id="goldinventpopup"><img src="{{asset('img/or.png')}}" id="imgarme">Gold : {{inventory[0].champ.gold}}</div>
+            {% if inventory %}
+                <div id="goldinventpopup"><img src="{{asset('img/or.png')}}" id="imgarme">Gold : {{inventory[0].champ.gold}}</div>
+            {% else %}
+                <div></div>
+            {% endif %}
+
         </div>
         
     </div>
