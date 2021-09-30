@@ -22,7 +22,7 @@ class FightController extends AbstractController
      */
     public function start( ChampionRepository $champion, Request $request): Response
     {
-        
+
         return $this->render('fight/fightStart.html.twig',[
             
             'monster' => $request->getSession()->get('monster'),
@@ -30,7 +30,7 @@ class FightController extends AbstractController
                 'player' => $this->getUser(),
                 'actif' => true])
         ]);
-        
+
     }
 
     /**
@@ -44,55 +44,63 @@ class FightController extends AbstractController
                            UrlGeneratorInterface $generator, 
                            Request $request): Response
     {   
+        // prend le monstre stocké dans la session
         $session = $request->getSession();
         $monster = $session->get('monster');
-        
+        // prend le champion actif
         $champion = $championRepository->findOneBy([
             'player' => $this->getUser(),
             'actif' => true
         ]);
-        //mise a jour des hp du monstre
+
+        // met a jour les pv du monstre après l'attaque du champion (session)
         $session->set('monster', $fight->atkChamp($champion, $monster));
-        //mise à jour des hp du champion
+        // met à jour les pv du champion après l'attaque du monstre (bdd)
         $fight->atkMonster($champion, $monster);
 
+        // si les pv du champion tombent à 0 ou moins
         if($champion->getHp() <= 0)
         {
+            $manager = $this->getDoctrine()->getManager();
+            // remet les pv à 1
             $champion->setHp(1);
+            $manager->persist($champion);
+            $manager->flush();
+            // renvoi à la ville
             return new JsonResponse($generator->generate('ville'));
         }
 
-        //Si les hp du monstre tombe a 0
+        // base de la prise de niveau
+        $levelUp = $champion->getLevel() * 100;
+
+        // si les pv du monstre tombent à 0
         if ($monster->getHp() <= 0) {
-            
-            //alors le champion obtient son xp
+            // le champion obtient son xp
             $fight->xpWin($champion,$monster);
-            //et son or
+            // le champion obtient son or
             $fight->goldWin($champion,$monster);
-
-            $levelUp = $champion->getLevel() * 100;
-
-            //si l'xp total du champion est égale au level du champion fois 100
+            // si l'xp total du champion est supérieure ou égale à la base de prise de niveau
             if ($champion->getXp() >= $levelUp) {
-                //alors on execute la fonction levelUp
+                // alors on execute la fonction levelUp
                 $fight->levelUp($champion);
+                // remet les pv et pm au max
                 $champion->setHp($champion->getMaxHp());
                 $champion->setMp($champion->getMaxMp());
-                //et on remet à 0 l'xp du champion
+                // remet à 0 l'xp du champion
                 $fight->xpReset($champion);
             }
-        return new JsonResponse($generator->generate('forest'));
+            // renvoi à la forêt après le combat
+            return new JsonResponse($generator->generate('forest'));
         }
 
-        //je récupère le calcul d'xp max avec le level du champion
-        $levelUp = $champion->getLevel() * 100;
-        //si l'xp total du champion est égale au level du champion fois 100
+        // si l'xp totale du champion est égale à la base de prise de niveau
         if ($champion->getXp() === $levelUp) {
-            //alors on execute la fonction levelUp
+            // alors on execute la fonction levelUp
             $fight->levelUp($champion);
-            //et on remet à 0 l'xp du champion
+            // remet les pv et pm au max
             $champion->setHp($champion->getMaxHp());
             $champion->setMp($champion->getMaxMp());
+            // remet à 0 l'xp du champion
             $fight->xpReset($champion);
         }
         
@@ -109,83 +117,27 @@ class FightController extends AbstractController
      * @Route("game/potioHeal", name="potioHeal")
      * 
      */
-    public function potioHeal(
-        ChampionRepository $championRepository,
-        FightService $fight, UrlGeneratorInterface $generator, Request $request): Response
+    public function potioHeal(ChampionRepository $championRepository,
+                              UrlGeneratorInterface $generator, 
+                              Request $request): Response
     {
-
-
-
-        $manager = $this->getDoctrine()->getManager();
+        // prend le monstre stocké dans la session
         $monster = $request->getSession()->get('monster');
-        $inventory = $request->getSession()->get('inventory');
-        //dump($inventory);
-
-        $item = $request->getSession()->get('Item');
-
+        // prend le champion actif
         $champion = $championRepository->findOneBy([
             'player' => $this->getUser(),
             'actif' => true]);
-        
-        //$champion->removeInventory($item, $manager);
-        
-        //$champion->setHp($champion->getHp() + $item->getHp());
 
-
-        // //mise a jour des hp du champion
-         $updateHpChamp = $fight->atkMonster($champion, $monster);
-
-        //mise a jour des hp du monstre
-        //$updateHpMonster = $fight->atkChamp($champion, $monster);
-        
-
+        // si les pv du champion tombent à 0 ou moins
         if ($champion->getHp() <= 0 ) {
-            $monsterReset = $monster->getHpMax();
-            $monster->setHp($monsterReset);
-            
-           
-
-            $monsterReset = $monster->getHpMax();
-            $monster->setHp($monsterReset);
             $manager = $this->getDoctrine()->getManager();
-            $manager->persist($monster);
+            // remet les pv à 1
+            $champion->setHp(1);
+            $manager->persist($champion);
             $manager->flush();
-
+            // renvoi à la ville
             return new JsonResponse($generator->generate('ville'));
         }
-
-        //Si les hp du monstre tombe a 0
-        if ( $monster->getHp() <= 0) {
-            
-            //alors le champion obtient son xp
-            $fight->xpWin($champion,$monster);
-            //et son or
-            $fight->goldWin($champion,$monster);
-
-            $levelUp = $champion->getLevel() * 100;
-            //si l'xp total du champion est égale au level du champion fois 100
-            $monsterReset = $monster->getHpMax();
-            $monster->setHp($monsterReset);
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($monster);
-            $manager->flush();
-    
-            if ($champion->getXp() >= $levelUp) {
-                //alors on execute la fonction levelUp
-                $fight->levelUp($champion);
-                //et on remet à 0 l'xp du champion
-                $fight->xpReset($champion);
-            }
-            
-
-        return new JsonResponse($generator->generate('forest'));
-            
-            
-        }
-
-        
-        
-    
         
         return $this->render('fight/fightStart.html.twig',[
             'monster' => $monster,
