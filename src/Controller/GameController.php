@@ -30,7 +30,7 @@ class GameController extends AbstractController
             $manager->flush();           
         }        
 
-        return $this->redirectToRoute('ville');
+        return $this->redirectToRoute('game/voyage/{1}');
     }
 
     #[Route('/sleep/{id}', name: 'sleep')]
