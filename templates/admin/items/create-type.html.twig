@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création de personnage{% endblock %}
+
+{% block body %}
+<div id="">
+    <h1 id="titremoncompte">Créer un nouveau type</h1>
+
+    <div id="">
+        {{ form_start(formType ) }}
+                {{ form_row(formType.type , {
+                    label: 'Type : '
+                }) }}
+                <button type="submit" class="btn" id="">Créez !</button>
+        {{ form_end(formType) }}
+    </div>
+    <a href="{{ path("admin_items_listItems") }}">Retour</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Editer le monstre{% endblock %}
+
+{% block body %}
+<div id="">
+    <h1 id="titremoncompte">Créer new monster</h1>
+
+    <div id="">
+        {{ form_start(formMonster ) }}
+                {{ form_row(formMonster.monster , {
+                    label: 'Monster : '
+                }) }}
+                {{ form_row(formMonster.level , {
+                    label: 'Level : '
+                }) }}
+                {{ form_row(formMonster.hp, {
+                    label: 'HP : '
+                }) }}
+                {{ form_row(formMonster.hpMax, {
+                    label: 'hpMax : ' 
+                }) }}
+                {{ form_row(formMonster.mp, {
+                    label: 'MP : ' 
+                }) }}
+                {{ form_row(formMonster.intel, {
+                    label: 'Intel : ' 
+                }) }}
+                {{ form_row(formMonster.strength, {
+                    label: 'Strength : ' 
+                }) }}
+                {{ form_row(formMonster.agi, {
+                    label: 'Agi : ' 
+                }) }}
+                {{ form_row(formMonster.gold, {
+                    label: 'Gold : ' 
+                }) }}
+                {{ form_row(formMonster.xp, {
+                    label: 'XP : ' 
+                }) }}
+                <button type="submit" class="btn" id="">Editer</button>
+        {{ form_end(formMonster) }}
+    </div>
+</div>
+
+{% endblock %}

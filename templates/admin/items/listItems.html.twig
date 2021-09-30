@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des types et des objets{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des Types d'objets</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Suppression</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type in types %}
+            <tr>
+                <td>{{ type.id }}</td>
+                <td>{{ type.type }}</td>
+                <td>{{ include('admin/items/_delete_type.html.twig') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h2><a href="{{ path("admin_items_createType") }}">Créer un nouveau type</a></h2>
+    <h1>Liste des Objets</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Item</th>
+                <th>Img</th>
+                <th>HP</th>
+                <th>MP</th>
+                <th>Intel</th>
+                <th>Force</th>
+                <th>Agi</th>
+                <th>Type</th>
+                <th>Prix</th>
+                <th>Editer</th>
+                <th>Suppression</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.item }}</td>
+                <td>{{ item.img }}</td>
+                <td>{{ item.hp }}</td>
+                <td>{{ item.mp }}</td>
+                <td>{{ item.intel }}</td>
+                <td>{{ item.strength }}</td>
+                <td>{{ item.agi }}</td>
+                <td>{{ item.type }}</td>
+                <td>{{ item.price }}</td>
+                <td>Edit</td>
+                <td>{{ include('admin/items/_delete_item.html.twig') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h2><a href="{{ path("admin_items_createItem") }}">Créer un nouvel objet</a></h2>
+    <a href="{{ path("admin") }}">Retour</a>
+{% endblock %}
