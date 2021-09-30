@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création de faction{% endblock %}
+
+{% block body %}
+<div id="">
+    <h1 id="titremoncompte">Créer nouvelle faction</h1>
+
+    <div id="">
+        {{ form_start(formFaction) }}
+                {{ form_widget(formFaction) }}
+                <button type="submit" class="btn" id="">Créez !</button>
+        {{ form_end(formFaction) }}
+    </div>
+</div>
+
+{% endblock %}

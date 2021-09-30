@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Faction;
 use App\Entity\Item;
 use App\Entity\Monster;
 use App\Entity\Type;
 use App\Entity\User;
+use App\Form\CreateFactionType;
 use App\Form\CreateItemType;
 use App\Form\CreateMonsterType;
 use App\Form\CreateTypeType;
+use App\Repository\FactionRepository;
 use App\Repository\ItemRepository;
 use App\Repository\MonsterRepository;
 use App\Repository\TypeRepository;
@@ -185,6 +188,51 @@ class AdminController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_items_listItems', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+
+//============================== Block Faction =============================
+    #[Route('/listfaction', name: 'admin_listFaction')]
+    public function listFactions(FactionRepository $factionRepository): Response
+    {
+        return $this->render('admin/faction/listFactions.html.twig', [
+            "factions" => $factionRepository->findAll()
+        ]);
+    }
+
+    #[Route('/createFaction', name: 'admin_createFaction')]
+    public function createFaction(Request $request):Response
+    {
+        
+        $faction = new Faction();
+        $form = $this->createForm(CreateFactionType::class, $faction);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) 
+        {   
+            // dd($form);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($faction);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_listFaction');
+        }
+
+        return $this->render('admin/faction/create-faction.html.twig', ['formFaction' => $form->createView()]);
+    }
+
+
+    #[Route('/faction/delete/{id}', name: 'faction_delete', methods: ['POST'])]
+    public function deleteFaction(Request $request, Faction $faction): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$faction->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($faction);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('admin_listFaction', [], Response::HTTP_SEE_OTHER);
     }
 
 }

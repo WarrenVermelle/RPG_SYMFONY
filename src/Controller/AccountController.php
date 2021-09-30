@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Champion;
+use App\Entity\Faction;
 use App\Entity\User;
 use App\Form\CreatePersoType;
+use App\Repository\FactionRepository;
 use App\Service\CreatePersoService;
+use App\Service\ChampionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,11 +19,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountController extends AbstractController
 {
     #[Route('/', name: 'account_index')]
-    public function accountIndex(): Response
+    public function accountIndex(ChampionService $service): Response
     {
+        $champions = $this->getUser()->getChampions()->getValues();
+        foreach ($champions as $champion) {
+           $champion->setCurrentImage($service->getTrueImgProperty($champion));
+        }
         return $this->render("account/index.html.twig", 
             [
-                "champions" => $this->getUser()->getChampions()->getValues()
+                "champions" => $champions
             ]);
     }
 
@@ -33,6 +40,7 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) 
         {
+
             $champion->setPlayer($this->getUser());
             $service->fillChampObj($champion);
             $manager = $this->getDoctrine()->getManager();
