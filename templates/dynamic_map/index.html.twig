@@ -1,18 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MapController!{% endblock %}
+{% block title %} {{name}} {% endblock %}
 
 {% block body %}
 
-    <div id="backgroungMap" style="background-image: url()">
+    <div id="backgroundMap" style="background-image: url({{ asset(img)}});">
 
-        <div id="flecheTop"></div>
-        <div id="flecheRight"></div>
-        <div id="flecheBottom"></div>
-        <div id="flecheLeft"></div>
+        {# div qui va injecter la fleche du haut #}
+        {% if topfleche %}
+        <div id="flecheTop">
+            <a href="{{path('dynamic_map', {'id':topfleche} ) }}">
+                <img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheht">
+            </a>
+            <p> Direction {{topfleche}}</p>
+        </div>
+        {% endif %}
 
-        <div id="shop"></div>
-        <div id="fight"></div>
+        {# div qui va injecter la fleche de droite #}
+        {% if rightfleche %}
+        <div id="flecheRight">
+            <a href="{{path('dynamic_map', {'id':rightfleche} ) }}">
+                <img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheRt">
+            </a>
+            <p> Direction {{rightfleche}}</p>
+        </div>
+        {% endif %}
 
+        {# div qui va injecter la fleche du bas #}
+        {% if bottomfleche %}
+        <div id="flecheBottom">
+            <p> Direction {{bottomfleche}}</p>
+            <a href="{{path('dynamic_map', {'id':bottomfleche} ) }}">
+                <img src="{{asset('img/fleche.png')}}" alt="" id="imgflechep">
+            </a>
+        </div>
+        {% endif %}
+        {# div qui va injecter la fleche de gauche #}
+        {% if leftfleche %}
+        <div id="flecheLeft">
+            <a href="{{path('dynamic_map', {'id':leftfleche} ) }}">
+                <img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheLt">
+            </a>
+            <p> Direction {{leftfleche}}</p>
+        </div>
+        {% endif %}
+
+        {# div qui va injecter l'icone de la boutique si il y en a une #}
+        {% if  shop %}
+        <div id="shop">
+            <a href="{{path('dynamic_map', {'id':shop})}}">
+                <img src="{{asset('img/pancarteboutique.png')}}" alt="" id="iconeboutique">
+            </a>
+        </div>
+        {% endif %}
+
+        {# div qui va injecter la popup de lancement de combat #}
+        {% if  fight %}
+        <div data-controller="combat" id="Combat">
+            <p> {{ monster.monster }} niv {{ monster.level }} apparait </p>
+            <button data-action="click->combat#startCombat"  data-start="{{path('start')}}">Fight</button>
+        </div>
+        {% endif %}
+
+        {# div qui va injecter l'image du marchant qui va lancer la fonction achat vente #}
+        {% if  marchand %}
+        <div id="marchand">
+            <a href="{{path('achat_vente')}}">
+                <img src="{{asset('img/Marchant.png')}}" alt="" id="imgmarchant">
+            </a>
+        </div>
+        {% endif %}
     </div>
+
 {% endblock %}
