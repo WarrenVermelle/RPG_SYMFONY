@@ -10,9 +10,9 @@
         <h3  id="textelisteperso">Liste de mes Champions :</h3>
         <div id="divperso">
         {% for champion in champions %}
-        <div id="fondperso">
+        <div id="fondperso" >
             <div>{{ champion.name }}</div>
-            <table id="affperso">
+            <table id="affperso" style="background-image: url({{ vich_uploader_asset(champion.faction, champion.currentImage) }});">
                 <tbody>
                     <tr>
                         <td>Genre : </td>
