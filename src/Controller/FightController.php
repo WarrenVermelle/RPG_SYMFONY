@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 
-
 use App\Repository\ChampionRepository;
 use App\Service\FightService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +39,7 @@ class FightController extends AbstractController
      * 
      */
     public function combat(ChampionRepository $championRepository, FightService $fight,
-                        UrlGeneratorInterface $generator, Request $request): Response
+                        UrlGeneratorInterface $generator, Request $request,): Response
     {   
         // prend le monstre stocké dans la session
         $session = $request->getSession();
@@ -50,7 +49,7 @@ class FightController extends AbstractController
             'player' => $this->getUser(),
             'actif' => true
         ]);
-
+        
         // met a jour les pv du monstre après l'attaque du champion (session)
         $session->set('monster', $fight->atkChamp($champion, $monster));
         // met à jour les pv du champion après l'attaque du monstre (bdd)
@@ -92,8 +91,9 @@ class FightController extends AbstractController
         }
 
         // si l'xp totale du champion est égale à la base de prise de niveau
-        if ($champion->getXp() === $levelUp) {
+        if ($champion->getXp() >= $levelUp) {
             // alors on execute la fonction levelUp
+            
             $fight->levelUp($champion);
             // remet les pv et pm au max
             $champion->setHp($champion->getMaxHp());
