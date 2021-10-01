@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Champion;
+use App\Entity\Map;
 
 class CreatePersoService
 {

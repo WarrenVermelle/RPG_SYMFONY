@@ -2,20 +2,18 @@
 
 namespace App\Controller;
 
-use App\Repository\ChampionRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CaracteristiqueController extends AbstractController
 {
     #[Route('/caracteristique', name: 'caracteristique')]
-    public function index(ChampionRepository $championRepository): Response
+    public function index(Request $request): Response
     {
         return $this->render('caracteristique/index.html.twig', [
-            'champion'=>$championRepository->findOneBy([
-                'player' => $this->getUser(),
-                'actif' => true])
+            'champion' => $request->getSession()->get('championActif')
         ]);
     }
 }

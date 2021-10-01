@@ -3,10 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Inventory;
-use App\Entity\Item;
 use App\Repository\ChampionRepository;
-use App\Repository\ItemRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,62 +13,57 @@ use Symfony\Component\Routing\Annotation\Route;
 class AchatVenteController extends AbstractController
 {
     #[Route('/achatvente', name: 'achat_vente')]
-    public function achatvente(ChampionRepository $ChampionRepo): Response
+    public function achatvente(Request $request, ChampionRepository $championRepo): Response
     {
-        $Player = $ChampionRepo->findOneBy(["player" => $this -> getUser(),'actif' => true]);
-        $InventPlayer = $Player->getInventories()->getValues();
-        $marchand = $ChampionRepo->find(2);
-        $InventMarchand = $marchand->getInventories()->getValues();
-        $gold = $Player->getGold();
-        
+        // prend le champion dans la session
+        $champion = $request->getSession()->get('championActif');
 
-        return $this->render('achat_vente/index.html.twig',[
-            'champion' => $ChampionRepo->findOneBy([
-                "player" => $this->getUser(),
-                "actif" => true
-            ]), 
+        return $this->render('achat_vente/index.html.twig',
+        [
             'controller_name' => 'AchatVenteController',
-            'InventMarch' => $InventMarchand,
-            'InventPlayer' => $InventPlayer,
-            "affgold" => $gold
+            'champion' => $champion,
+            'InventMarch' => $championRepo->find(2)->getInventories()->getValues(),
+            'InventPlayer' => $champion->getInventories()->getValues(),
+            "affgold" => $champion->getGold()
         ]);
     }
 
-    /**
-     * @Route("/achat/{id}", name="achat")
-     */
-    public function achat(Inventory $item, ChampionRepository $champ)
+    #[Route('/achat/{id}', name:'achat')]
+    public function achat(Request $request, Inventory $item)
     {
-        $champion = $champ ->findOneBy(["player" => $this -> getUser(),'actif' => true]);
+        // prend le champion dans la session
+        $champion = $request->getSession()->get('championActif');
 
-        $manager = $this->getDoctrine()->getManager();
-
-        if($champion->getGold() >= $item->getItem()->getPrice()){
-            $champion -> addInventory($item);
+        if($champion->getGold() >= $item->getItem()->getPrice())
+        {
+            $champion->addInventory($item);
             $champion->setGold($champion->getGold() - $item->getItem()->getPrice());
-            $manager-> persist($champion);
-            $manager -> flush();
-            return $this->redirectToRoute('achat_vente');
-        }else{
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($champion);
+            $manager->flush();
+
             return $this->redirectToRoute('achat_vente');
         }
-
+        else
+        {
+            return $this->redirectToRoute('achat_vente');
+        }
     }
 
-    /**
-     * @Route("/vente/{id}", name="vente")
-     */
-    public function vente(Inventory $item, ChampionRepository $champ)
+    #[Route('/vente/{id}', name:'vente')]
+    public function vente(Request $request, Inventory $item)
     {
-        $champion = $champ ->findOneBy(["player" => $this -> getUser(),'actif' => true]);
+        // prend le champion dans la session
+        $champion = $request->getSession()->get('championActif');
+
+        $champion->setGold($champion->getGold() + $item->getItem()->getPrice()/2);
 
         $manager = $this->getDoctrine()->getManager();
-        $champion->setGold($champion->getGold() + $item->getItem()->getPrice()/2);
-        $champion -> removeInventory($item, $manager);
-        $manager-> persist($champion);
-        $manager -> flush();
+        $champion->removeInventory($item, $manager);
+        $manager->persist($champion);
+        $manager->flush();
 
         return $this->redirectToRoute('achat_vente');
     }
-
 }

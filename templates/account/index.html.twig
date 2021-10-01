@@ -10,64 +10,60 @@
         <h3  id="textelisteperso">Liste de mes Champions :</h3>
         <div id="divperso">
         {% for champion in champions %}
-        <table id="affperso">
-            <thead>
-                <tr>
-                    <th>Pseudo : </th>
-                    <th>{{ champion.name }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Genre : </td>
-                    <td>{{ champion.gender == 0 ? "Femme" : "Homme" }}</td>
-                </tr>
-                <tr>
-                    <td>Race : </td>
-                    <td>{{ champion.race }}</td>
-                </tr>
-                <tr>
-                    <td>Faction : </td>
-                    <td>{{ champion.faction }}</td>
-                </tr>
-                <tr>
-                    <td>Level : </td>
-                    <td>{{ champion.level }}</td>
-                </tr>
-                <tr>
-                    <td>Or : </td>
-                    <td>{{ champion.gold }}</td>
-                </tr>
-                <tr>
-                    <td>Vie : </td>
-                    <td>{{ champion.hp }} / {{ champion.maxhp }}</td>
-                </tr>
-                <tr> 
-                    <td>Mana : </td>
-                    <td>{{ champion.mp }} / {{ champion.maxmp }}</td>
-                </tr>
-                <tr>  
-                    <td>Force : </td>
-                    <td>{{ champion.strength }}</td>
-                </tr>
-                <tr> 
-                    <td>Agilité : </td>
-                    <td>{{ champion.agi }}</td>
-                </tr>
-                <tr> 
-                    <td>Intelligence : </td>
-                    <td>{{ champion.intel }}</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td id="btnjouer"><a href="{{ path("game", {"id":champion.id}) }}" class="btn">Jouer !</a>
-                        {{ include('account/_delete_form.html.twig') }}
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-
+        <div id="fondperso">
+            <div>{{ champion.name }}</div>
+            <table id="affperso">
+                <tbody>
+                    <tr>
+                        <td>Genre : </td>
+                        <td>{{ champion.gender == 0 ? "Femme" : "Homme" }}</td>
+                    </tr>
+                    <tr>
+                        <td>Race : </td>
+                        <td>{{ champion.race }}</td>
+                    </tr>
+                    <tr>
+                        <td>Faction : </td>
+                        <td>{{ champion.faction }}</td>
+                    </tr>
+                    <tr>
+                        <td>Level : </td>
+                        <td>{{ champion.level }}</td>
+                    </tr>
+                    <tr>
+                        <td>Or : </td>
+                        <td>{{ champion.gold }}</td>
+                    </tr>
+                    <tr>
+                        <td>Vie : </td>
+                        <td>{{ champion.hp }} / {{ champion.maxhp }}</td>
+                    </tr>
+                    <tr> 
+                        <td>Mana : </td>
+                        <td>{{ champion.mp }} / {{ champion.maxmp }}</td>
+                    </tr>
+                    <tr>  
+                        <td>Force : </td>
+                        <td>{{ champion.strength }}</td>
+                    </tr>
+                    <tr> 
+                        <td>Agilité : </td>
+                        <td>{{ champion.agi }}</td>
+                    </tr>
+                    <tr> 
+                        <td>Intelligence : </td>
+                        <td>{{ champion.intel }}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td id="btnjouer"><a href="{{ path("game", {"id":champion.id}) }}" class="btn">Jouer !</a>
+                            {{ include('account/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
         {% endfor %}
         </div>
         <h2 id="creaperso"><a href="{{ path("account_create_perso") }}">Créer un nouveau personnage</a></h2>
