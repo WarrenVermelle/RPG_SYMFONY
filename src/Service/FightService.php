@@ -3,7 +3,9 @@
 namespace App\Service;
 
 use App\Entity\Champion;
+use App\Entity\Faction;
 use App\Entity\Monster;
+use App\Entity\Race;
 
 class FightService 
 {
@@ -14,6 +16,7 @@ class FightService
         $this->em = $em;
     }
 
+    
     public function atkChamp(Champion $champion, Monster $monster)
     {
         $monster->setHp($monster->getHp()-($champion->getStrength()/2));
@@ -50,8 +53,19 @@ class FightService
 
     public function levelUp(Champion $champion){
         $champion->setLevel($champion->getLevel() + 1);
+        $champion->setStrength($champion->getStrength() + ($champion->getRace()->getRatioStrength() * $champion->getFaction()->getCoefStrength() * 5));
+        $champion->setAgi($champion->getAgi() + ($champion->getAgi() +($champion->getRace()->getRatioAgi() * $champion->getFaction()->getCoefAgi() * 5)));
+        $champion->setIntel($champion->getIntel() + ($champion->getRace()->getRatioIntel() * $champion->getFaction()->getCoefIntel() * 5));
+        $champion->setHp($champion->getMaxHp() + ($champion->getRace()->getRatioHp() * $champion->getFaction()->getCoefHp() * 5));
+        $championCara = [
+            $champion->getStrength(),
+            $champion->getAgi(),
+            $champion->getIntel(),
+            $champion->getHp()
+        ];
         $this->em->persist($champion);
         $this->em->flush();
+        return $championCara;
     }
 
     public function xpReset(Champion $champion){
