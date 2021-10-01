@@ -5,15 +5,18 @@ namespace App\Controller;
 use App\Entity\Faction;
 use App\Entity\Item;
 use App\Entity\Monster;
+use App\Entity\Race;
 use App\Entity\Type;
 use App\Entity\User;
 use App\Form\CreateFactionType;
 use App\Form\CreateItemType;
 use App\Form\CreateMonsterType;
+use App\Form\CreateRaceType;
 use App\Form\CreateTypeType;
 use App\Repository\FactionRepository;
 use App\Repository\ItemRepository;
 use App\Repository\MonsterRepository;
+use App\Repository\RaceRepository;
 use App\Repository\TypeRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -233,6 +236,49 @@ class AdminController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_listFaction', [], Response::HTTP_SEE_OTHER);
+    }
+
+//========================== Block Race ================================
+
+    #[Route('/listrace', name: 'admin_listRace')]
+    public function listRaces(RaceRepository $raceRepository): Response
+    {
+        return $this->render('admin/race/listRaces.html.twig', [
+            "races" => $raceRepository->findAll()
+        ]);
+    }
+
+    #[Route('/createRace', name: 'admin_createRace')]
+    public function createRace(Request $request):Response
+    {
+        
+        $race = new Race();
+        $form = $this->createForm(CreateRaceType::class, $race);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) 
+        {   
+            // dd($form);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($race);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_listRace');
+        }
+
+        return $this->render('admin/race/create-race.html.twig', ['formRace' => $form->createView()]);
+    }
+
+    #[Route('/race/delete/{id}', name: 'race_delete', methods: ['POST'])]
+    public function deleteRace(Request $request, Race $race): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$race->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($race);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('admin_listRace', [], Response::HTTP_SEE_OTHER);
     }
 
 }

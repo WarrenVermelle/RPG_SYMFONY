@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Champion;
 use App\Entity\Faction;
+use App\Entity\Race;
 use App\Entity\User;
 use App\Form\CreatePersoType;
 use App\Repository\FactionRepository;
@@ -13,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Validator\Constraints\NotNull;
 
 #[Route('/account')]
 class AccountController extends AbstractController
@@ -32,25 +33,35 @@ class AccountController extends AbstractController
     }
 
     #[Route('/creation/character', name: 'account_create_perso')]
-    public function accountCreatePerso(Request $request, CreatePersoService $service): Response
+    public function accountCreatePerso(Request $request, CreatePersoService $service, ChampionService $chpService): Response
     {
+        $manager = $this->getDoctrine()->getManager();
         $champion = new Champion();
         $form = $this->createForm(CreatePersoType::class, $champion);
-        $form->handleRequest($request);
 
+        if(!is_null($champion->getGender()) && !is_null($champion->getRace()))
+        {
+            $champion->setCurrentImage($chpService->getTrueImgProperty($champion));
+        }
+        elseif (!is_null($champion->getGender()) && !is_null($champion->getRace()) && !is_null($champion->getFaction())) {
+            $champion->setCurrentImage($chpService->getTrueImgProperty($champion));
+        }
+
+        $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) 
         {
 
             $champion->setPlayer($this->getUser());
             $service->fillChampObj($champion);
-            $manager = $this->getDoctrine()->getManager();
+            
             $manager->persist($champion);
             $manager->flush();
 
             return $this->redirectToRoute('account_index');
         }
 
-        return $this->render("account/create-perso.html.twig", ['formPerso' => $form->createView()]);
+        return $this->render("account/create-perso.html.twig", ['formPerso' => $form->createView(), 'champion' => $champion]);
     }
 
     #[Route('/champion/delete/{id}', name: 'champion_delete', methods: ['POST'])]
