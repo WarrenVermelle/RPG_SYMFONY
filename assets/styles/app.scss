@@ -110,20 +110,36 @@ h1{
     }
 }
 
-#affperso{
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    align-items: center;
-    background-image: url(../../public/img/elfeguerriere.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: black 1px solid;
-    border-radius: 20px;
-    
-    tbody{
+#fondperso{
+        background-image: url(../../public/img/elfeguerriere.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: black 1px solid;
+        border-radius: 20px;
+        transition: transform 2s;
+    #affperso{
         display: flex;
         flex-direction: column;
+        width: 300px;
+        align-items: center;
+        opacity: 0;      
+        tbody{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    div{
+        text-align: center;
+        font-size: 30px;
+        padding-top: 10px;
+    }
+}
+
+#fondperso:hover{ 
+    background-image: none;
+    background-color: black;
+    #affperso{
+        opacity: 100;
     }
 }
 
