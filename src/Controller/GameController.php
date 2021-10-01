@@ -30,7 +30,7 @@ class GameController extends AbstractController
             $manager->flush();           
         }        
 
-        return $this->redirectToRoute('dynamic_map',['id' => 1]);
+        return $this->redirectToRoute('dynamic_map',['id' => $champion->getPosition()->getId()]);
     }
 
     #[Route('/sleep/{id}', name: 'sleep')]

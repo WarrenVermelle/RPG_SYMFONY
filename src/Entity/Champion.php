@@ -103,6 +103,12 @@ class Champion
      */
     private $max_mp;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Map::class, inversedBy="position")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $position;
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
@@ -245,6 +251,18 @@ class Champion
     public function setMaxMp(int $max_mp): self
     {
         $this->max_mp = $max_mp;
+
+        return $this;
+    }
+
+    public function getPosition(): ?Map
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?Map $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }
