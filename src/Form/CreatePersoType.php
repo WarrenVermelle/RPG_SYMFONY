@@ -3,6 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Champion;
+use App\Entity\Faction;
+use App\Entity\Race;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\Entity;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -30,12 +36,23 @@ class CreatePersoType extends AbstractType
             ])
             ->add('gender', ChoiceType::class, [
                 "choices" => [
+                    "Choisissez votre Genre" => "",
                     "Femme" => 0,
                     "Homme" => 1
                 ]
             ])
-            ->add('race')
-            ->add('faction')
+            ->add('race', EntityType::class,[
+                'placeholder' => 'Choisissez votre Race',
+                'class' => Race::class
+            ])
+            ->add('faction', EntityType::class, [
+                'class' => Faction::class,
+                'placeholder' => 'Choisissez votre Faction',
+                'query_builder' => function(EntityRepository $repo){
+                    return $repo->createQueryBuilder('f')
+                        ->orderBy('f.faction', 'ASC');
+                }
+            ])
         ;
     }
 

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Factions{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des Factions</h1>
+
+    <a href="{{ path("admin_createFaction") }}">Créer une nouvelle faction</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Faction</th>
+                <th>Coef_HP</th>
+                <th>Coef_MP</th>
+                <th>Coef_Intel</th>
+                <th>Coef_Strength</th>
+                <th>Coef_Agi</th>
+                <th>Img_Humain_H</th>
+                <th>Img_Humain_F</th>
+                <th>Img_Elf_H</th>
+                <th>Img_Elf_F</th>
+                <th>Img_Orc_H</th>
+                <th>Img_Orc_F</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+        {% for faction in factions %}
+            <tr>
+                <td>{{ faction.id }}</td>
+                <td>{{ faction.faction }}</td>
+                <td>{{ faction.coefhp }}</td>
+                <td>{{ faction.coefmp }}</td>
+                <td>{{ faction.coefintel }}</td>
+                <td>{{ faction.coefstrength }}</td>
+                <td>{{ faction.coefagi }}</td>
+                <td> <img src="{{ vich_uploader_asset(faction, 'file_humainH') }}"> </td>
+                <td><img src="{{ vich_uploader_asset(faction, 'file_humainF') }}"></td>
+                <td><img src="{{ vich_uploader_asset(faction, 'file_elfH') }}"></td>
+                <td><img src="{{ vich_uploader_asset(faction, 'file_elfF') }}"></td>
+                <td><img src="{{ vich_uploader_asset(faction, 'file_orcH') }}"></td>
+                <td><img src="{{ vich_uploader_asset(faction, 'file_orcF') }}"></td>
+                <td><a href="">Editer</a></td>
+                <td>{{ include('admin/faction/_delete_faction.html.twig') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path("admin") }}">Retour</a>
+    
+
+
+{% endblock %}
+

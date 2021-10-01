@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création de Race{% endblock %}
+
+{% block body %}
+<div id="">
+    <h1 id="titremoncompte">Créer nouvelle Race</h1>
+
+    <div id="">
+        {{ form_start(formRace) }}
+                {{ form_widget(formRace) }}
+                <button type="submit" class="btn" id="">Créez !</button>
+        {{ form_end(formRace) }}
+    </div>
+</div>
+
+{% endblock %}
