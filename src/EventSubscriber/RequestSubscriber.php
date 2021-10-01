@@ -21,7 +21,6 @@ class RequestSubscriber implements EventSubscriberInterface
         $this->em = $em;
     }
     
-
     public static function getSubscribedEvents(): array
     {
         return [
@@ -34,7 +33,7 @@ class RequestSubscriber implements EventSubscriberInterface
         if (str_starts_with($event->getRequest()->getPathInfo() ,'/game' )){
 
             $user = $this->security->getUser();
-            
+
             $champion = $this->em->getRepository(Champion::class)->findOneBy([
                 'player' =>$user,
                 'actif' => true
@@ -48,13 +47,5 @@ class RequestSubscriber implements EventSubscriberInterface
             $request->set('Item', $item);
             $request->set('inventory', $inventory);
         }
-        
-
-        
-
-        
-        
-        
-        
     }
 }
