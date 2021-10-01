@@ -2,6 +2,8 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Champion;
+use App\Entity\Inventory;
+use App\Entity\Item;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -19,7 +21,6 @@ class RequestSubscriber implements EventSubscriberInterface
         $this->em = $em;
     }
     
-
     public static function getSubscribedEvents(): array
     {
         return [
@@ -38,17 +39,15 @@ class RequestSubscriber implements EventSubscriberInterface
                 'actif' => true
             ]);
 
+            $inventory = $this->em->getRepository(Inventory::class)->findOneBy([]);
+            $item = $this->em->getRepository(Item::class)->findOneBy([]);
            
             $request = $event->getRequest()->getSession();
-            $request->set( 'championActif', $champion);
+            $request->set('championActif', $champion);
+            $request->set('Item', $item);
+            $request->set('inventory', $inventory);
+
+            
         }
-        
-
-        
-
-        
-        
-        
-        
     }
 }

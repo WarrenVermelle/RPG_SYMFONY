@@ -6,38 +6,45 @@
         <div><a data-action="click->inventaire#disableinventaire"><img src="{{asset('img/croix.png')}}" class="ferm" id="btnclose"></a></div>
     </div>
 
-<div id="centrepopup">
-<div>
-    <div id="lignetable">
-        <div></div>
-        <div>Item</div>
-        <div>Hp</div>
-        <div>Mp</div>
-        <div>Intel</div>
-        <div>Strength</div>
-        <div>Agility</div>
-        <div>Equiped</div>
-        <div></div>
-    </div>
-    {% for item in inventory %}
-    <div id="lignetable">        
-        <div><img src="{{asset(item.item.img)}}" id="imgarme"></div>
-        <div>{{item.item.item}}</div>
-        <div>{{item.item.hp}}</div>
-        <div>{{item.item.mp}}</div>
-        <div>{{item.item.intel}}</div>
-        <div>{{item.item.strength}}</div> 
-        <div>{{item.item.agi}}</div>
-        {% if item.equiped %}
-            <div>equiped</div>
-        {% else %}
-            <div>not equiped</div>
-        {% endif %}
+    <div id="centrepopup">
         <div>
-            <a href="#" class="equip" data-action="click->inventaire#equip"  data-start="{{ path('equip_item', {"id":item.id} ) }}">{{item.equiped ? 'unequip' : 'equip'}}</a>
+            <div id="lignetable">
+                <div></div>
+                <div>Item</div>
+                <div>Hp</div>
+                <div>Mp</div>
+                <div>Intel</div>
+                <div>Strength</div>
+                <div>Agility</div>
+                <div>Equiped</div>
+                <div></div>
+            </div>
+            {% for item in inventory %}
+            <div id="lignetable">        
+                <div><img src="{{asset(item.item.img)}}" id="imgarme"></div>
+                <div>{{item.item.item}}</div>
+                <div>{{item.item.hp}}</div>
+                <div>{{item.item.mp}}</div>
+                <div>{{item.item.intel}}</div>
+                <div>{{item.item.strength}}</div> 
+                <div>{{item.item.agi}}</div>
+                {% if item.equiped %}
+                    <div>equiped</div>
+                {% else %}
+                    <div>not equiped</div>
+                {% endif %}
+                <div>
+                    <a href="#" class="equip" data-action="click->inventaire#equip click->inventaire#disableinventaire" data-potion="{{path('potioHeal')}}" data-start="{{ path('equip_item', {"id":item.id} ) }}">{{item.equiped ? 'unequip' : 'equip'}}</a>
+                </div>
+            </div>   
+            {% endfor %}
+            {% if inventory %}
+                <div id="goldinventpopup"><img src="{{asset('img/or.png')}}" id="imgarme">Gold : {{inventory[0].champ.gold}}</div>
+            {% else %}
+                <div></div>
+            {% endif %}
+
         </div>
-    </div>   
-    {% endfor %}
-</div>
-</div>
+        
+    </div>
 </div>

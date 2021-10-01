@@ -2,7 +2,9 @@
 
     <div id="insertpopup" id="inventaire" data-controller="inventaire">
     </div>
-    <footer  data-controller="inventaire">
+    <div id="insertpopupcara" data-controller="cara">
+    </div>
+    <footer  data-controller="inventaire , cara">
         <div class="footer-items">
             <div class="footer-stats">
                     <img src="{{asset('img/heart.png')}}" alt="" class="iconestats">
@@ -18,7 +20,7 @@
             <div>
                 <a href="#" data-action="click->inventaire#inventaire"  data-start="{{path('show_inventory')}}"><img src="{{asset('img/inventaire.png')}}" alt="" class="iconefooter" id="btninventaire"></a>
                 <img src="{{asset('img/book.png')}}" alt="" class="iconefooter">
-                <img src="{{asset('img/carac.png')}}" alt="" class="iconefooter">
+                <a href="#" data-action="click->cara#cara"  data-start="{{path('caracteristique')}}" class="acara"><img src="{{asset('img/carac.png')}}" alt="" class="iconefooter"></a>
                 <img src="{{asset('img/carte.png')}}" alt="" class="iconefooter">
             </div>
     </footer>

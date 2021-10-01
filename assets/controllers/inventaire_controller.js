@@ -13,10 +13,21 @@ export default class extends Controller
             document.querySelector('#insertpopup').innerHTML = text
         })
     }
+    
     disableinventaire()
     {
-        this.element.innerHTML = ""
+        if (window.location.pathname == '/game/voyage/4' ){
+            setTimeout(()=>{
+                this.element.innerHTML = ""
+            },
+            2000)
+        }else{
+            this.element.innerHTML = ""
+        }
+        
     }
+
+
     async equip(event)
     {
         let path = event.target.getAttribute('data-start');
@@ -26,5 +37,39 @@ export default class extends Controller
         }).then((text)=>{
             document.querySelector('#insertpopup').innerHTML = text
         })
+
+        if ( window.location.pathname == '/game/voyage/4'){
+            
+            let btn = this.element.querySelector('a.equip');
+            let path = btn.getAttribute('data-potion');
+
+            if (localStorage.getItem('cbtStart')  == "true"){
+                
+                await fetch(path).then((response)=>{
+                
+                    return response.text()
+                }).then((text)=>{
+                    
+                    if(text.startsWith("\"\\")){
+                        
+                        let redirectPath = JSON.parse(text);
+                        window.location.href = redirectPath;
+                    }else{
+                        
+                        let parser = new DOMParser();
+                        let doc = parser.parseFromString(text, 'text/html');
+    
+                        document.querySelector('#startCombat').replaceWith(doc.querySelector('#startCombat'))
+                    }
+                })
+            }else{
+                console.log('coucou')
+            }
+        }else{
+            console.log('Coucou ami dev')
+        }
+
     }
+
+    
 }
