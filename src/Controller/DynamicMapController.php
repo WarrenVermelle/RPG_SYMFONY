@@ -25,6 +25,12 @@ class DynamicMapController extends AbstractController
         $champion = $request->getSession()->get('championActif');
         // map actuelle
         $mapSelect = $mapRepo->findOneBy(["id" => $id]);
+        // stocke la position dans le champion
+        $champion->setPosition($mapSelect);
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($champion);
+        $manager->flush();
 
         return $this->render('dynamic_map/index.html.twig', [
             'champion' => $champion,
