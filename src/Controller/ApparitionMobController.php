@@ -10,15 +10,7 @@ class ApparitionMobController extends AbstractController
 {
     #[Route('/apparition/mob', name: 'apparition_mob')]
     public function apparitionMob(): Response
-    {
-        // $idChamp = $id->findOneBy([
-        //     "player" => $this->getUser()
-        //     //"actif" => true
-        // ]) ;
-
-        // dd($idChamp->getId());
-
-        
+    {   
         return $this->render('apparition_mob/index.html.twig', [
             'controller_name' => 'ApparitionMobController',
         ]);

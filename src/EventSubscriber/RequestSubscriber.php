@@ -33,24 +33,18 @@ class RequestSubscriber implements EventSubscriberInterface
     {
         if (str_starts_with($event->getRequest()->getPathInfo() ,'/game' )){
 
-            
-
-            $item = $this->em->getRepository(Item::class)->findOneBy([
-            
-            ]);
-            
             $user = $this->security->getUser();
+            
             $champion = $this->em->getRepository(Champion::class)->findOneBy([
                 'player' =>$user,
                 'actif' => true
             ]);
 
-            $inventory = $this->em->getRepository(Inventory::class)->findOneBy([
-                // 'champion' => $champion
-            ]);
+            $inventory = $this->em->getRepository(Inventory::class)->findOneBy([]);
+            $item = $this->em->getRepository(Item::class)->findOneBy([]);
            
             $request = $event->getRequest()->getSession();
-            $request->set( 'championActif', $champion);
+            $request->set('championActif', $champion);
             $request->set('Item', $item);
             $request->set('inventory', $inventory);
         }
