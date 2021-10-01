@@ -69,9 +69,15 @@ class Map
      */
     private $maps;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Champion::class, mappedBy="position")
+     */
+    private $position;
+
     public function __construct()
     {
         $this->maps = new ArrayCollection();
+        $this->position = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,6 +217,36 @@ class Map
             // set the owning side to null (unless already changed)
             if ($map->getMapLeft() === $this) {
                 $map->setMapLeft(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Champion[]
+     */
+    public function getPosition(): Collection
+    {
+        return $this->position;
+    }
+
+    public function addPosition(Champion $position): self
+    {
+        if (!$this->position->contains($position)) {
+            $this->position[] = $position;
+            $position->setPosition($this);
+        }
+
+        return $this;
+    }
+
+    public function removePosition(Champion $position): self
+    {
+        if ($this->position->removeElement($position)) {
+            // set the owning side to null (unless already changed)
+            if ($position->getPosition() === $this) {
+                $position->setPosition(null);
             }
         }
 
