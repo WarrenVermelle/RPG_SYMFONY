@@ -3,13 +3,11 @@
 namespace App\Service;
 
 use App\Entity\Champion;
-use App\Entity\Map;
 
 class CreatePersoService
 {
     public function fillChampObj(Champion $champion)
     {
-        $champion->setImg("img");
         $champion->setLevel(1);
         $champion->setGold(1000);
         $champion->setMaxHp(100*$champion->getRace()->getRatioHp()*$champion->getFaction()->getCoefHp());

@@ -46,6 +46,8 @@ class RequestSubscriber implements EventSubscriberInterface
             $request->set('championActif', $champion);
             $request->set('Item', $item);
             $request->set('inventory', $inventory);
+
+            
         }
     }
 }

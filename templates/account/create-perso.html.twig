@@ -21,7 +21,14 @@
                 , {
                     label: 'Faction : ' 
                 }) }}
-                <button type="submit" class="btn" id="subcreapers">Créer</button>
+                {% if champion.gender is not null and champion.race is not null and champion.faction is null %}
+                    <img src="{{ vich_uploader_asset(champion.race, champion.currentImage) }}" alt="">
+                {% endif %}
+                {% if champion.gender is not null and champion.race is not null and champion.faction is not null %}
+                    <img src="{{ vich_uploader_asset(champion.faction, champion.currentImage) }}" alt="">
+                {% endif %}
+
+                <button type="submit" class="btn" id="subcreapers">Créez !</button>
         {{ form_end(formPerso) }}
     </div>
 </div>

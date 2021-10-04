@@ -26,11 +26,6 @@ class Champion
     private $gender;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $img;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $level;
@@ -103,6 +98,8 @@ class Champion
      */
     private $max_mp;
 
+    private $currentImage;
+
     /**
      * @ORM\ManyToOne(targetEntity=Map::class, inversedBy="position")
      * @ORM\JoinColumn(nullable=false)
@@ -114,6 +111,16 @@ class Champion
         $this->inventories = new ArrayCollection();
     }
 
+    public function getCurrentImage(): string
+    {
+        return $this->currentImage;
+    }
+
+    public function setCurrentImage(string $img): self
+    {
+        $this->currentImage = $img;
+        return $this;
+    }
 
     public function getName(): ?string
     {
@@ -135,18 +142,6 @@ class Champion
     public function setGender(int $gender): self
     {
         $this->gender = $gender;
-
-        return $this;
-    }
-
-    public function getImg(): ?string
-    {
-        return $this->img;
-    }
-
-    public function setImg(string $img): self
-    {
-        $this->img = $img;
 
         return $this;
     }

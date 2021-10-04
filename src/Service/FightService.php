@@ -54,7 +54,7 @@ class FightService
     public function levelUp(Champion $champion){
         $champion->setLevel($champion->getLevel() + 1);
         $champion->setStrength($champion->getStrength() + ($champion->getRace()->getRatioStrength() * $champion->getFaction()->getCoefStrength() * 5));
-        $champion->setAgi($champion->getAgi() + ($champion->getAgi() +($champion->getRace()->getRatioAgi() * $champion->getFaction()->getCoefAgi() * 5)));
+        $champion->setAgi($champion->getAgi() + ($champion->getRace()->getRatioAgi() * $champion->getFaction()->getCoefAgi() * 5));
         $champion->setIntel($champion->getIntel() + ($champion->getRace()->getRatioIntel() * $champion->getFaction()->getCoefIntel() * 5));
         $champion->setHp($champion->getMaxHp() + ($champion->getRace()->getRatioHp() * $champion->getFaction()->getCoefHp() * 5));
         $championCara = [
