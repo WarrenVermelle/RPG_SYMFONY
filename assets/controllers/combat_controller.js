@@ -51,7 +51,7 @@ export default class extends Controller
         }).then((text)=>{           
             if(text.startsWith("\"\\")){
                 let redirectPath = JSON.parse(text);
-                
+                localStorage.removeItem('cbtStart')
                 window.location.href = redirectPath;
             }else{
                 let parser = new DOMParser();

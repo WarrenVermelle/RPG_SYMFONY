@@ -136,7 +136,7 @@ class FightController extends AbstractController
             $manager->persist($champion);
             $manager->flush();
             // renvoi à la ville
-            return new JsonResponse($generator->generate('ville'));
+            return new JsonResponse($generator->generate('dynamic_map', ['id' => 4]));
         }
         
         return $this->render('fight/fightStart.html.twig',[
