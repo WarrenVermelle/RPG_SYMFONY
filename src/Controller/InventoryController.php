@@ -32,6 +32,7 @@ class InventoryController extends AbstractController
 
         $equipedList = $request->getSession()->get('equipedList');
         
+
         if($champion->getLevel() >= $clickedInventoryLine->getItem()->getLevel()){
           
         // si élément cliqué n'est pas équipé

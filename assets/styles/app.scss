@@ -3,7 +3,6 @@ body {
     margin: 0;
 }
 
-
 /*-------------------header----------------------*/
 
 header{
@@ -48,7 +47,6 @@ h1{
     justify-content: center;
     align-content: center;
 }
-
 .fondecran{
     background-image: url(../../public/img/fondbase.jpg);
     background-repeat: no-repeat;
@@ -81,7 +79,6 @@ h1{
     }
 }
 
-
 /*------------------ Mon compte------------------------*/
 
 #divperso{
@@ -98,7 +95,6 @@ h1{
     font-size: 50px;
     padding-top: 30px;
 }
-
 #creaperso{
     margin-top: 30px;
     padding-bottom: 5px;
@@ -116,7 +112,6 @@ h1{
         opacity: 0.5;
     }
 }
-
 #pageadm{
     text-align: center;
     font-size: 30px;
@@ -133,32 +128,29 @@ h1{
         opacity: 0.5;
     }
 }
-
-
 #fondperso{
     background-repeat: no-repeat;
     background-size: cover;
     border: black 1px solid;
     border-radius: 20px;
     transition: transform 2s;
-#affperso{
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    align-items: center;
-    opacity: 0;      
-    tbody{
+    #affperso{
         display: flex;
         flex-direction: column;
+        width: 300px;
+        align-items: center;
+        opacity: 0;      
+        tbody{
+        display: flex;
+        flex-direction: column;
+        }
+    }
+    div{
+        text-align: center;
+        font-size: 30px;
+        padding-top: 10px;
     }
 }
-div{
-    text-align: center;
-    font-size: 30px;
-    padding-top: 10px;
-}
-}
-
 #fondperso:hover{ 
     background-image: none !important;
     background-color: black;
@@ -166,7 +158,6 @@ div{
         opacity: 100;
     }
 }
-
 #textelisteperso{
     margin: 30px;
     font-size: 30px;
@@ -383,31 +374,6 @@ div{
     height: 89vh;
 }
 
-// #Combat{
-//     background-color: grey;
-//     width: 25vh;
-//     height: 18vh;
-//     border: 2px black solid;
-//     border-radius: 20px;
-//     p{
-//         font-size: 20px;
-//     }
-//     button{
-//         width: 100px;
-//         height: 40px;
-//         margin-top: 15px;
-//         border-radius: 5px;
-//         border: 1px solid black;
-//         cursor: pointer;
-//     }
-//     button:hover,
-//     button:focus {
-//         box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-//         transform: translateY(-0.40em);
-        
-//     }
-// }
-
 /*---------------page de la boutique------------*/
 
 #marchant{
@@ -421,7 +387,6 @@ div{
     align-content: space-between;
     height: 89vh;
 }
-
 #imgmarchant{
     margin-top: 20vh;
     padding: 10vh;
@@ -433,7 +398,6 @@ div{
     font-size: 20px;
     margin-bottom: -2vh;
 }
-
 
 /*--------------page achat vente----------------*/
 
@@ -484,6 +448,9 @@ div{
     justify-content:space-around;
     border:1px solid grey;
     padding: 1%;
+    div{
+        width: 50px;
+    }
 }
 #sizeintervente{
     height: 600px;
@@ -627,11 +594,9 @@ footer{
     top: -70vh;
     left: 60vh;
 }
-
 #goldinventpopup{
     margin: 5px;
 }
-
  .barre{ 
     padding-top: 1%;
     padding-bottom: 1%;
@@ -641,7 +606,7 @@ footer{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 68vh;
+    width: 80vh;
 }
 .titreinvit{
 margin-left: 10px;
@@ -651,7 +616,6 @@ font-size: 20px;
 width: 15px;
 margin-right: 10px;
 }
-
 #centrepopup{
 height: 400px;
 display: flex;
@@ -659,7 +623,6 @@ text-align: center;
 justify-content: center;
 overflow: auto;
 }
-
 #lignetable{
     margin: 10px;
     display: flex;
@@ -691,7 +654,6 @@ overflow: auto;
     top: -70vh;
     left: 60vh;
 }
-
 #centrepopupcara{
     height: 400px;
     text-align: center;
@@ -700,7 +662,6 @@ overflow: auto;
     align-items: center;
     flex-direction: column;
     }
-
 .lignetablecara{
         margin: 10px;
         display: flex;
