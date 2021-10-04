@@ -91,7 +91,7 @@ h1{
 #affmoncompte{
     color: white;
     background-color: rgb(54,54,47);
-    margin-top: 10vh;
+    margin-top: 5vh;
 }
 #titremoncompte{
     text-align: center;
@@ -101,46 +101,66 @@ h1{
 
 #creaperso{
     margin-top: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 5px;
     text-align: center;
     font-size: 30px;
     a{
         text-decoration: none;
-        color: White;
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 2px;
+    }
+    a:hover{
+        opacity: 0.5;
     }
 }
 
+#pageadm{
+    text-align: center;
+    font-size: 30px;
+    padding-bottom: 15px;
+    a{
+        text-decoration: none;
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 2px;
+    }
+    a:hover{
+        opacity: 0.5;
+    }
+}
+
+
+#fondperso{
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: black 1px solid;
+    border-radius: 20px;
+    transition: transform 2s;
 #affperso{
     display: flex;
     flex-direction: column;
     width: 300px;
     align-items: center;
-    
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: black 1px solid;
-    border-radius: 20px;
-    
+    opacity: 0;      
     tbody{
         display: flex;
         flex-direction: column;
-        width: 300px;
-        align-items: center;
-        opacity: 0;      
-        tbody{
-            display: flex;
-            flex-direction: column;
-        }
     }
-    div{
-        text-align: center;
-        font-size: 30px;
-        padding-top: 10px;
-    }
+}
+div{
+    text-align: center;
+    font-size: 30px;
+    padding-top: 10px;
+}
 }
 
 #fondperso:hover{ 
-    background-image: none;
+    background-image: none !important;
     background-color: black;
     #affperso{
         opacity: 100;
