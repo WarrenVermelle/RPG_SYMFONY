@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Champion;
 use App\Repository\ChampionRepository;
 use App\Service\FightService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -145,5 +145,37 @@ class FightController extends AbstractController
                 'player' => $this->getUser(),
                 'actif' => true]),          
         ]);
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @Route("/combat/fuite", name="fuite")
+     * 
+     */
+    public function fuite(ChampionRepository $championRepository, UrlGeneratorInterface $generator,
+                        FightService $fight, Request $request)//: Response
+    {
+        
+        $monster = $request->getSession()->get('monster');
+        $champion = $championRepository->findOneBy([
+            'player' => $this->getUser(),
+            'actif' => true]);
+
+
+        if($fight->escape($champion,$generator,$request))
+        {
+            return new JsonResponse($generator->generate('dynamic_map', ['id' => 4]));
+        }else{
+            return $this->potioHeal($championRepository,
+             $fight,
+             $generator, 
+             $request);
+        }
+        
+         ;
+
+        
     }
 }

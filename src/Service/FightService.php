@@ -2,10 +2,15 @@
 
 namespace App\Service;
 
+use App\Controller\FightController;
 use App\Entity\Champion;
 use App\Entity\Faction;
 use App\Entity\Monster;
 use App\Entity\Race;
+use App\Repository\ChampionRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class FightService 
 {
@@ -56,12 +61,14 @@ class FightService
         $champion->setStrength($champion->getStrength() + ($champion->getRace()->getRatioStrength() * $champion->getFaction()->getCoefStrength() * 5));
         $champion->setAgi($champion->getAgi() + ($champion->getRace()->getRatioAgi() * $champion->getFaction()->getCoefAgi() * 5));
         $champion->setIntel($champion->getIntel() + ($champion->getRace()->getRatioIntel() * $champion->getFaction()->getCoefIntel() * 5));
-        $champion->setHp($champion->getMaxHp() + ($champion->getRace()->getRatioHp() * $champion->getFaction()->getCoefHp() * 5));
+        $champion->setMaxHp($champion->getMaxHp() + ($champion->getRace()->getRatioHp() * $champion->getFaction()->getCoefHp() * 5));
+        $champion->setMaxMp($champion->getMaxMp() + ($champion->getRace()->getRatioHp() * $champion->getFaction()->getCoefHp() * 5));
         $championCara = [
             $champion->getStrength(),
             $champion->getAgi(),
             $champion->getIntel(),
-            $champion->getHp()
+            $champion->getMaxMp(),
+            $champion->getMaxHp()
         ];
         $this->em->persist($champion);
         $this->em->flush();
@@ -74,4 +81,19 @@ class FightService
         $this->em->flush();
     }
 
+    public function escape(Champion $champion,UrlGeneratorInterface $generator, Request $request){
+       $monster = $request->getSession()->get('monster');
+       match(true){
+        $champion->getAgi() > $monster->getAgi() => $fuite = 1,
+        ($monster->getAgi() - $champion->getAgi()) < 30 => $fuite = 2,
+        ($monster->getAgi() - $champion->getAgi()) >= 30 && ($monster->getAgi() - $champion->getAgi()) <= 80 => $fuite = 3,
+        ($monster->getAgi() - $champion->getAgi()) > 80 => $fuite = 10000
+    };
+        $fuite = random_int(1, $fuite);
+        if ($fuite == 1){
+           return true;
+        }else{
+            return false;
+        };
+    }
 }

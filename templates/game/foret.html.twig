@@ -7,7 +7,7 @@
 {% block body %}
 
 <div id="foret">
-    <div>
+    <div class="fleche" >
         <a href="{{path('forest')}}"><img src="{{asset('img/fleche.png')}}" alt="" id="imgflecheht"></a>
         <p id="pville"> Direction foret</p>
     </div>
@@ -15,7 +15,7 @@
         <p> {{ monster.monster }} niv {{ monster.level }} apparait </p>
         <button data-action="click->combat#startCombat"  data-start="{{path('start')}}">Fight</button>
     </div>
-    <div>
+    <div class="fleche">
         <p id="pville"> Direction Plaine </p>
         <a href="{{path('plaine')}}"><img src="{{asset('img/fleche.png')}}" alt="" id="imgflechep"></a>
     </div>
