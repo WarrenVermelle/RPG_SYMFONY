@@ -32,35 +32,35 @@ class InventoryController extends AbstractController
 
         $equipedList = $request->getSession()->get('equipedList');
         
-        if($champion->getLevel() >= $clickedInventoryLine->getItem()->getLevel()){
-          
-        // si élément cliqué n'est pas équipé
-        if($clickedInventoryLine->getEquiped() === false)
+        if($champion->getLevel() >= $clickedInventoryLine->getItem()->getLevel())
         {
-            if($equipedList){
-                // on compare dans la liste des élèments equipés
-                foreach($equipedList as $item)
-                {
-                    // si l'élément cliqué est du même type qu'un équipement déjà équipé
-                    if($item->getItem()->getType()->getId() === $clickedInventoryLine->getItem()->getType()->getId())
+            // si élément cliqué n'est pas équipé
+            if($clickedInventoryLine->getEquiped() === false)
+            {
+                if($equipedList){
+                    // on compare dans la liste des élèments equipés
+                    foreach($equipedList as $item)
                     {
-                        // déséquipe l'élément déjà équipé
-                        $item->setEquiped(false);
+                        // si l'élément cliqué est du même type qu'un équipement déjà équipé
+                        if($item->getItem()->getType()->getId() === $clickedInventoryLine->getItem()->getType()->getId())
+                        {
+                            // déséquipe l'élément déjà équipé
+                            $item->setEquiped(false);
 
-                        // enleve les caract de l'ancien élément
-                        $champion->setMaxHp($champion->getMaxHp() - $item->getItem()->getHp());
-                        $champion->setMaxMp($champion->getMaxMp() - $item->getItem()->getMp());
-                        $champion->setIntel($champion->getIntel() - $item->getItem()->getIntel());
-                        $champion->setStrength($champion->getStrength() - $item->getItem()->getStrength());
-                        $champion->setAgi($champion->getAgi() - $item->getItem()->getAgi());
+                            // enleve les caract de l'ancien élément
+                            $champion->setMaxHp($champion->getMaxHp() - $item->getItem()->getHp());
+                            $champion->setMaxMp($champion->getMaxMp() - $item->getItem()->getMp());
+                            $champion->setIntel($champion->getIntel() - $item->getItem()->getIntel());
+                            $champion->setStrength($champion->getStrength() - $item->getItem()->getStrength());
+                            $champion->setAgi($champion->getAgi() - $item->getItem()->getAgi());
 
-                        $manager = $this->getDoctrine()->getManager();
-                        $manager->persist($item);
-                        $manager->persist($champion);
-                        $manager->flush();
+                            $manager = $this->getDoctrine()->getManager();
+                            $manager->persist($item);
+                            $manager->persist($champion);
+                            $manager->flush();
+                        }
                     }
                 }
-            }
                 // équipe l'élément cliqué
                 $clickedInventoryLine->setEquiped(true);
 
@@ -120,7 +120,9 @@ class InventoryController extends AbstractController
                 $champion->setStrength($champion->getStrength() - $clickedInventoryLine->getItem()->getStrength());
                 $champion->setAgi($champion->getAgi() - $clickedInventoryLine->getItem()->getAgi());
             }
-        }else{
+        }
+        else
+        {
             return $this->redirectToRoute('show_inventory');
         }
         $manager = $this->getDoctrine()->getManager();

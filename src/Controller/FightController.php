@@ -43,12 +43,6 @@ class FightController extends AbstractController
     public function combat(ChampionRepository $championRepository, FightService $fight,
                         UrlGeneratorInterface $generator, Request $request, ItemRepository $itemRepo): Response
     {   
-
-        dd(19%5);
-        dd($itemRepo->findBy([
-
-        ]));
-
         // prend le monstre stocké dans la session
         $session = $request->getSession();
         $monster = $session->get('monster');
@@ -57,7 +51,7 @@ class FightController extends AbstractController
             'player' => $this->getUser(),
             'actif' => true
         ]);
-        
+
         // met a jour les pv du monstre après l'attaque du champion (session)
         $session->set('monster', $fight->atkChamp($champion, $monster));
         // met à jour les pv du champion après l'attaque du monstre (bdd)
