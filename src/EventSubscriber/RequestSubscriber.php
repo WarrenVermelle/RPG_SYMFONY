@@ -39,15 +39,19 @@ class RequestSubscriber implements EventSubscriberInterface
                 'actif' => true
             ]);
 
-            $inventory = $this->em->getRepository(Inventory::class)->findOneBy([]);
-            $item = $this->em->getRepository(Item::class)->findOneBy([]);
+            $inventory = $this->em->getRepository(Inventory::class)->findBy([
+                'champ' => $champion
+            ]);
+
+            $equipedList = $this->em->getRepository(Inventory::class)->findBy([
+                'champ' => $champion,
+                'equiped' => true
+            ]);
            
             $request = $event->getRequest()->getSession();
             $request->set('championActif', $champion);
-            $request->set('Item', $item);
+            $request->set('Item', $equipedList);
             $request->set('inventory', $inventory);
-
-            
         }
     }
 }

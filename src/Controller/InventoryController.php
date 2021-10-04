@@ -2,69 +2,62 @@
 
 namespace App\Controller;
 
-use App\Repository\ChampionRepository;
 use App\Repository\InventoryRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[Route ('/game')]
 class InventoryController extends AbstractController
 {
-    /**
-     * @Route("inventory", name="show_inventory")
-     */
-    public function showInventory(ChampionRepository $championRepo): Response
+    #[Route("inventory", name:"show_inventory")]
+    public function showInventory(Request $request): Response
     {
-        $champion = $championRepo->findOneBy([
-            'player' => $this->getUser(),
-            'actif' => true
-        ]);
+        $inventory = $request->getSession()->get('inventory');
     
         return $this->render('inventory/inventory.html.twig',[
-            'inventory' => $champion->getInventories()->getValues()
+            'inventory' => $inventory
         ]);
     }
 
-    /**
-     * @Route("inventory/{id}/equip", name="equip_item")
-     */
-    public function equipItem($id, InventoryRepository $inventoryRepo, ChampionRepository $championRepo)
+    #[Route("inventory/{id}/equip", name:"equip_item")]
+    public function equipItem($id, Request $request, InventoryRepository $inventoryRepo)
     {
-        $champion = $championRepo->findOneBy([
-            'player' => $this->getUser(),
-            //'active' => true
-        ]);
+        $champion = $request->getSession()->get('championActif');
+
         $clickedInventoryLine = $inventoryRepo->findOneBy([
             'id' => $id
         ]);
-        $equipedList = $inventoryRepo->findBy([
-            'equiped' => true
-        ]);
+
+        $equipedList = $request->getSession()->get('equipedList');
         
 
         // si élément cliqué n'est pas équipé
         if($clickedInventoryLine->getEquiped() === false)
         {
-            // on compare dans la liste des élèments equipés
-            foreach($equipedList as $item)
-            {
-                // si l'élément cliqué est du même type qu'un équipement déjà équipé
-                if($item->getItem()->getType()->getId() === $clickedInventoryLine->getItem()->getType()->getId())
+            if($equipedList){
+                // on compare dans la liste des élèments equipés
+                foreach($equipedList as $item)
                 {
-                    // déséquipe l'élément déjà équipé
-                    $item->setEquiped(false);
+                    // si l'élément cliqué est du même type qu'un équipement déjà équipé
+                    if($item->getItem()->getType()->getId() === $clickedInventoryLine->getItem()->getType()->getId())
+                    {
+                        // déséquipe l'élément déjà équipé
+                        $item->setEquiped(false);
 
-                    // enleve les caract de l'ancien élément
-                    $champion->setMaxHp($champion->getMaxHp() - $item->getItem()->getHp());
-                    $champion->setMaxMp($champion->getMaxMp() - $item->getItem()->getMp());
-                    $champion->setIntel($champion->getIntel() - $item->getItem()->getIntel());
-                    $champion->setStrength($champion->getStrength() - $item->getItem()->getStrength());
-                    $champion->setAgi($champion->getAgi() - $item->getItem()->getAgi());
+                        // enleve les caract de l'ancien élément
+                        $champion->setMaxHp($champion->getMaxHp() - $item->getItem()->getHp());
+                        $champion->setMaxMp($champion->getMaxMp() - $item->getItem()->getMp());
+                        $champion->setIntel($champion->getIntel() - $item->getItem()->getIntel());
+                        $champion->setStrength($champion->getStrength() - $item->getItem()->getStrength());
+                        $champion->setAgi($champion->getAgi() - $item->getItem()->getAgi());
 
-                    $manager = $this->getDoctrine()->getManager();
-                    $manager->persist($item);
-                    $manager->persist($champion);
-                    $manager->flush();
+                        $manager = $this->getDoctrine()->getManager();
+                        $manager->persist($item);
+                        $manager->persist($champion);
+                        $manager->flush();
+                    }
                 }
             }
 
