@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Item;
 use App\Repository\ChampionRepository;
+use App\Repository\ItemRepository;
 use App\Service\FightService;
+use Doctrine\ORM\Query\AST\BetweenExpression;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,8 +41,14 @@ class FightController extends AbstractController
      * 
      */
     public function combat(ChampionRepository $championRepository, FightService $fight,
-                        UrlGeneratorInterface $generator, Request $request,): Response
+                        UrlGeneratorInterface $generator, Request $request, ItemRepository $itemRepo): Response
     {   
+
+        dd(19%5);
+        dd($itemRepo->findBy([
+
+        ]));
+
         // prend le monstre stocké dans la session
         $session = $request->getSession();
         $monster = $session->get('monster');
@@ -76,6 +84,8 @@ class FightController extends AbstractController
             $fight->xpWin($champion,$monster);
             // le champion obtient son or
             $fight->goldWin($champion,$monster);
+
+
             // si l'xp total du champion est supérieure ou égale à la base de prise de niveau
             if ($champion->getXp() >= $levelUp) {
                 // alors on execute la fonction levelUp
