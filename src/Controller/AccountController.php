@@ -8,6 +8,7 @@ use App\Entity\Race;
 use App\Entity\User;
 use App\Form\CreatePersoType;
 use App\Repository\FactionRepository;
+use App\Repository\MapRepository;
 use App\Service\CreatePersoService;
 use App\Service\ChampionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +34,7 @@ class AccountController extends AbstractController
     }
 
     #[Route('/creation/character', name: 'account_create_perso')]
-    public function accountCreatePerso(Request $request, CreatePersoService $service, ChampionService $chpService): Response
+    public function accountCreatePerso(Request $request, CreatePersoService $service, ChampionService $chpService, MapRepository $mapRepo): Response
     {
         $manager = $this->getDoctrine()->getManager();
         $champion = new Champion();
@@ -54,6 +55,8 @@ class AccountController extends AbstractController
 
             $champion->setPlayer($this->getUser());
             $service->fillChampObj($champion);
+            // fait démarrer dans la ville
+            $champion->setPosition($mapRepo->findOneBy(['id' => 1]));
             
             $manager->persist($champion);
             $manager->flush();
