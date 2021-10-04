@@ -7,7 +7,7 @@
     <div id="backgroundMap" style="background-image: url({{ asset(img)}});">
 
         {# div qui va injecter la fleche du haut #}
-        <div id="flecheTop">
+        <div id="flecheTop" class="fleche">
         {% if topfleche %}
             <a href="{{path('dynamic_map', {'id':topfleche.id} ) }}">
                 <img src="{{asset('img/fleche.png')}}" alt="" class="imgfleche">
@@ -17,7 +17,7 @@
         </div>
 
         {# div qui va injecter la fleche de droite #}
-        <div id="flecheRight">
+        <div id="flecheRight" class="fleche">
         {% if rightfleche %}
             <a href="{{path('dynamic_map', {'id':rightfleche.id} ) }}">
                 <img src="{{asset('img/fleche.png')}}" alt="" class="imgfleche">
@@ -28,7 +28,7 @@
 
         {# div qui va injecter la fleche du bas #}
         
-        <div id="flecheBottom">
+        <div id="flecheBottom" class="fleche">
         {% if bottomfleche %}
             <p> Direction {{bottomfleche.mapName}}</p>
             <a href="{{path('dynamic_map', {'id':bottomfleche.id} ) }}">
@@ -38,7 +38,7 @@
         </div>
 
         {# div qui va injecter la fleche de gauche #}
-        <div id="flecheLeft">
+        <div id="flecheLeft" class="fleche">
         {% if leftfleche %}
             <a href="{{path('dynamic_map', {'id':leftfleche.id} ) }}">
                 <img src="{{asset('img/fleche.png')}}" alt="" class="imgfleche">
