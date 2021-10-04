@@ -10,9 +10,12 @@
         <h3  id="textelisteperso">Liste de mes Champions :</h3>
         <div id="divperso">
         {% for champion in champions %}
-        <div id="fondperso" >
+        <div id="fondperso" 
+            style="background-image: 
+                    url({{ vich_uploader_asset(champion.faction, champion.currentImage) }});
+                    ">
             <div>{{ champion.name }}</div>
-            <table id="affperso" style="background-image: url({{ vich_uploader_asset(champion.faction, champion.currentImage) }});">
+            <table id="affperso" >
                 <tbody>
                     <tr>
                         <td>Genre : </td>
@@ -68,7 +71,7 @@
         </div>
         <h2 id="creaperso"><a href="{{ path("account_create_perso") }}">Créer un nouveau personnage</a></h2>
         {% if is_granted('ROLE_ADMIN') %}
-            <h3><a href="{{ path("admin") }}">Page administrateur</a></h3>
+            <h3 id="pageadm"><a href="{{ path("admin") }}">Page administrateur</a></h3>
         {% endif %}
         
     </div>
