@@ -56,12 +56,14 @@ class FightService
         $champion->setStrength($champion->getStrength() + ($champion->getRace()->getRatioStrength() * $champion->getFaction()->getCoefStrength() * 5));
         $champion->setAgi($champion->getAgi() + ($champion->getRace()->getRatioAgi() * $champion->getFaction()->getCoefAgi() * 5));
         $champion->setIntel($champion->getIntel() + ($champion->getRace()->getRatioIntel() * $champion->getFaction()->getCoefIntel() * 5));
-        $champion->setHp($champion->getMaxHp() + ($champion->getRace()->getRatioHp() * $champion->getFaction()->getCoefHp() * 5));
+        $champion->setMaxHp($champion->getMaxHp() + ($champion->getRace()->getRatioHp() * $champion->getFaction()->getCoefHp() * 5));
+        $champion->setMaxMp($champion->getMaxMp() + ($champion->getRace()->getRatioHp() * $champion->getFaction()->getCoefHp() * 5));
         $championCara = [
             $champion->getStrength(),
             $champion->getAgi(),
             $champion->getIntel(),
-            $champion->getHp()
+            $champion->getMaxMp(),
+            $champion->getMaxHp()
         ];
         $this->em->persist($champion);
         $this->em->flush();
