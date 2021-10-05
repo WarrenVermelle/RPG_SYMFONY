@@ -8,15 +8,14 @@
         <h1 id="titremoncompte">Bienvenue {{app.user.username}}</h1>
 
         <h3  id="textelisteperso">Liste de mes Champions :</h3>
-            <div id="divperso">
-                {% for champion in champions %}
-                    <table id="affperso" style="background-image: url({{ vich_uploader_asset(champion.currentImg, 'file_img') }})">
-                        <thead>
-                            <tr>
-                                <th>Pseudo : </th>
-                                <th>{{ champion.name }}</th>
-                            </tr>
-                        </thead>
+        <div id="divperso">
+            {% for champion in champions %}
+                <div id="fondperso"
+                        style="background-image: 
+                        url({{ vich_uploader_asset(champion.currentImg, 'file_img') }})"
+                    >
+                    <div>{{ champion.name }}</div>
+                    <table id="affperso">
                         <tbody>
                             <tr>
                                 <td>Genre : </td>
@@ -67,15 +66,15 @@
                             </tr>
                         </tfoot>
                     </table>
-                {% endfor %}
-            {% if champions|length < 5 %}
-                <h2 id="creaperso"><a href="{{ path("account_create_perso") }}">Créer un nouveau personnage</a></h2>
-            {% endif %}
-    
-            {% if is_granted('ROLE_ADMIN') %}
-                <h3 id="pageadm"><a href="{{ path("admin") }}">Page administrateur</a></h3>
-            {% endif %}
+                </div>
+            {% endfor %}
         </div>
+        {% if champions|length < 5 %}
+            <h2 id="creaperso"><a href="{{ path("account_create_perso") }}">Créer un nouveau personnage</a></h2>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <h3 id="pageadm"><a href="{{ path("admin") }}">Page administrateur</a></h3>
+        {% endif %}
     </div>
 
 {% endblock %}
