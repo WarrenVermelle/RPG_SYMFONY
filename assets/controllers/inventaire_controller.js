@@ -14,6 +14,11 @@ export default class extends Controller
         })
     }
     
+    disableinventaire2()
+    {
+        this.element.innerHTML = ""
+    }
+
     disableinventaire()
     {
         if (window.location.pathname == '/game/voyage/4' ){

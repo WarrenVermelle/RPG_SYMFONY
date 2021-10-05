@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div data-controller="combat" id="endCombat" >
+    <p> Loser ! T'es a chier ! </p>
+    <button data-action="click->combat#endFight" data-end="{{path('lose')}}" > Ville </button>
+
+</div>
+{% endblock %}
