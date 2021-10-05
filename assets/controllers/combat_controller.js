@@ -4,7 +4,7 @@ export default class extends Controller
 {
     
     connect(){
-
+         
     }
 
     async startCombat()
