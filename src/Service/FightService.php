@@ -3,9 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Champion;
-use App\Entity\Faction;
+use App\Entity\Loot;
 use App\Entity\Monster;
-use App\Entity\Race;
 
 class FightService 
 {
@@ -51,11 +50,17 @@ class FightService
         return $resultGold;
     }
 
-    // public function lootWin(Champion $champion)
-    // {
-    //     $champion->addInventory()
-    // }
-
+    public function lootWin(Champion $champion, Loot $loot)
+    {
+        // 1 chance sur 3 d'obtenir un loot
+        if(rand(0,2) === 0){
+            // le champion obtient un loot au hasard
+            $champion->addLootToInventory($loot);
+            $this->em->persist($champion);
+            $this->em->flush();
+        }
+    }
+    
     public function levelUp(Champion $champion){
         $champion->setLevel($champion->getLevel() + 1);
         $champion->setStrength($champion->getStrength() + ($champion->getRace()->getRatioStrength() * $champion->getFaction()->getCoefStrength() * 5));

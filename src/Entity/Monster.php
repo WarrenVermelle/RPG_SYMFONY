@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Abstract\Humanoide;
 use App\Repository\MonsterRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +24,16 @@ class Monster
      * @ORM\Column(type="integer")
      */
     private $hpMax;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Loot::class, mappedBy="monster")
+     */
+    private $loots;
+
+    public function __construct()
+    {
+        $this->loots = new ArrayCollection();
+    }
 
     
 
@@ -47,6 +59,36 @@ class Monster
     public function setHpMax(int $hpMax): self
     {
         $this->hpMax = $hpMax;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Loot[]
+     */
+    public function getLoots(): Collection
+    {
+        return $this->loots;
+    }
+
+    public function addLoot(Loot $loot): self
+    {
+        if (!$this->loots->contains($loot)) {
+            $this->loots[] = $loot;
+            $loot->setMonster($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLoot(Loot $loot): self
+    {
+        if ($this->loots->removeElement($loot)) {
+            // set the owning side to null (unless already changed)
+            if ($loot->getMonster() === $this) {
+                $loot->setMonster(null);
+            }
+        }
 
         return $this;
     }

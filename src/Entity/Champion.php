@@ -158,10 +158,20 @@ class Champion
     {
             $newInventory = new Inventory();
             $newInventory ->setEquiped(false);
-            $newInventory -> setItem($inventory->getItem());
+            $newInventory ->setItem($inventory->getItem());
             $this->inventories[] = $newInventory;
             $newInventory ->setChamp($this);
 
+        return $this;
+    }
+
+    public function addLootToInventory(Loot $loot): self
+    {
+            $newInventory = new Inventory();
+            $newInventory ->setEquiped(false);
+            $newInventory ->setItem($loot->getItem());
+            $this->inventories[] = $newInventory;
+            $newInventory ->setChamp($this);
         return $this;
     }
 

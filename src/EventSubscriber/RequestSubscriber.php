@@ -30,7 +30,9 @@ class RequestSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event)
     {
-        if (str_starts_with($event->getRequest()->getPathInfo() ,'/game' )){
+        if (str_starts_with($event->getRequest()->getPathInfo() ,'/game') || 
+            str_starts_with($event->getRequest()->getPathInfo() ,'/combat'))
+        {
 
             $user = $this->security->getUser();
 

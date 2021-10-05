@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\LootRepository;
 use App\Repository\MapRepository;
 use App\Repository\MonsterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
