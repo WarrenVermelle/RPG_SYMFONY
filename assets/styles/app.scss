@@ -488,7 +488,7 @@ h1{
 #startCombat{
     background-color: grey;
     width: 60vh;
-    height: 33vh;
+    height: 35vh;
     border: 2px black solid;
     border-radius: 20px;
     padding: 20px;
@@ -506,6 +506,7 @@ h1{
                 color: white;
                 margin-bottom: 10px;
             }
+
         }
         #fightMonstre{
             border: 1px solid black;
@@ -547,6 +548,10 @@ h1{
 }
 #btn{
     display: flex;
+}
+#degat{
+    color: red!important;
+    font-size: 30px;
 }
 
 /*---------------footer-----------------------*/
