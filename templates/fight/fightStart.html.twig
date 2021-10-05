@@ -7,7 +7,11 @@
         <div id="fightChampion">
             <div>{{champion.name}}</div>
             <div>Level: {{champion.level}}</div>
-            <div>Hp: {{champion.hp}}</div>    
+            <div>Hp: {{champion.hp}}</div>   
+            <div id="degatreçus">
+            {% if attacMonster is defined %}
+                {{ - attacMonster}}
+            {% endif %}</div> 
         </div>
         <div>
             <img src="{{asset('img/vs.png')}}" alt="vs" id="vs">
@@ -16,10 +20,16 @@
             <div>{{monster.monster}}</div>
             <div>Level: {{monster.level}}</div>
             <div>Hp: {{monster.hp}}</div>
+            <div id="degatinfliger">
+            {% if attacPerso is defined %}
+                {{ - attacPerso}}
+            {% endif %}
+            </div>
         </div>
     </div>
-
-    <button  data-action="click->combat#attakMonster" data-attak="{{path('combat')}}"  >Attaquer</button>
-    <button  data-action="click->combat#fuite" data-fuite="{{path('fuite')}}"  >Fuite</button>
+    <div id="btn">
+        <button  data-action="click->combat#attakMonster" data-attak="{{path('combat')}}"  >Attaquer</button>
+        <button  data-action="click->combat#fuite" data-fuite="{{path('fuite')}}"  >Fuite</button>
+    </div>
 </div>
 {% endblock %}

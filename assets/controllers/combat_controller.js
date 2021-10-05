@@ -42,6 +42,8 @@ export default class extends Controller
         })
     }
     
+   
+
     async fuite(event )
     {
         

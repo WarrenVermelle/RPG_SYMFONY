@@ -487,8 +487,8 @@ h1{
 
 #startCombat{
     background-color: grey;
-    width: 50vh;
-    height: 35vh;
+    width: 60vh;
+    height: 33vh;
     border: 2px black solid;
     border-radius: 20px;
     padding: 20px;
@@ -504,7 +504,7 @@ h1{
             width: 150px;
             div{
                 color: white;
-                margin-bottom: 30px;
+                margin-bottom: 10px;
             }
         }
         #fightMonstre{
@@ -514,7 +514,7 @@ h1{
             width: 150px;
             div{
                 color: white;
-                margin-bottom: 30px;
+                margin-bottom: 10px;
             }
         }
         #vs{
@@ -523,7 +523,6 @@ h1{
         div{
             display: flex;
             flex-direction: column;
-            margin-bottom: 10px;
             div:first-child{
                 padding-top: 5px;
                 font-size: 30px;
@@ -533,7 +532,6 @@ h1{
     button{
         width: 100px;
         height: 40px;
-        margin-left: 18vh;
         margin-top: 20px;
         border-radius: 5px;
         border: 1px solid black;
@@ -546,6 +544,9 @@ h1{
         transform: translateY(-0.40em);
         
     }
+}
+#btn{
+    display: flex;
 }
 
 /*---------------footer-----------------------*/
