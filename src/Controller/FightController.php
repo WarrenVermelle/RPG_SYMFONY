@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Item;
-use App\Repository\ChampionRepository;
 use App\Service\FightService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -121,6 +120,7 @@ class FightController extends AbstractController
         $monster = $session->get('monster');
         $champion = $session->get('championActif');
 
+        $vieavant = $champion->getHp();
         $fight->atkMonster($champion, $monster);
         // si les pv du champion tombent à 0 ou moins
         if ($champion->getHp() <= 0 ) {
@@ -136,6 +136,7 @@ class FightController extends AbstractController
         return $this->render('fight/fightStart.html.twig',[
             'monster' => $monster,
             'champion' => $champion,          
+            'attacMonster' => $vieavant - $champion->getHp()     
         ]);
     }
 

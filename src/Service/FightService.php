@@ -25,7 +25,7 @@ class FightService
     }
 
     public function attack(Monster $monster){
-        $dammage = rand(1, $monster->getStrength()/2);
+        $dammage = rand($monster->getStrength()/1.5, $monster->getStrength()/2.5);
         return $dammage;
     }
 
