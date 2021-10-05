@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création de Genre{% endblock %}
+
+{% block body %}
+<div id="">
+    <h1 id="titremoncompte">Créer nouveau Genre</h1>
+
+    <div id="">
+        {{ form_start(formGender) }}
+                {{ form_widget(formGender) }}
+                <button type="submit" class="btn" id="">Créez !</button>
+        {{ form_end(formGender) }}
+    </div>
+    <a href="{{ path("admin_listGender") }}">Retour</a>
+</div>
+
+{% endblock %}

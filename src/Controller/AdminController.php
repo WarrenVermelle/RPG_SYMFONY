@@ -3,17 +3,23 @@
 namespace App\Controller;
 
 use App\Entity\Faction;
+use App\Entity\Gender;
+use App\Entity\ImgPerso;
 use App\Entity\Item;
 use App\Entity\Monster;
 use App\Entity\Race;
 use App\Entity\Type;
 use App\Entity\User;
 use App\Form\CreateFactionType;
+use App\Form\CreateGenderType;
+use App\Form\CreateImgPersoType;
 use App\Form\CreateItemType;
 use App\Form\CreateMonsterType;
 use App\Form\CreateRaceType;
 use App\Form\CreateTypeType;
 use App\Repository\FactionRepository;
+use App\Repository\GenderRepository;
+use App\Repository\ImgPersoRepository;
 use App\Repository\ItemRepository;
 use App\Repository\MonsterRepository;
 use App\Repository\RaceRepository;
@@ -258,7 +264,6 @@ class AdminController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) 
         {   
-            // dd($form);
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($race);
             $manager->flush();
@@ -280,5 +285,110 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('admin_listRace', [], Response::HTTP_SEE_OTHER);
     }
+
+// ============================ Block Genre ==============================
+    #[Route('/listgenders', name: 'admin_listGender')]
+    public function listGenders(GenderRepository $genderRepository): Response
+    {
+        return $this->render('admin/gender/listGenders.html.twig', [
+            "genders" => $genderRepository->findAll()
+        ]);
+    } 
+    
+    #[Route('/createGender', name: 'admin_createGender')]
+    public function createGender(Request $request):Response
+    {
+        
+        $gender = new Gender();
+        $form = $this->createForm(CreateGenderType::class, $gender);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) 
+        {   
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($gender);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_listGender');
+        }
+
+        return $this->render('admin/gender/create-gender.html.twig', ['formGender' => $form->createView()]);
+    }
+
+    #[Route('/gender/delete/{id}', name: 'gender_delete', methods: ['POST'])]
+    public function deleteGender(Request $request, Gender $gender): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$gender->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($gender);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('admin_listGender', [], Response::HTTP_SEE_OTHER);
+    }
+
+// ============================ Block ImgPerso ==============================
+    #[Route('/listimgPerso', name: 'admin_listImgPerso')]
+    public function listImgPerso(ImgPersoRepository $imgPersoRepository): Response
+    {
+        return $this->render('admin/imgPerso/listImgPerso.html.twig', [
+            "imgPersos" => $imgPersoRepository->findAll()
+        ]);
+    } 
+
+    #[Route('/createImgPerso', name: 'admin_createImgPerso')]
+    public function createImgPerso(Request $request):Response
+    {
+        
+        $imgPerso = new ImgPerso();
+        $form = $this->createForm(CreateImgPersoType::class, $imgPerso);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) 
+        {   
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($imgPerso);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_listImgPerso');
+        }
+
+        return $this->render('admin/imgPerso/create-imgPerso.html.twig', ['formImgPerso' => $form->createView()]);
+    }
+
+    #[Route('/imgPerso/edit/{id}', name: 'imgPerso_edit', methods: ['POST', 'GET'])]
+    public function editImgPerso(Request $request, ImgPerso $imgPerso): Response
+    {
+        $form = $this->createForm(CreateImgPersoType::class, $imgPerso);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $imgPerso->setImg("");
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($imgPerso);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_listImgPerso');
+        }
+
+        return $this->render('admin/imgPerso/edit_imgPerso.html.twig', ['formImgPerso' => $form->createView()]);
+
+    } 
+
+    #[Route('/imgPerso/delete/{id}', name: 'imgPerso_delete', methods: ['POST'])]
+    public function deleteImgPerso(Request $request, ImgPerso $imgPerso): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$imgPerso->getId(), $request->request->get('_token')))
+        {
+            $imgPerso->setImg("");
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($imgPerso);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('admin_listImgPerso', [], Response::HTTP_SEE_OTHER);
+    }
+
 
 }

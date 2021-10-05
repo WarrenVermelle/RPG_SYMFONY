@@ -10,7 +10,7 @@
         <h3  id="textelisteperso">Liste de mes Champions :</h3>
         <div id="divperso">
         {% for champion in champions %}
-        <table id="affperso" style="background-image: url({{ vich_uploader_asset(champion.faction, champion.currentImage) }});">
+        <table id="affperso" style="background-image: url({{ vich_uploader_asset(champion.currentImg, 'file_img') }})">
             <thead>
                 <tr>
                     <th>Pseudo : </th>
@@ -20,7 +20,7 @@
             <tbody>
                 <tr>
                     <td>Genre : </td>
-                    <td>{{ champion.gender == 0 ? "Femme" : "Homme" }}</td>
+                    <td>{{ champion.gender }}</td>
                 </tr>
                 <tr>
                     <td>Race : </td>

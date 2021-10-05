@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Editer une image de personnage{% endblock %}
+
+{% block body %}
+<div id="">
+    <h1 id="titremoncompte">Edite image pour personnage</h1>
+
+    <div id="">
+        {{ form_start(formImgPerso) }}
+                {{ form_widget(formImgPerso) }}
+                <button type="submit" class="btn" id="">Editer</button>
+        {{ form_end(formImgPerso) }}
+    </div>
+    <a href="{{ path("admin_listImgPerso") }}">Retour</a>
+</div>
+
+{% endblock %}
