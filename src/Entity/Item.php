@@ -75,9 +75,15 @@ class Item
      */
     private $level;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Loot::class, mappedBy="item", orphanRemoval=true)
+     */
+    private $loots;
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
+        $this->loots = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -231,6 +237,36 @@ class Item
     public function setLevel(int $level): self
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Loot[]
+     */
+    public function getLoots(): Collection
+    {
+        return $this->loots;
+    }
+
+    public function addLoot(Loot $loot): self
+    {
+        if (!$this->loots->contains($loot)) {
+            $this->loots[] = $loot;
+            $loot->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLoot(Loot $loot): self
+    {
+        if ($this->loots->removeElement($loot)) {
+            // set the owning side to null (unless already changed)
+            if ($loot->getItem() === $this) {
+                $loot->setItem(null);
+            }
+        }
 
         return $this;
     }

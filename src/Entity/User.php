@@ -170,6 +170,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
             $this->id,
             $this->username,
             $this->password,
+            
         ));
     }
 
