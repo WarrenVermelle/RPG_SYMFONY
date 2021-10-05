@@ -79,7 +79,6 @@ class FightController extends AbstractController
             // le champion obtient son or
             $fight->goldWin($champion,$monster);
 
-
             // si l'xp total du champion est supérieure ou égale à la base de prise de niveau
             if ($champion->getXp() >= $levelUp) {
                 // alors on execute la fonction levelUp

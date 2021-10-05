@@ -156,12 +156,12 @@ class Champion
 
     public function addInventory(Inventory $inventory): self
     {
-            $newInventory = new Inventory();
-            $newInventory ->setEquiped(false);
-            $newInventory -> setItem($inventory->getItem());
-            $this->inventories[] = $newInventory;
-            $newInventory ->setChamp($this);
-
+        $newInventory = new Inventory();
+        $newInventory ->setEquiped(false);
+        $newInventory -> setItem($inventory->getItem());
+        $this->inventories[] = $newInventory;
+        $newInventory ->setChamp($this);
+        
         return $this;
     }
 

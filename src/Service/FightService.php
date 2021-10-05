@@ -56,11 +56,6 @@ class FightService
         return $resultGold;
     }
 
-    // public function lootWin(Champion $champion)
-    // {
-    //     $champion->addInventory()
-    // }
-
     public function levelUp(Champion $champion){
         $champion->setLevel($champion->getLevel() + 1);
         $champion->setStrength($champion->getStrength() + ($champion->getRace()->getRatioStrength() * $champion->getFaction()->getCoefStrength() * 5));
