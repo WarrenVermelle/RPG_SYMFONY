@@ -24,9 +24,14 @@ class FightService
         return $monster;
     }
 
+    public function attack(Monster $monster){
+        $dammage = rand(1, $monster->getStrength()/2);
+        return $dammage;
+    }
+
     public function atkMonster(Champion $champion, Monster $monster)
     {
-        $atkMonster = rand(1, $monster->getStrength()/2);
+        $atkMonster = $this->attack($monster);
         $champion->setHp($champion->getHp()-$atkMonster);
         $resultHp = $champion->getHp();
         $this->em->persist($champion);
