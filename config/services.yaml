@@ -26,3 +26,4 @@ services:
     App\Service\FightService:
         arguments:
             $em: '@doctrine.orm.entity_manager'
+    

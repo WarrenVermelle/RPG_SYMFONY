@@ -4,13 +4,13 @@ namespace App\Form;
 
 use App\Entity\Champion;
 use App\Entity\Faction;
+use App\Entity\Gender;
 use App\Entity\Race;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,14 +34,11 @@ class CreatePersoType extends AbstractType
                     ])
                 ]
             ])
-            ->add('gender', ChoiceType::class, [
-                "choices" => [
-                    "Choisissez votre Genre" => "",
-                    "Femme" => 0,
-                    "Homme" => 1
-                ]
+            ->add('gender', EntityType::class, [
+                'placeholder' => 'Choisissez votre Genre',
+                'class' => Gender::class
             ])
-            ->add('race', EntityType::class,[
+            ->add('race', EntityType::class, [
                 'placeholder' => 'Choisissez votre Race',
                 'class' => Race::class
             ])

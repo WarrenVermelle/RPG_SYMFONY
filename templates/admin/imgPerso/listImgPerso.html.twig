@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Images de personnages{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>Liste des Images de Personnages</h1>
+    </div>
+    <div>
+        <div>
+        <a href="{{ path("admin_createImgPerso") }}">Ajouter une nouvelle image de personnage</a>
+        </div>
+        <div>
+            <a href="{{ path("admin") }}">Retour</a>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>IdGenre</th>
+                <th>IdRace</th>
+                <th>IdFaction</th>
+                <th>Img</th>
+                <th>Editer</th>
+                <th>Supprimer</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+        {% for imgPerso in imgPersos %}
+            <tr>
+                <td>{{ imgPerso.id }}</td>
+                <td>{{ imgPerso.gender }}</td>
+                <td>{{ imgPerso.race }}</td>
+                <td>{{ imgPerso.faction }}</td>
+                <td><img src="{{ vich_uploader_asset(imgPerso, 'file_img') }}" alt=""></td>
+                <td><a href="{{ path('imgPerso_edit', {"id":imgPerso.id}) }}">Editer</a></td>
+                <td>{{ include('admin/imgPerso/_delete_imgPerso.html.twig') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

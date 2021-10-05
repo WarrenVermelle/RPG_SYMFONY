@@ -19,31 +19,6 @@ class CreateRaceType extends AbstractType
             ->add('ratio_intel')
             ->add('ratio_strength')
             ->add('ratio_agi')
-            ->add('file_HumainH', FileType::class, [
-                'label' => 'Image Humain H',
-                'required' => false
-            ])
-            ->add('file_HumainF', FileType::class, [
-                'label' => 'Image Humain F',
-                'required' => false
-            ])
-            ->add('file_ElfH', FileType::class, [
-                'label' => 'Image Elf H',
-                'required' => false
-            ])
-            ->add('file_ElfF', FileType::class, [
-                'label' => 'Image Elf F',
-                'required' => false
-            ])
-            ->add('file_OrcH', FileType::class, [
-                'label' => 'Image Orc H',
-                'required' => false
-            ])
-            ->add('file_OrcF', FileType::class, [
-                'label' => 'Image Orc F',
-                'required' => false
-            ])
-            ->add('updatedAt')
         ;
     }
 
