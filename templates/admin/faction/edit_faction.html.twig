@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edition faction{% endblock %}
+
+{% block body %}
+<div id="">
+    <h1 id="titremoncompte">Editer la faction</h1>
+
+    <div id="">
+        {{ form_start(formFaction) }}
+                {{ form_widget(formFaction) }}
+                <button type="submit" class="btn" id="">Editer</button>
+        {{ form_end(formFaction) }}
+    </div>
+    <a href="{{ path("admin_listFaction") }}">Retour</a>
+</div>
+
+{% endblock %}

@@ -32,7 +32,7 @@
                 <td>{{ faction.coefintel }}</td>
                 <td>{{ faction.coefstrength }}</td>
                 <td>{{ faction.coefagi }}</td>
-                <td><a href="">Editer</a></td>
+                <td><a href="{{ path('faction_edit', {"id":faction.id}) }}">Editer</a></td>
                 <td>{{ include('admin/faction/_delete_faction.html.twig') }}</td>
             </tr>
         {% endfor %}

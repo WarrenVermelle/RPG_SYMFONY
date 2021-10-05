@@ -53,12 +53,12 @@ class Race
     private $ratio_agi;
 
     /**
-     * @ORM\OneToMany(targetEntity=Champion::class, mappedBy="race")
+     * @ORM\OneToMany(targetEntity=Champion::class, mappedBy="race", cascade={"remove"})
      */
     private $champions;
 
     /**
-     * @ORM\OneToMany(targetEntity=ImgPerso::class, mappedBy="race")
+     * @ORM\OneToMany(targetEntity=ImgPerso::class, mappedBy="race", cascade={"remove"})
      */
     private $imgPersos;
 

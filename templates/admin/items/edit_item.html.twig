@@ -1,10 +1,10 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Création d'objet{% endblock %}
+{% block title %}Edition d'objet{% endblock %}
 
 {% block body %}
 <div id="">
-    <h1 id="titremoncompte">Créer un nouvel objet</h1>
+    <h1 id="titremoncompte">Editer l'objet</h1>
 
     <div id="">
         {{ form_start(formItem ) }}
@@ -35,7 +35,7 @@
                 {{ form_row(formItem.price, {
                     label: 'Price : ' 
                 }) }}
-                <button type="submit" class="btn" id="">Créez !</button>
+                <button type="submit" class="btn" id="">Editer</button>
         {{ form_end(formItem) }}
     </div>
     <a href="{{ path("admin_items_listItems") }}">Retour</a>
