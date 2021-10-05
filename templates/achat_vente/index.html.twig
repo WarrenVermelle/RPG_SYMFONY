@@ -11,10 +11,18 @@
                 <img src="{{asset('img/bourse.png')}}" id="iconeav">
             </h3>
             <div id="sizeintervente">
+                    <div id="interfventeinter">
+                        <div> Image</div>
+                        <div> Nom </div>
+                        <div> Level </div>
+                        <div> Prix </div>
+                        <div></div>
+                    </div>
                 {% for  item in InventMarch %}
                     <div id="interfventeinter">
                         <div><img src="{{asset(item.item.img) }}" id="imgarme"></div>
                         <div>{{ item.item.item }}</div>
+                        <div>{{ item.item.level}}</div>
                         <div>{{ item.item.price }}</div>
                         <div><a href="{{ path('achat', { 'id': item.id}) }}"><button>Acheter</button></a></div>
                     </div>
@@ -28,11 +36,19 @@
                 <a href="{{ path('dynamic_map', {'id':2})}}"><img src="{{asset('img/croix.png')}}" alt="" id="iconeav"></a>
             </h3>
             <div id="sizeintervente">
+                    <div id="interfventeinter">
+                        <div> Image</div>
+                        <div> Nom </div>
+                        <div> Level </div>
+                        <div> Prix </div>
+                        <div></div>
+                    </div>
                 {% if (InventPlayer) %}
                     {% for  items in InventPlayer %}
                         <div id="interfventeinter">
                             <div><img src="{{asset(items.item.img)}}" id="imgarme"></div>
                             <div>{{ items.item.item }}</div>
+                            <div>{{ items.item.level}}</div>
                             <div>{{ items.item.price/2 }}</div>
                             <div><a href="{{ path('vente', { 'id': items.id}) }}"><button>Vendre</button></a></div>
                         </div>

@@ -22,8 +22,8 @@ class AchatVenteController extends AbstractController
         [
             'controller_name' => 'AchatVenteController',
             'champion' => $champion,
-            'InventMarch' => $championRepo->find(2)->getInventories()->getValues(),
-            'InventPlayer' => $request->getSession()->get('inventory'),
+            'InventMarch' => $championRepo->find('marchand')->getInventories()->getValues(),
+            'InventPlayer' => $champion->getInventories()->getValues(),
             "affgold" => $champion->getGold()
         ]);
     }

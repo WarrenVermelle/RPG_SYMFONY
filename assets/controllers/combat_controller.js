@@ -19,6 +19,8 @@ export default class extends Controller
             let doc = parser.parseFromString(text, 'text/html');
             this.element.replaceWith(doc.querySelector('#startCombat'))
         })
+
+        document.querySelectorAll('div.fleche').forEach((el)=>{el.innerHTML = ''})
     }
 
     async attakMonster()
@@ -40,5 +42,23 @@ export default class extends Controller
         })
     }
     
+    async fuite(event )
+    {
+        
+        let path = event.currentTarget.getAttribute('data-fuite');
+        await fetch(path).then((response)=>{
+            return response.text()
+        }).then((text)=>{           
+            if(text.startsWith("\"\\")){
+                let redirectPath = JSON.parse(text);
+                localStorage.removeItem('cbtStart')
+                window.location.href = redirectPath;
+            }else{
+                let parser = new DOMParser();
+            let doc = parser.parseFromString(text, 'text/html');
+            this.element.replaceWith(doc.querySelector('#startCombat'))
+            }
+        })
+    }
     
 }

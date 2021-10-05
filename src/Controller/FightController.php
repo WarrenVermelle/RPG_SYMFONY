@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+<<<<<<< HEAD
 use App\Entity\Item;
+=======
+use App\Entity\Champion;
+>>>>>>> 4d99b8aa930eea087232d6316ba2f7ab7a114fa9
 use App\Repository\ChampionRepository;
 use App\Repository\ItemRepository;
 use App\Service\FightService;
@@ -140,7 +144,7 @@ class FightController extends AbstractController
             $manager->persist($champion);
             $manager->flush();
             // renvoi à la ville
-            return new JsonResponse($generator->generate('ville'));
+            return new JsonResponse($generator->generate('dynamic_map', ['id' => 4]));
         }
         
         return $this->render('fight/fightStart.html.twig',[
@@ -149,5 +153,37 @@ class FightController extends AbstractController
                 'player' => $this->getUser(),
                 'actif' => true]),          
         ]);
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @Route("/combat/fuite", name="fuite")
+     * 
+     */
+    public function fuite(ChampionRepository $championRepository, UrlGeneratorInterface $generator,
+                        FightService $fight, Request $request)//: Response
+    {
+        
+        $monster = $request->getSession()->get('monster');
+        $champion = $championRepository->findOneBy([
+            'player' => $this->getUser(),
+            'actif' => true]);
+
+
+        if($fight->escape($champion,$generator,$request))
+        {
+            return new JsonResponse($generator->generate('dynamic_map', ['id' => 4]));
+        }else{
+            return $this->potioHeal($championRepository,
+             $fight,
+             $generator, 
+             $request);
+        }
+        
+         ;
+
+        
     }
 }

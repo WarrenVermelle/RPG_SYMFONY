@@ -17,10 +17,15 @@ export default class extends Controller
     disableinventaire()
     {
         if (window.location.pathname == '/game/voyage/4' ){
-            setTimeout(()=>{
+            if (localStorage.getItem('cbtStart')  == "true"){
+                setTimeout(()=>{
+                    this.element.innerHTML = ""
+                },
+                2000)
+            }else{
                 this.element.innerHTML = ""
-            },
-            2000)
+            }
+            
         }else{
             this.element.innerHTML = ""
         }
