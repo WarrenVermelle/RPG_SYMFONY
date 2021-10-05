@@ -2,11 +2,7 @@
 
 namespace App\Controller;
 
-<<<<<<< HEAD
-use App\Entity\Item;
-=======
-use App\Entity\Champion;
->>>>>>> 4d99b8aa930eea087232d6316ba2f7ab7a114fa9
+
 use App\Repository\ChampionRepository;
 use App\Repository\ItemRepository;
 use App\Service\FightService;
