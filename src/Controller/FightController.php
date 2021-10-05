@@ -150,6 +150,7 @@ class FightController extends AbstractController
             'player' => $this->getUser(),
             'actif' => true]);
 
+        $vieavant = $champion->getHp();
         $fight->atkMonster($champion, $monster);
         // si les pv du champion tombent à 0 ou moins
         if ($champion->getHp() <= 0 ) {
@@ -164,9 +165,11 @@ class FightController extends AbstractController
         
         return $this->render('fight/fightStart.html.twig',[
             'monster' => $monster,
+            'attacMonster' => $vieavant - $champion->getHp(),
             'champion' => $championRepository->findOneBy([
                 'player' => $this->getUser(),
-                'actif' => true]),          
+                'actif' => true,
+                ]),          
         ]);
     }
 
