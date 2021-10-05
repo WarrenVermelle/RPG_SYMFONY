@@ -21,6 +21,7 @@ class CreateItemType extends AbstractType
             ->add('agi')
             ->add('price')
             ->add('type')
+            ->add('level')
         ;
     }
 
