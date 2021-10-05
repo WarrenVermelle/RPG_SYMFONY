@@ -3,11 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Champion;
-use App\Entity\Faction;
-use App\Entity\Race;
-use App\Entity\User;
 use App\Form\CreatePersoType;
-use App\Repository\FactionRepository;
 use App\Repository\MapRepository;
 use App\Service\CreatePersoService;
 use App\Service\ChampionService;
@@ -15,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\NotNull;
 
 #[Route('/account')]
 class AccountController extends AbstractController

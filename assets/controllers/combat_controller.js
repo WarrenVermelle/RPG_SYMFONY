@@ -4,7 +4,7 @@ export default class extends Controller
 {
     
     connect(){
-
+         
     }
 
     async startCombat()
@@ -42,6 +42,8 @@ export default class extends Controller
         })
     }
     
+   
+
     async fuite(event )
     {
         
