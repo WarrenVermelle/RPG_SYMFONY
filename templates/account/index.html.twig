@@ -8,6 +8,68 @@
         <h1 id="titremoncompte">Bienvenue {{app.user.username}}</h1>
 
         <h3  id="textelisteperso">Liste de mes Champions :</h3>
+<<<<<<< HEAD
+=======
+        <div id="divperso">
+        {% for champion in champions %}
+        <table id="affperso" style="background-image: url({{ vich_uploader_asset(champion.currentImg, 'file_img') }})">
+            <thead>
+                <tr>
+                    <th>Pseudo : </th>
+                    <th>{{ champion.name }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Genre : </td>
+                    <td>{{ champion.gender }}</td>
+                </tr>
+                <tr>
+                    <td>Race : </td>
+                    <td>{{ champion.race }}</td>
+                </tr>
+                <tr>
+                    <td>Faction : </td>
+                    <td>{{ champion.faction }}</td>
+                </tr>
+                <tr>
+                    <td>Level : </td>
+                    <td>{{ champion.level }}</td>
+                </tr>
+                <tr>
+                    <td>Or : </td>
+                    <td>{{ champion.gold }}</td>
+                </tr>
+                <tr>
+                    <td>Vie : </td>
+                    <td>{{ champion.hp }} / {{ champion.maxhp }}</td>
+                </tr>
+                <tr> 
+                    <td>Mana : </td>
+                    <td>{{ champion.mp }} / {{ champion.maxmp }}</td>
+                </tr>
+                <tr>  
+                    <td>Force : </td>
+                    <td>{{ champion.strength }}</td>
+                </tr>
+                <tr> 
+                    <td>Agilité : </td>
+                    <td>{{ champion.agi }}</td>
+                </tr>
+                <tr> 
+                    <td>Intelligence : </td>
+                    <td>{{ champion.intel }}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td id="btnjouer"><a href="{{ path("game", {"id":champion.id}) }}" class="btn">Jouer !</a>
+                        {{ include('account/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+>>>>>>> d4d8159935ad792b2604673d8f94ef7c4cd9353e
 
         <div id="divperso">
             {% for champion in champions %}

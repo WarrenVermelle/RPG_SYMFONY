@@ -17,12 +17,6 @@
                 <th>Ratio_Intel</th>
                 <th>Ratio_Strength</th>
                 <th>Ratio_Agi</th>
-                <th>Img_Humain_H</th>
-                <th>Img_Humain_F</th>
-                <th>Img_Elf_H</th>
-                <th>Img_Elf_F</th>
-                <th>Img_Orc_H</th>
-                <th>Img_Orc_F</th>
                 <th>Editer</th>
                 <th>Suppression</th>
             </tr>
@@ -38,12 +32,6 @@
                 <td>{{ race.ratioIntel }}</td>
                 <td>{{ race.ratioStrength }}</td>
                 <td>{{ race.ratioAgi }}</td>
-                <td> <img src="{{ vich_uploader_asset(race, 'file_humainH') }}"> </td>
-                <td><img src="{{ vich_uploader_asset(race, 'file_humainF') }}"></td>
-                <td><img src="{{ vich_uploader_asset(race, 'file_elfH') }}"></td>
-                <td><img src="{{ vich_uploader_asset(race, 'file_elfF') }}"></td>
-                <td><img src="{{ vich_uploader_asset(race, 'file_orcH') }}"></td>
-                <td><img src="{{ vich_uploader_asset(race, 'file_orcF') }}"></td>
                 <td><a href="">Editer</a></td>
                 <td>{{ include('admin/race/_delete_race.html.twig') }}</td>
             </tr>

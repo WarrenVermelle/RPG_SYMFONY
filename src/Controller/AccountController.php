@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Champion;
 use App\Form\CreatePersoType;
 use App\Repository\MapRepository;
+use App\Repository\ImgPersoRepository;
 use App\Service\CreatePersoService;
-use App\Service\ChampionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,12 +16,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountController extends AbstractController
 {
     #[Route('/', name: 'account_index')]
-    public function accountIndex(ChampionService $service): Response
+    public function accountIndex(ImgPersoRepository $imgPersoRepo): Response
     {
         $champions = $this->getUser()->getChampions()->getValues();
-        foreach ($champions as $champion) {
-           $champion->setCurrentImage($service->getTrueImgProperty($champion));
-        }
+        foreach($champions as $champion)
+        {
+            $champion->setCurrentImg($imgPersoRepo->findOneBy([
+                'gender' => $champion->getGender(),
+                'race' => $champion->getRace(),
+                'faction' => $champion->getFaction()
+            ]));
+        }        
         return $this->render("account/index.html.twig", 
             [
                 "champions" => $champions
@@ -29,21 +34,13 @@ class AccountController extends AbstractController
     }
 
     #[Route('/creation/character', name: 'account_create_perso')]
-    public function accountCreatePerso(Request $request, CreatePersoService $service, ChampionService $chpService, MapRepository $mapRepo): Response
+    public function accountCreatePerso(Request $request, CreatePersoService $service, MapRepository $mapRepo): Response
     {
         $manager = $this->getDoctrine()->getManager();
         $champion = new Champion();
         $form = $this->createForm(CreatePersoType::class, $champion);
-
-        if(!is_null($champion->getGender()) && !is_null($champion->getRace()))
-        {
-            $champion->setCurrentImage($chpService->getTrueImgProperty($champion));
-        }
-        elseif (!is_null($champion->getGender()) && !is_null($champion->getRace()) && !is_null($champion->getFaction())) {
-            $champion->setCurrentImage($chpService->getTrueImgProperty($champion));
-        }
-
         $form->handleRequest($request);
+        
         
         if ($form->isSubmitted() && $form->isValid()) 
         {

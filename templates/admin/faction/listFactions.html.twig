@@ -17,12 +17,8 @@
                 <th>Coef_Intel</th>
                 <th>Coef_Strength</th>
                 <th>Coef_Agi</th>
-                <th>Img_Humain_H</th>
-                <th>Img_Humain_F</th>
-                <th>Img_Elf_H</th>
-                <th>Img_Elf_F</th>
-                <th>Img_Orc_H</th>
-                <th>Img_Orc_F</th>
+                <th>Editer</th>
+                <th>Supprimer</th>
             </tr>
         </thead>
         
@@ -36,12 +32,6 @@
                 <td>{{ faction.coefintel }}</td>
                 <td>{{ faction.coefstrength }}</td>
                 <td>{{ faction.coefagi }}</td>
-                <td> <img src="{{ vich_uploader_asset(faction, 'file_humainH') }}"> </td>
-                <td><img src="{{ vich_uploader_asset(faction, 'file_humainF') }}"></td>
-                <td><img src="{{ vich_uploader_asset(faction, 'file_elfH') }}"></td>
-                <td><img src="{{ vich_uploader_asset(faction, 'file_elfF') }}"></td>
-                <td><img src="{{ vich_uploader_asset(faction, 'file_orcH') }}"></td>
-                <td><img src="{{ vich_uploader_asset(faction, 'file_orcF') }}"></td>
                 <td><a href="">Editer</a></td>
                 <td>{{ include('admin/faction/_delete_faction.html.twig') }}</td>
             </tr>

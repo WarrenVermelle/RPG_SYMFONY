@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ajout d'une nouvelle image pour personnage{% endblock %}
+
+{% block body %}
+<div id="">
+    <h1 id="titremoncompte">Ajouter une nouvelle image pour personnage</h1>
+
+    <div id="">
+        {{ form_start(formImgPerso) }}
+                {{ form_widget(formImgPerso) }}
+                <button type="submit" class="btn" id="">Créez !</button>
+        {{ form_end(formImgPerso) }}
+    </div>
+    <a href="{{ path("admin_listImgPerso") }}">Retour</a>
+</div>
+
+{% endblock %}
