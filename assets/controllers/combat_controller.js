@@ -30,16 +30,23 @@ export default class extends Controller
         await fetch(path).then((response)=>{
             return response.text()
         }).then((text)=>{
-            if(text.startsWith("\"\\")){
+            if(text.startsWith("\"\\"))
+            {
                 let redirectPath = JSON.parse(text);
-                localStorage.removeItem('cbtStart')
+                localStorage.removeItem('cbtStart');
                 window.location.href = redirectPath;
-            }else{
-                let parser = new DOMParser();
-            let doc = parser.parseFromString(text, 'text/html');
-            this.element.replaceWith(doc.querySelector('#startCombat'))
             }
-        })
+            else
+            {
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(text, 'text/html');
+                this.element.replaceWith(doc.querySelector('#startCombat'));
+
+                let hp_stats = document.querySelector('.hp_stats');
+                let target = document.querySelector('.currentHp');
+                hp_stats.innerHTML = target.getAttribute('data-hp') + ' / ' + target.getAttribute('data-max-hp');
+            }
+        });
     }
     
    

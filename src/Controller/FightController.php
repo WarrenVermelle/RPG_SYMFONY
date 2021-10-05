@@ -4,10 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Item;
 use App\Repository\ChampionRepository;
-use App\Repository\ItemRepository;
-use App\Repository\LootRepository;
 use App\Service\FightService;
-use Doctrine\ORM\Query\AST\BetweenExpression;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,44 +12,29 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+#[Route('/combat')]
 class FightController extends AbstractController
 {
-    /**
-     * Undocumented function
-     *
-     * @Route("/combat/start", name="start")
-     */
-    public function start( ChampionRepository $champion, Request $request): Response
+    #[Route('/start', name:'start')]
+    public function start(Request $request): Response
     {
+        $session = $request->getSession();
 
         return $this->render('fight/fightStart.html.twig',[
             
-            'monster' => $request->getSession()->get('monster'),
-            'champion' => $champion->findOneBy([
-                'player' => $this->getUser(),
-                'actif' => true])
+            'monster' => $session->get('monster'),
+            'champion' => $session->get('championActif')
         ]);
-
     }
 
-    /**
-     * Undocumented function
-     *
-     * @Route("/combat/combat", name="combat")
-     * 
-     */
-    public function combat(ChampionRepository $championRepository, FightService $fight,
-                        UrlGeneratorInterface $generator, Request $request, ItemRepository $itemRepo,
-                        LootRepository $lootRepo): Response
+    #[Route('/combat', name:'combat')]
+    public function combat(FightService $fight,
+                           UrlGeneratorInterface $generator, 
+                           Request $request): Response
     {   
-        // prend le monstre stocké dans la session
         $session = $request->getSession();
         $monster = $session->get('monster');
-        // prend le champion actif
-        $champion = $championRepository->findOneBy([
-            'player' => $this->getUser(),
-            'actif' => true
-        ]);
+        $champion = $session->get('championActif');
 
         $vieavant = $champion->getHp();
         $viemstavant = $monster->getHp();
@@ -127,28 +109,17 @@ class FightController extends AbstractController
             'champion' => $champion,
             'attacPerso' => $viemstavant - $monster->getHp(),
             'attacMonster' => $vieavant - $champion->getHp()
-
         ]);
     }
 
-
-    /**
-     * Undocumented function
-     *
-     * @Route("/combat/potioHeal", name="potioHeal")
-     * 
-     */
-    public function potioHeal(ChampionRepository $championRepository,
-                              FightService $fight,
+    #[Route('/potioHeal', name:'potioHeal')]
+    public function potioHeal(FightService $fight,
                               UrlGeneratorInterface $generator, 
                               Request $request): Response
     {
-        // prend le monstre stocké dans la session
-        $monster = $request->getSession()->get('monster');
-        // prend le champion actif
-        $champion = $championRepository->findOneBy([
-            'player' => $this->getUser(),
-            'actif' => true]);
+        $session = $request->getSession();
+        $monster = $session->get('monster');
+        $champion = $session->get('championActif');
 
         $fight->atkMonster($champion, $monster);
         // si les pv du champion tombent à 0 ou moins
@@ -164,41 +135,26 @@ class FightController extends AbstractController
         
         return $this->render('fight/fightStart.html.twig',[
             'monster' => $monster,
-            'champion' => $championRepository->findOneBy([
-                'player' => $this->getUser(),
-                'actif' => true]),          
+            'champion' => $champion,          
         ]);
     }
 
-
-    /**
-     * Undocumented function
-     *
-     * @Route("/combat/fuite", name="fuite")
-     * 
-     */
-    public function fuite(ChampionRepository $championRepository, UrlGeneratorInterface $generator,
-                        FightService $fight, Request $request)//: Response
+    #[Route('/fuite', name:'fuite')]
+    public function fuite(UrlGeneratorInterface $generator,
+                          FightService $fight, 
+                          Request $request)//: Response
     {
-        
         $monster = $request->getSession()->get('monster');
-        $champion = $championRepository->findOneBy([
-            'player' => $this->getUser(),
-            'actif' => true]);
+        $champion = $request->getSession()->get('championActif');
 
 
         if($fight->escape($champion,$generator,$request))
         {
             return new JsonResponse($generator->generate('dynamic_map', ['id' => 4]));
-        }else{
-            return $this->potioHeal($championRepository,
-             $fight,
-             $generator, 
-             $request);
         }
-        
-         ;
-
-        
+        else
+        {
+            return $this->potioHeal($fight, $generator, $request);
+        }        
     }
 }

@@ -7,7 +7,7 @@
         <div id="fightChampion">
             <div>{{champion.name}}</div>
             <div>Level: {{champion.level}}</div>
-            <div>Hp: {{champion.hp}}</div>   
+            <div class="currentHp" data-max-hp="{{ champion.maxHp}}" data-hp="{{champion.hp}}" >Hp: {{champion.hp}}</div>   
             <div id="degat">
             {% if attacMonster is defined %}
                 {{ - attacMonster}}
