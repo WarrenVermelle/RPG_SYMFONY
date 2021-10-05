@@ -24,7 +24,7 @@ class FightService
     
     public function atkChamp(Champion $champion, Monster $monster)
     {
-        $monster->setHp($monster->getHp()-($champion->getStrength()/2));
+        $monster->setHp($monster->getHp()- rand(($champion->getStrength()/1.5),($champion->getStrength()/2.5)));
         return $monster;
     }
 
