@@ -4,7 +4,7 @@
 
 {% block body %}
 <div id="">
-    <h1 id="titremoncompte">Créer new monster</h1>
+    <h1 id="titremoncompte">Edit monster</h1>
 
     <div id="">
         {{ form_start(formMonster ) }}
@@ -41,6 +41,7 @@
                 <button type="submit" class="btn" id="">Editer</button>
         {{ form_end(formMonster) }}
     </div>
+    <a href="{{ path("admin_listMonster") }}">Retour</a>
 </div>
 
 {% endblock %}

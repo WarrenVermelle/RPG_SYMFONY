@@ -54,6 +54,8 @@ class FightController extends AbstractController
             'actif' => true
         ]);
 
+        $vieavant = $champion->getHp();
+        $viemstavant = $monster->getHp();
         // met a jour les pv du monstre après l'attaque du champion (session)
         $session->set('monster', $fight->atkChamp($champion, $monster));
         // met à jour les pv du champion après l'attaque du monstre (bdd)
@@ -122,7 +124,10 @@ class FightController extends AbstractController
         
         return $this->render('fight/fightStart.html.twig',[
             'monster' => $monster,
-            'champion' => $champion,          
+            'champion' => $champion,
+            'attacPerso' => $viemstavant - $monster->getHp(),
+            'attacMonster' => $vieavant - $champion->getHp()
+
         ]);
     }
 

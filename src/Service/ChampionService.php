@@ -10,7 +10,6 @@ class ChampionService
         
         $property = 'file';
         $property .= '_'.strtolower($champion->getRace());
-        $champion->getGender()?$property.='H':$property.='F';
         return $property;
     }
 }

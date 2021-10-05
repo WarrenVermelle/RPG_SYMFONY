@@ -2,13 +2,9 @@
 
 namespace App\Service;
 
-use App\Controller\FightController;
+
 use App\Entity\Champion;
-use App\Entity\Faction;
 use App\Entity\Monster;
-use App\Entity\Race;
-use App\Repository\ChampionRepository;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -24,13 +20,18 @@ class FightService
     
     public function atkChamp(Champion $champion, Monster $monster)
     {
-        $monster->setHp($monster->getHp()-($champion->getStrength()/2));
+        $monster->setHp($monster->getHp()- rand(($champion->getStrength()/1.5),($champion->getStrength()/2.5)));
         return $monster;
+    }
+
+    public function attack(Monster $monster){
+        $dammage = rand(1, $monster->getStrength()/2);
+        return $dammage;
     }
 
     public function atkMonster(Champion $champion, Monster $monster)
     {
-        $atkMonster = rand(1, $monster->getStrength()/2);
+        $atkMonster = $this->attack($monster);
         $champion->setHp($champion->getHp()-$atkMonster);
         $resultHp = $champion->getHp();
         $this->em->persist($champion);

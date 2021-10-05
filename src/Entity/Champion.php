@@ -21,11 +21,6 @@ class Champion
     private $name;
 
     /**
-     * @ORM\Column(type="smallint")
-     */
-    private $gender;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $level;
@@ -98,7 +93,13 @@ class Champion
      */
     private $max_mp;
 
-    private $currentImage;
+    /**
+     * @ORM\ManyToOne(targetEntity=Gender::class, inversedBy="champions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $gender;
+
+    private $currentImg;
 
     /**
      * @ORM\ManyToOne(targetEntity=Map::class, inversedBy="position")
@@ -111,17 +112,6 @@ class Champion
         $this->inventories = new ArrayCollection();
     }
 
-    public function getCurrentImage(): string
-    {
-        return $this->currentImage;
-    }
-
-    public function setCurrentImage(string $img): self
-    {
-        $this->currentImage = $img;
-        return $this;
-    }
-
     public function getName(): ?string
     {
         return $this->name;
@@ -130,18 +120,6 @@ class Champion
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getGender(): ?int
-    {
-        return $this->gender;
-    }
-
-    public function setGender(int $gender): self
-    {
-        $this->gender = $gender;
 
         return $this;
     }
@@ -270,6 +248,36 @@ class Champion
     public function setPosition(?Map $position): self
     {
         $this->position = $position;
+        return $this;
+    }
+    public function getGender(): ?Gender
+    {
+        return $this->gender;
+    }
+
+    public function setGender(?Gender $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of currentImg
+     */ 
+    public function getCurrentImg()
+    {
+        return $this->currentImg;
+    }
+
+    /**
+     * Set the value of currentImg
+     *
+     * @return  self
+     */ 
+    public function setCurrentImg($currentImg)
+    {
+        $this->currentImg = $currentImg;
 
         return $this;
     }
