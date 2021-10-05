@@ -54,6 +54,6 @@ class GameController extends AbstractController
             $this->addFlash("notice", "Vous êtes déjà reposé");
         }
         
-        return $this->redirectToRoute('ville');
+        return $this->redirectToRoute('dynamic_map', ['id'=>2]);
     }
 }
