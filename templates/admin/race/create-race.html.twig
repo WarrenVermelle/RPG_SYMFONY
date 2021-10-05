@@ -3,16 +3,16 @@
 {% block title %}Création de Race{% endblock %}
 
 {% block body %}
-<div id="">
-    <h1 id="titremoncompte">Créer nouvelle Race</h1>
+<div class="listeform">
+    <h1>Créer nouvelle Race</h1>
 
-    <div id="">
-        {{ form_start(formRace) }}
-                {{ form_widget(formRace) }}
+    <div>
+        {{ form_start(formRace, {'attr': {'class': 'form'}}) }}
+                {{ form_widget(formRace, {'attr': {'class': 'form2'}}) }}
                 <button type="submit" class="btn" id="">Créez !</button>
         {{ form_end(formRace) }}
     </div>
-    <a href="{{ path("admin_listRace") }}">Retour</a>
+    <div class="retourform"><a href="{{ path("admin_listRace") }}">Retour</a></div>
 </div>
 
 {% endblock %}

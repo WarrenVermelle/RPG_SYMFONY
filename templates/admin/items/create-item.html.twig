@@ -3,45 +3,16 @@
 {% block title %}Création de personnage{% endblock %}
 
 {% block body %}
-<div id="">
-    <h1 id="titremoncompte">Créer un nouvel objet</h1>
+<div class="listeform">
+    <h1>Créer un nouvel objet</h1>
 
-    <div id="">
-        {{ form_start(formItem ) }}
-                {{ form_row(formItem.item , {
-                    label: 'Item : '
-                }) }}
-                {{ form_row(formItem.img , {
-                    label: 'Img : '
-                }) }}
-                {{ form_row(formItem.hp, {
-                    label: 'HP : '
-                }) }}
-                {{ form_row(formItem.mp, {
-                    label: 'MP : ' 
-                }) }}
-                {{ form_row(formItem.intel, {
-                    label: 'Intel : ' 
-                }) }}
-                {{ form_row(formItem.strength, {
-                    label: 'Strength : ' 
-                }) }}
-                {{ form_row(formItem.agi, {
-                    label: 'Agi : ' 
-                }) }}
-                {{ form_row(formItem.type, {
-                    label: 'Type : ' 
-                }) }}
-                {{ form_row(formItem.price, {
-                    label: 'Price : ' 
-                }) }}
-                {{ form_row(formItem.level, {
-                    label: 'Level : ' 
-                }) }}
+    <div>
+        {{ form_start(formItem, {'attr': {'class': 'form'}} ) }}
+                {{ form_widget(formItem, {'attr': {'class': 'form2'}}) }}
                 <button type="submit" class="btn" id="">Créez !</button>
         {{ form_end(formItem) }}
     </div>
-    <a href="{{ path("admin_items_listItems") }}">Retour</a>
+    <div class="retourform"><a href="{{ path("admin_items_listItems") }}">Retour</a></div>
 </div>
 
 {% endblock %}

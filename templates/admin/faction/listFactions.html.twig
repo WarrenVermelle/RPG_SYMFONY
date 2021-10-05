@@ -3,42 +3,43 @@
 {% block title %}Liste des Factions{% endblock %}
 
 {% block body %}
-
-    <h1>Liste des Factions</h1>
-
-    <a href="{{ path("admin_createFaction") }}">Créer une nouvelle faction</a>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Faction</th>
-                <th>Coef_HP</th>
-                <th>Coef_MP</th>
-                <th>Coef_Intel</th>
-                <th>Coef_Strength</th>
-                <th>Coef_Agi</th>
-                <th>Editer</th>
-                <th>Supprimer</th>
-            </tr>
-        </thead>
-        
-        <tbody>
-        {% for faction in factions %}
-            <tr>
-                <td>{{ faction.id }}</td>
-                <td>{{ faction.faction }}</td>
-                <td>{{ faction.coefhp }}</td>
-                <td>{{ faction.coefmp }}</td>
-                <td>{{ faction.coefintel }}</td>
-                <td>{{ faction.coefstrength }}</td>
-                <td>{{ faction.coefagi }}</td>
-                <td><a href="">Editer</a></td>
-                <td>{{ include('admin/faction/_delete_faction.html.twig') }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{{ path("admin") }}">Retour</a>
+    <div class="liste">
+        <h1>Liste des Factions</h1>
+        <div><a href="{{ path("admin_createFaction") }}" class="retour">Créer une nouvelle faction</a></div>
+        <div><a href="{{ path("admin") }}" class="retour">Retour</a></div>
+        <div>
+            <table>
+                <thead class="lignetable">
+                    <tr>
+                        <th>Id</th>
+                        <th>Faction</th>
+                        <th>Coef_HP</th>
+                        <th>Coef_MP</th>
+                        <th>Coef_Intel</th>
+                        <th>Coef_Strength</th>
+                        <th>Coef_Agi</th>
+                        <th>Editer</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody class="lignetable">
+                {% for faction in factions %}
+                    <tr>
+                        <td>{{ faction.id }}</td>
+                        <td>{{ faction.faction }}</td>
+                        <td>{{ faction.coefhp }}</td>
+                        <td>{{ faction.coefmp }}</td>
+                        <td>{{ faction.coefintel }}</td>
+                        <td>{{ faction.coefstrength }}</td>
+                        <td>{{ faction.coefagi }}</td>
+                        <td><a href="">Editer</a></td>
+                        <td>{{ include('admin/faction/_delete_faction.html.twig') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
     
 
 
