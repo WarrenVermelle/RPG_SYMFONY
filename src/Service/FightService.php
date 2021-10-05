@@ -2,13 +2,9 @@
 
 namespace App\Service;
 
-use App\Controller\FightController;
+
 use App\Entity\Champion;
-use App\Entity\Faction;
 use App\Entity\Monster;
-use App\Entity\Race;
-use App\Repository\ChampionRepository;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
