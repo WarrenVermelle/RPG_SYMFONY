@@ -30,7 +30,7 @@ class RequestSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event)
     {
-        if (str_starts_with($event->getRequest()->getPathInfo() ,'/game' )){
+        if (str_starts_with($event->getRequest()->getPathInfo() ,'/game' ) || str_starts_with($event->getRequest()->getPathInfo() ,'/combat' )){
 
             $user = $this->security->getUser();
 
@@ -48,10 +48,10 @@ class RequestSubscriber implements EventSubscriberInterface
                 'equiped' => true
             ]);
            
-            $request = $event->getRequest()->getSession();
-            $request->set('championActif', $champion);
-            $request->set('Item', $equipedList);
-            $request->set('inventory', $inventory);
+            $session = $event->getRequest()->getSession();
+            $session->set('championActif', $champion);
+            $session->set('Item', $equipedList);
+            $session->set('inventory', $inventory);
         }
     }
 }

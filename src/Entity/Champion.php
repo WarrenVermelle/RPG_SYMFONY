@@ -165,6 +165,18 @@ class Champion
         return $this;
     }
 
+    public function addLootToInventory(Item $loot): self
+    {
+
+        $newInventory = new Inventory();
+        $newInventory ->setEquiped(false);
+        $newInventory ->setItem($loot);
+        $this->inventories[] = $newInventory;
+        $newInventory ->setChamp($this);
+        
+        return $this;
+    }
+
     /*
     ** On passe le manager afin de suprimer l'objet d'une table many to many plus avancé
     */

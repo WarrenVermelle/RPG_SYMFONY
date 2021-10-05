@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Monster;
 use App\Repository\MapRepository;
 use App\Repository\MonsterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,11 +19,22 @@ class DynamicMapController extends AbstractController
                           Request $request, 
                           MonsterRepository $monsterRepo): Response
     {
-        // passe le monstre dans la session
         $monsters = $monsterRepo->findAll();
-        $request->getSession()->set('monster', $monsters[rand(0,count($monsters)-1)]);
+        $monster= $monsters[rand(0,count($monsters)-1)];
+
+        $session = $request->getSession();
+        if($session->get('monster') instanceof Monster)
+        {
+            $session->remove('monster');
+            $session->remove('monsterLoots');
+        }
+
+        // passe le monstre et son loot dans la session
+        $session->set('monster', $monster);
+        $session->set('monsterLoots', $monster->getLoots()->getValues());
+
         // champion connecté
-        $champion = $request->getSession()->get('championActif');
+        $champion = $session->get('championActif');
         // map actuelle
         $mapSelect = $mapRepo->findOneBy(["id" => $id]);
         // stocke la position dans le champion

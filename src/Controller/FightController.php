@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Item;
 use App\Repository\ChampionRepository;
 use App\Repository\ItemRepository;
+use App\Repository\LootRepository;
 use App\Service\FightService;
 use Doctrine\ORM\Query\AST\BetweenExpression;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,7 +42,8 @@ class FightController extends AbstractController
      * 
      */
     public function combat(ChampionRepository $championRepository, FightService $fight,
-                        UrlGeneratorInterface $generator, Request $request, ItemRepository $itemRepo): Response
+                        UrlGeneratorInterface $generator, Request $request, ItemRepository $itemRepo,
+                        LootRepository $lootRepo): Response
     {   
         // prend le monstre stocké dans la session
         $session = $request->getSession();
@@ -78,6 +80,19 @@ class FightController extends AbstractController
             $fight->xpWin($champion,$monster);
             // le champion obtient son or
             $fight->goldWin($champion,$monster);
+
+            // 1 chance sur 3 d'obtenir un loot
+            if(rand(0,2) === 0)
+            {
+                $manager = $this->getDoctrine()->getManager();
+                $loots = $monster->getLoots()->getValues();
+                $loot = $loots[rand(0,count($loots)-1)];
+    
+                $champion->addLootToInventory($manager->find(Item::class, $loot->getItem()->getId()));
+                
+                $manager->persist($champion);
+                $manager->flush();
+            }
 
             // si l'xp total du champion est supérieure ou égale à la base de prise de niveau
             if ($champion->getXp() >= $levelUp) {
