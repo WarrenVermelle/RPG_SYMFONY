@@ -6,6 +6,7 @@ use App\Entity\Faction;
 use App\Entity\Gender;
 use App\Entity\ImgPerso;
 use App\Entity\Item;
+use App\Entity\Map;
 use App\Entity\Monster;
 use App\Entity\Race;
 use App\Entity\Type;
@@ -14,6 +15,7 @@ use App\Form\CreateFactionType;
 use App\Form\CreateGenderType;
 use App\Form\CreateImgPersoType;
 use App\Form\CreateItemType;
+use App\Form\CreateMapType;
 use App\Form\CreateMonsterType;
 use App\Form\CreateRaceType;
 use App\Form\CreateTypeType;
@@ -22,6 +24,7 @@ use App\Repository\FactionRepository;
 use App\Repository\GenderRepository;
 use App\Repository\ImgPersoRepository;
 use App\Repository\ItemRepository;
+use App\Repository\MapRepository;
 use App\Repository\MonsterRepository;
 use App\Repository\RaceRepository;
 use App\Repository\TypeRepository;
@@ -523,6 +526,66 @@ class AdminController extends AbstractController
     }
 
 
+//========================== Block Map =======================================
+    #[Route('/listMap', name: 'admin_listMap')]
+    public function listMap(MapRepository $mapRepository): Response
+    {
+        return $this->render('admin/map/listMap.html.twig', [
+            "maps" => $mapRepository->findAll()
+        ]);
+    } 
 
+    #[Route('/createMap', name: 'admin_createMap')]
+    public function createMap(Request $request):Response
+    {
+        
+        $map = new Map();
+        $form = $this->createForm(CreateMapType::class, $map);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) 
+        {   
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($map);
+            $manager->flush();
 
+            return $this->redirectToRoute('admin_listMap');
+        }
+
+        return $this->render('admin/map/create-map.html.twig', ['formMap' => $form->createView()]);
+    }
+
+    #[Route('/map/edit/{id}', name: 'map_edit', methods: ['POST', 'GET'])]
+    public function editMap(Request $request, Map $map): Response
+    {
+        $form = $this->createForm(CreateMapType::class, $map);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $map->setImg("");
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($map);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_listMap');
+        }
+
+        return $this->render('admin/map/edit_map.html.twig', ['formMap' => $form->createView()]);
+
+    } 
+
+    #[Route('/map/delete/{id}', name: 'map_delete', methods: ['POST'])]
+    public function deleteMap(Request $request, Map $map): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$map->getId(), $request->request->get('_token')))
+        {
+            $map->setImg("");
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($map);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('admin_listMap', [], Response::HTTP_SEE_OTHER);
+    }
 }

@@ -15,7 +15,6 @@ class MapController extends AbstractController
     #[Route('/map', name: 'map')]
     public function index(): Response
     {
-        
         return $this->render('game/index.html.twig', [
             'controller_name' => 'MapController',
         ]);
@@ -37,8 +36,6 @@ class MapController extends AbstractController
     #[Route('/ville', name: 'ville')]
     public function ville(ChampionRepository $ChampionRepo): Response
     {
-        
-
         return $this->render('game/ville.html.twig', [
             'champion' => $ChampionRepo->findOneBy([
                 "player" => $this->getUser(),
