@@ -65,9 +65,9 @@ class FightController extends AbstractController
             // le champion obtient son or
             $fight->goldWin($champion,$monster);
             $goldFight = $monster->getGold();
-            $session->set('loot', ' ');
+            
             // 1 chance sur 3 d'obtenir un loot
-            if(rand(0,0) === 0)
+            if(rand(0,2) === 0)
             {
                 $manager = $this->getDoctrine()->getManager();
                 $loots = $monster->getLoots()->getValues();
