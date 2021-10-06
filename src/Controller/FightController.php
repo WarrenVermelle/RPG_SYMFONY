@@ -3,38 +3,55 @@
 namespace App\Controller;
 
 use App\Entity\Item;
+use App\Entity\Gender;
+use App\Entity\Race;
+use App\Entity\Faction;
+use App\Entity\Champion;
 use App\Service\FightService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Repository\ImgPersoRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/combat')]
 class FightController extends AbstractController
 {
     #[Route('/start', name:'start')]
-    public function start(Request $request): Response
+    public function start(Request $request,ImgPersoRepository $imgPersoRepo): Response
     {
         $session = $request->getSession();
+
+        $champion = $session->get('championActif');
+        $manager = $this->getDoctrine()->getManager();
+        $champion = $manager->find(Champion::class, $champion->getId());
 
         return $this->render('fight/fightStart.html.twig',[
             
             'monster' => $session->get('monster'),
-            'champion' => $session->get('championActif')
+            'champion' => $champion,
+            'img' => $imgPersoRepo->findOneBy([
+                'gender' => $champion->getGender(),
+                'race' => $champion->getRace(),
+                'faction' => $champion->getFaction(),
+            ])
         ]);
     }
 
     #[Route('/combat', name:'combat')]
     public function combat(FightService $fight,
                            UrlGeneratorInterface $generator, 
-                           Request $request): Response
+                           Request $request,ImgPersoRepository $imgPersoRepo): Response
     {   
         $session = $request->getSession();
         $monster = $session->get('monster');
         $champion = $session->get('championActif');
 
+        $manager = $this->getDoctrine()->getManager();
+        $champion = $manager->find(Champion::class, $champion->getId());
+        
         $vieavant = $champion->getHp();
         $viemstavant = $monster->getHp();
         // met a jour les pv du monstre après l'attaque du champion (session)
@@ -113,7 +130,12 @@ class FightController extends AbstractController
             'monster' => $monster,
             'champion' => $champion,
             'attacPerso' => $viemstavant - $monster->getHp(),
-            'attacMonster' => $vieavant - $champion->getHp()
+            'attacMonster' => $vieavant - $champion->getHp(),
+            'img' => $imgPersoRepo->findOneBy([
+                'gender' => $champion->getGender(),
+                'race' => $champion->getRace(),
+                'faction' => $champion->getFaction(),
+            ])
         ]);
     }
 

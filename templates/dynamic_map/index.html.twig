@@ -60,6 +60,7 @@
         {% if  fight %}
         <div data-controller="combat" id="Combat">
             <p> {{ monster.monster }} niv {{ monster.level }} apparait </p>
+            <img src="{{asset(monster.image)}}" alt="" id="imgcombat">
             <button data-action="click->combat#startCombat"  data-start="{{path('start')}}">Fight</button>
         </div>
         {% endif %}

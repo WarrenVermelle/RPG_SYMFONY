@@ -498,11 +498,13 @@ h1{
         margin: 0 auto;
         padding: 10px;
         background-color: grey;
-        width: 25vh;
-        height: 18vh;
+        width: 40vh;
+        height: 45vh;
         border: 2px black solid;
         border-radius: 20px;
-        margin-top: 10vh;
+        #imgcombat{
+            width: 200px;
+        }
         button{
             width: 100px;
             height: 40px;
@@ -518,6 +520,8 @@ h1{
         }
     }
 }
+
+
 /*---------------page de la ville------------*/
 
 #ville{
@@ -697,13 +701,19 @@ h1{
 
 #startCombat{
     background-color: grey;
-    width: 60vh;
-    height: 35vh;
+    width: 90vh;
+    height: 45vh;
     border: 2px black solid;
     border-radius: 20px;
     padding: 20px;
     margin: 0 auto;
     div{
+        div{
+            #imgfight{
+                width: 200px;
+                height: 300px;
+            } 
+        }
         display: flex;
         justify-content: space-around;
         text-align: center;

@@ -4,6 +4,7 @@
 
 <div data-controller="combat" id="startCombat" >
     <div>
+        <div><img src="{{ vich_uploader_asset(img, 'file_img') }}" alt="" id="imgfight"></div>
         <div id="fightChampion">
             <div>{{champion.name}}</div>
             <div>Level: {{champion.level}}</div>
@@ -16,6 +17,7 @@
         <div>
             <img src="{{asset('img/vs.png')}}" alt="vs" id="vs">
         </div>
+        <div><img src="{{asset(monster.image)}}" alt="" id="imgfight"></div>
         <div id="fightMonstre">
             <div>{{monster.monster}}</div>
             <div>Level: {{monster.level}}</div>
