@@ -143,12 +143,14 @@ class FightController extends AbstractController
     #[Route('/potioHeal', name:'potioHeal')]
     public function potioHeal(FightService $fight,
                               UrlGeneratorInterface $generator, 
-                              Request $request): Response
+                              Request $request, ImgPersoRepository $imgPersoRepo): Response
     {
         $session = $request->getSession();
         $monster = $session->get('monster');
         $champion = $session->get('championActif');
 
+        $manager = $this->getDoctrine()->getManager();
+        $champion = $manager->find(Champion::class, $champion->getId());
         $vieavant = $champion->getHp();
         $fight->atkMonster($champion, $monster);
         // si les pv du champion tombent à 0 ou moins
@@ -165,26 +167,31 @@ class FightController extends AbstractController
         return $this->render('fight/fightStart.html.twig',[
             'monster' => $monster,
             'champion' => $champion,          
-            'attacMonster' => $vieavant - $champion->getHp()     
+            'attacMonster' => $vieavant - $champion->getHp(),
+            'img' => $imgPersoRepo->findOneBy([
+                'gender' => $champion->getGender(),
+                'race' => $champion->getRace(),
+                'faction' => $champion->getFaction(),
+            ])     
         ]);
     }
 
     #[Route('/fuite', name:'fuite')]
     public function fuite(UrlGeneratorInterface $generator,
                           FightService $fight, 
-                          Request $request)//: Response
+                          Request $request,ImgPersoRepository $imgPersoRepo)//: Response
     {
         $monster = $request->getSession()->get('monster');
         $champion = $request->getSession()->get('championActif');
 
 
-        if($fight->escape($champion,$generator,$request))
+        if($fight->escape($champion,$generator,$request,$imgPersoRepo))
         {
             return new JsonResponse($generator->generate('dynamic_map', ['id' => 4]));
         }
         else
         {
-            return $this->potioHeal($fight, $generator, $request);
+            return $this->potioHeal($fight, $generator, $request,$imgPersoRepo);
         }        
     }
 }
