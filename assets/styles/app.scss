@@ -752,8 +752,7 @@ h1{
     button:hover,
     button:focus {
         box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-        transform: translateY(-0.40em);
-        
+        transform: translateY(-0.40em);  
     }
 }
 #btn{
@@ -762,6 +761,63 @@ h1{
 #degat{
     color: red!important;
     font-size: 30px;
+}
+
+/*-----------------fin de combat-------------*/
+
+#endCombat{
+        background-color: grey;
+        width: 60vh;
+        height: 45vh;
+        border: 2px black solid;
+        border-radius: 20px;
+        padding: 20px;
+        margin: 0 auto;
+    h1{
+        text-align: center;
+        font-size: 60px;
+        margin: 0;
+    }
+    img{
+        width: 70px;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+    #btn{
+        justify-content: center;
+    }
+    button{
+        width: 100px;
+        height: 40px;
+        border-radius: 5px;
+        border: 2px solid black;
+        cursor: pointer;
+        text-align: center;
+        align-items: center;
+    }
+    div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        div{
+            flex-direction: row;
+            margin-bottom: 20px;
+
+        }
+    }
+    #imgxp{
+        width: 40px;
+        transform: rotate(270deg);
+        margin-right: 10px;
+    }
+}
+
+.endCombat{
+        height: 25vh!important;
+        #btn{
+            margin-top: 5vh;
+        }
 }
 
 /*---------------footer-----------------------*/
