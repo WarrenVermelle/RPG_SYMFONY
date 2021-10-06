@@ -35,27 +35,13 @@ class FightController extends AbstractController
         $monster = $session->get('monster');
         $champion = $session->get('championActif');
 
+        // base de la prise de niveau
+        $levelUp = $champion->getLevel() * 100;
+
         $vieavant = $champion->getHp();
         $viemstavant = $monster->getHp();
         // met a jour les pv du monstre après l'attaque du champion (session)
         $session->set('monster', $fight->atkChamp($champion, $monster));
-        // met à jour les pv du champion après l'attaque du monstre (bdd)
-        $fight->atkMonster($champion, $monster);
-
-        // si les pv du champion tombent à 0 ou moins
-        if($champion->getHp() <= 0)
-        {
-            $manager = $this->getDoctrine()->getManager();
-            // remet les pv à 1
-            $champion->setHp(1);
-            $manager->persist($champion);
-            $manager->flush();
-            // renvoi à la ville
-            return new JsonResponse($generator->generate('lose'));
-        }
-
-        // base de la prise de niveau
-        $levelUp = $champion->getLevel() * 100;
 
         // si les pv du monstre tombent à 0
         if ($monster->getHp() <= 0) {
@@ -95,6 +81,21 @@ class FightController extends AbstractController
             }
             // renvoi à la forêt après le combat
             return new JsonResponse($generator->generate('win'));
+        }
+
+        // met à jour les pv du champion après l'attaque du monstre (bdd)
+        $fight->atkMonster($champion, $monster);
+
+        // si les pv du champion tombent à 0 ou moins
+        if($champion->getHp() <= 0)
+        {
+            $manager = $this->getDoctrine()->getManager();
+            // remet les pv à 1
+            $champion->setHp(1);
+            $manager->persist($champion);
+            $manager->flush();
+            // renvoi à la ville
+            return new JsonResponse($generator->generate('lose'));
         }
 
         // si l'xp totale du champion est égale à la base de prise de niveau
