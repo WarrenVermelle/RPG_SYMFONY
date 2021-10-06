@@ -69,6 +69,7 @@ class FightController extends AbstractController
             $fight->goldWin($champion,$monster);
             $goldFight = $monster->getGold();
             
+            $session->remove("loot");
             // 1 chance sur 3 d'obtenir un loot
             if(rand(0,2) === 0)
             {
