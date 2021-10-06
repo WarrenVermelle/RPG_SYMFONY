@@ -31,6 +31,7 @@ export default class extends Controller
         await fetch(path)
         .then((response)=>{
             return response.text()
+<<<<<<< HEAD
         })
         .then((text)=>{
 
@@ -44,6 +45,16 @@ export default class extends Controller
                     return response.text()
                 })
                 .then((text)=>{
+=======
+        }).then((text)=>{
+            if(text.startsWith("\"\\")){
+                let redirectPath = JSON.parse(text);
+                localStorage.removeItem('cbtStart')
+                //window.location.href = redirectPath;
+                fetch(redirectPath).then((response)=>{
+                    return response.text()
+                }).then((text)=>{
+>>>>>>> 3fd035cfeb07f6fca504d2ac8c3d93b8754b9f01
                     let parser = new DOMParser();
                     let doc = parser.parseFromString(text, 'text/html');
 
@@ -72,8 +83,19 @@ export default class extends Controller
     
    async endFight()
    {
+<<<<<<< HEAD
         window.location.href = '/game/voyage/4';
    }
+=======
+    let btn = this.element.querySelector('button');
+    let path = btn.getAttribute('data-end');
+        if ( path === '/lose'){
+            window.location.href = '/game/voyage/1';
+        }else{
+            window.location.href = '/game/voyage/4';
+        }
+    }
+>>>>>>> 3fd035cfeb07f6fca504d2ac8c3d93b8754b9f01
 
     async fuite(event)
     {
