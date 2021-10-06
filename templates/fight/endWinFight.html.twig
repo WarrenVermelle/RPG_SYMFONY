@@ -3,15 +3,17 @@
 {% block body %}
 
 <div data-controller="combat" id="endCombat" >
-    <p> Victoire !</p>
-    {% if item != ' ' %}
-        <p> Vous avez trouvé {{ item.item }} ! </p>
-        <img src=" {{ asset( item.img ) }}">  </img>
-        
-    {% endif %}
-    <p> {{ xpFight }} </p>
-    <p> {{ goldFight }} </p>
-    <button data-action="click->combat#endFight" data-end="{{path('win')}}" > Foret </button>
-
+    <h1> Victoire !</h1>
+    <div>
+        {% if item != ' ' %}
+            <div> Vous avez trouvé {{ item.item }} ! </div>
+            <img src=" {{ asset( item.img ) }}"></img>            
+        {% endif %}
+        <div> Xp : {{ xpFight }}  <img src="{{asset('img/fleche-exp.png')}}" id="imgxp"></div>
+        <div>Or : {{ goldFight }} <img src="{{asset('img/or.png')}}" id="imgarme"> </div>
+    </div>
+    <div id="btn">
+        <button data-action="click->combat#endFight" data-end="{{path('win')}}" > Continuer </button>
+    </div>
 </div>
 {% endblock %}

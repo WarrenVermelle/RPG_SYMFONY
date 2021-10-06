@@ -2,9 +2,10 @@
 
 {% block body %}
 
-<div data-controller="combat" id="endCombat" >
-    <p> Perdu essaye encore </p>
-    <button data-action="click->combat#endFight" data-end="{{path('lose')}}" > Ville </button>
-
+<div data-controller="combat" id="endCombat" class="endCombat">
+    <h1> Vous avez péri au combat ! </h1>
+    <div id="btn">
+        <button data-action="click->combat#endFight" data-end="{{path('lose')}}" > Ville </button>
+    </div>
 </div>
 {% endblock %}
