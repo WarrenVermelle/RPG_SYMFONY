@@ -64,6 +64,11 @@
         </div>
         {% endif %}
 
+        {% if currentMap == 2 %}
+        <div id="dormir">
+            <a href= "{{ path("sleep", {"id":champion.id}) }}">Dormir</a>
+        </div>
+        {% endif %}
         {# div qui va injecter l'image du marchant qui va lancer la fonction achat vente #}
         {% if  marchand %}
         <div id="marchand">
@@ -72,6 +77,6 @@
             </a>
         </div>
         {% endif %}
-    </div>
+    </divW>
 
 {% endblock %}

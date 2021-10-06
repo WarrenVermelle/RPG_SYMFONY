@@ -3,18 +3,19 @@
 {% block title %}Liste des types et des objets{% endblock %}
 
 {% block body %}
-
+    <div class="liste">
     <h1>Liste des Types d'objets</h1>
-    
+    <div><a href="{{ path("admin") }}" class="retour">Retour</a></div>
+    <div>
     <table>
-        <thead>
+        <thead class="lignetable">
             <tr>
                 <th>Id</th>
                 <th>Type</th>
                 <th>Suppression</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="lignetable">
         {% for type in types %}
             <tr>
                 <td>{{ type.id }}</td>
@@ -24,11 +25,14 @@
         {% endfor %}
         </tbody>
     </table>
-    <h2><a href="{{ path("admin_items_createType") }}">Créer un nouveau type</a></h2>
+    </div>
+    <h2 class="créertypeobj"><a href="{{ path("admin_items_createType") }}">Créer un nouveau type</a></h2>
+    </div>
+    <div class="liste">
     <h1>Liste des Objets</h1>
-    
+    <div>
     <table>
-        <thead>
+        <thead class="lignetable">
             <tr>
                 <th>Id</th>
                 <th>Item</th>
@@ -45,7 +49,7 @@
                 <th>Suppression</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="lignetable">
         {% for item in items %}
             <tr>
                 <td>{{ item.id }}</td>
@@ -65,6 +69,7 @@
         {% endfor %}
         </tbody>
     </table>
-    <h2><a href="{{ path("admin_items_createItem") }}">Créer un nouvel objet</a></h2>
-    <a href="{{ path("admin") }}">Retour</a>
+    </div>
+    <h2 class="créertypeobj"><a href="{{ path("admin_items_createItem") }}">Créer un nouvel objet</a></h2>
+    </div>
 {% endblock %}

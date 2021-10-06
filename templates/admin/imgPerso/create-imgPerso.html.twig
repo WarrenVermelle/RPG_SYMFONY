@@ -3,16 +3,16 @@
 {% block title %}Ajout d'une nouvelle image pour personnage{% endblock %}
 
 {% block body %}
-<div id="">
-    <h1 id="titremoncompte">Ajouter une nouvelle image pour personnage</h1>
+    <div class="listeform">
+        <h1>Ajouter une nouvelle image pour personnage</h1>
 
-    <div id="">
-        {{ form_start(formImgPerso) }}
-                {{ form_widget(formImgPerso) }}
-                <button type="submit" class="btn" id="">Créez !</button>
-        {{ form_end(formImgPerso) }}
+        <div>
+            {{ form_start(formImgPerso, {'attr': {'class': 'formim'}}) }}
+                    {{ form_widget(formImgPerso, {'attr': {'class': 'form2'}}) }}
+                    <button type="submit" class="btn" id="">Créez !</button>
+            {{ form_end(formImgPerso) }}
+        </div>
+        <div class="retourform"><a href="{{ path("admin_listImgPerso") }}">Retour</a></div>
     </div>
-    <a href="{{ path("admin_listImgPerso") }}">Retour</a>
-</div>
 
 {% endblock %}

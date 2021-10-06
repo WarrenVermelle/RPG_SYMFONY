@@ -3,15 +3,23 @@
 {% block title %}Administrateur{% endblock %}
 
 {% block body %}
-
-    <h1>Bienvenue Ô grand Administrateur {{app.user.username}}</h1>
-
-    <h2><a href="{{ path("admin_userslist") }}">Liste des utilisateurs</a></h2>
-    <h2><a href="{{ path("admin_listMonster") }}">Liste Monstres</a></h2>
-    <h2><a href="{{ path("admin_items_listItems") }}">Liste d'Objets</a></h2>
-    <h2><a href="{{ path("admin_listFaction") }}">Liste des Factions</a></h2>
-    <h2><a href="{{ path("admin_listRace") }}">Liste des Races</a></h2>
-    <h2><a href="{{ path("admin_listGender") }}">Liste des Genres</a></h2>
-    <h2><a href="{{ path("admin_listImgPerso") }}">Liste des Images des personnages</a></h2>
-
+    <div id="admin">
+        <h1>Bienvenue Ô grand Administrateur {{app.user.username}}</h1>
+        <div>
+            <h2 ><a href="{{ path("admin_userslist") }}" 
+                    style="background-image: url('{{asset('img/utilisateur.jpg')}}');">Utilisateurs</a></h2>
+            <h2><a href="{{ path("admin_listMonster") }}"
+                    style="background-image: url('{{asset('img/monstre.png')}}');">Monstres</a></h2>
+            <h2><a href="{{ path("admin_items_listItems") }}"
+                    style="background-image: url('{{asset('img/objet.png')}}');">Objets</a></h2>
+            <h2><a href="{{ path("admin_listFaction") }}"
+                    style="background-image: url('{{asset('img/guerriernainh.jpg')}}');">Factions</a></h2>
+            <h2><a href="{{ path("admin_listRace") }}"
+                    style="background-image: url('{{asset('img/nain-guerrier.webp')}}');">Races</a></h2>
+            <h2><a href="{{ path("admin_listGender") }}"
+                    style="background-image: url('{{asset('img/genre.png')}}');">Genres</a></h2>
+            <h2><a href="{{ path("admin_listImgPerso") }}"
+                    style="background-image: url('{{asset('img/archerhumainh-615c2a2d4c965783990411.png')}}');">Images des personnages</a></h2>
+        </div>
+    </div>
 {% endblock %}

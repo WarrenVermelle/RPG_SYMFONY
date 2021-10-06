@@ -3,49 +3,52 @@
 {% block title %}Liste des monstres{% endblock %}
 
 {% block body %}
+    <div class="liste">
+        <h1>Liste des Monstres</h1>
 
-    <h1>Liste des Monstres</h1>
+        <div><a href="{{ path("admin_createMonster") }}" class="retour">Créer un nouveau monstre</a></div>
+        <div><a href="{{ path("admin") }}" class="retour">Retour</a></div>
+        <div>
+            <table>
+                <thead  class="lignetable">
+                    <tr>
+                        <th>Id</th>
+                        <th>Monster</th>
+                        <th>Level</th>
+                        <th>HP</th>
+                        <th>MP</th>
+                        <th>Intel</th>
+                        <th>Force</th>
+                        <th>Agi</th>
+                        <th>Gold</th>
+                        <th>XP</th>
+                        <th>Editer</th>
+                        <th>Suppression</th>
+                    </tr>
+                </thead>
 
-    <a href="{{ path("admin_createMonster") }}">Créer un nouveau monstre</a>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Monster</th>
-                <th>Level</th>
-                <th>HP</th>
-                <th>MP</th>
-                <th>Intel</th>
-                <th>Force</th>
-                <th>Agi</th>
-                <th>Gold</th>
-                <th>XP</th>
-                <th>Editer</th>
-                <th>Suppression</th>
-            </tr>
-        </thead>
-        
-        
-        <tbody>
-        {% for monster in monsters %}
-            <tr>
-                <td>{{ monster.id }}</td>
-                <td>{{ monster.monster }}</td>
-                <td>{{ monster.level }}</td>
-                <td>{{ monster.hp }}</td>
-                <td>{{ monster.mp }}</td>
-                <td>{{ monster.intel }}</td>
-                <td>{{ monster.strength }}</td>
-                <td>{{ monster.agi }}</td>
-                <td>{{ monster.gold }}</td>
-                <td>{{ monster.xp }}</td>
-                <td><a href="{{ path('monster_edit', {"id":monster.id}) }}">Editer</a></td>
-                <td>{{ include('admin/monsters/_delete_monster.html.twig') }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{{ path("admin") }}">Retour</a>
+
+                <tbody  class="lignetable">
+                {% for monster in monsters %}
+                    <tr>
+                        <td>{{ monster.id }}</td>
+                        <td>{{ monster.monster }}</td>
+                        <td>{{ monster.level }}</td>
+                        <td>{{ monster.hp }}</td>
+                        <td>{{ monster.mp }}</td>
+                        <td>{{ monster.intel }}</td>
+                        <td>{{ monster.strength }}</td>
+                        <td>{{ monster.agi }}</td>
+                        <td>{{ monster.gold }}</td>
+                        <td>{{ monster.xp }}</td>
+                        <td><a href="{{ path('monster_edit', {"id":monster.id}) }}">Editer</a></td>
+                        <td>{{ include('admin/monsters/_delete_monster.html.twig') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
     
 
 

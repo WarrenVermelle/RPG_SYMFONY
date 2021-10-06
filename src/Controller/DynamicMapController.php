@@ -56,6 +56,7 @@ class DynamicMapController extends AbstractController
             "fight" => $mapSelect->getFight(),
             "marchand" => $mapSelect->getMarchand(),
             'monster' => $request->getSession()->get('monster'),
+            'currentMap' => $mapSelect->getId()
         ]);
     }
 }

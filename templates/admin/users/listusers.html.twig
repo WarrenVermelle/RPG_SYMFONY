@@ -3,29 +3,31 @@
 {% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-
-    <h1>Liste des Utilisateurs</h1>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>User</th>
-                <th>Role</th>
-                <th>Supprimer l'utilisateur</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.roles[0] }}</td>
-                <td>{{ include('admin/users/_delete_user.html.twig') }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{{ path("admin") }}">Retour</a>
+    <div class="liste">
+        <h1>Liste des Utilisateurs</h1>
+        <div><a href="{{ path("admin") }}" class="retour">Retour</a></div>
+        <div>
+            <table>
+                <thead class="lignetable">
+                    <tr>
+                        <th >Id</th>
+                        <th>User</th>
+                        <th>Role</th>
+                        <th>Supprimer l'utilisateur</th>
+                    </tr>
+                </thead>
+                <tbody class="lignetable">
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.roles[0] }}</td>
+                        <td>{{ include('admin/users/_delete_user.html.twig') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
 

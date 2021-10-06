@@ -3,42 +3,45 @@
 {% block title %}Liste des Races{% endblock %}
 
 {% block body %}
+    <div class="liste">
+        <h1>Liste des Races</h1>
 
-    <h1>Liste des Races</h1>
+        <div><a href="{{ path("admin_createRace") }}" class="retour">Créer une nouvelle race</a></div>
+        <div><a href="{{ path("admin") }}" class="retour">Retour</a></div>
+        <div>
+            <table>
+                <thead class="lignetable">
+                    <tr>
+                        <th>Id</th>
+                        <th>Race</th>
+                        <th>Ratio_HP</th>
+                        <th>Ratio_MP</th>
+                        <th>Ratio_Intel</th>
+                        <th>Ratio_Strength</th>
+                        <th>Ratio_Agi</th>
+                        <th>Editer</th>
+                        <th>Suppression</th>
+                    </tr>
+                </thead>      
+                <tbody class="lignetable">
+                {% for race in races %}
+                    <tr>
+                        <td>{{ race.id }}</td>
+                        <td>{{ race.race }}</td>
+                        <td>{{ race.ratioHp }}</td>
+                        <td>{{ race.ratioMp }}</td>
+                        <td>{{ race.ratioIntel }}</td>
+                        <td>{{ race.ratioStrength }}</td>
+                        <td>{{ race.ratioAgi }}</td>
+                        <td><a href="">Editer</a></td>
+                        <td>{{ include('admin/race/_delete_race.html.twig') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <a href="{{ path("admin_createRace") }}">Créer une nouvelle race</a>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Race</th>
-                <th>Ratio_HP</th>
-                <th>Ratio_MP</th>
-                <th>Ratio_Intel</th>
-                <th>Ratio_Strength</th>
-                <th>Ratio_Agi</th>
-                <th>Editer</th>
-                <th>Suppression</th>
-            </tr>
-        </thead>
-        
-        <tbody>
-        {% for race in races %}
-            <tr>
-                <td>{{ race.id }}</td>
-                <td>{{ race.race }}</td>
-                <td>{{ race.ratioHp }}</td>
-                <td>{{ race.ratioMp }}</td>
-                <td>{{ race.ratioIntel }}</td>
-                <td>{{ race.ratioStrength }}</td>
-                <td>{{ race.ratioAgi }}</td>
-                <td><a href="">Editer</a></td>
-                <td>{{ include('admin/race/_delete_race.html.twig') }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{{ path("admin") }}">Retour</a>
     
 
 

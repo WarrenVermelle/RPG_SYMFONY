@@ -51,7 +51,7 @@ h1{
     background-image: url(../../public/img/fondbase.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 90.4vh;
+    height: 92.1vh;
 }
 
 /*-----------------Accueil-------------------*/
@@ -60,7 +60,7 @@ h1{
     background-image: url(../../public/img/fondacceuil.png);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 90.4vh;
+    height: 92.1vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,6 +75,8 @@ h1{
         text-decoration: none;
         color: rgb(85, 85, 85);
         font-size: 30px;
+        background-repeat: no-repeat;
+        background-size: cover;
         }
     }
 }
@@ -180,6 +182,197 @@ h1{
     }
 }
 
+/*-------------------Page Admin----------------------*/
+#admin{
+    background-color: grey;
+    text-align: center;
+    h1{
+        font-size: 70px;
+    }
+    div{
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+        justify-content: center;
+        h2{
+            padding: 10px;
+            a{
+                display: block;
+                text-decoration: none;
+                border: 2px solid black;
+                border-radius: 40px;
+                width: 370px;
+                height: 330px;
+                background-repeat: no-repeat;
+                background-size: cover;
+                color: white;
+            }
+            a:hover{
+                opacity: 0.5;
+            }
+        }
+    }
+}
+                /*-------------------Page User----------------------*/
+                .liste{
+                    background-color: gray;
+                    text-align: center;
+                    margin-top: 5vh;
+                    .retour:first-child{
+                        margin-bottom: 10px;
+                    }
+                    a{
+                        text-decoration: none;
+                        background-color: white;
+                        color: black;
+                        border: 2px solid black;
+                        border-radius: 10px;
+                        padding: 2px;
+                    }
+                    a:hover{
+                        opacity: 0.5;
+                    }
+                    h1{
+                        font-size: 70px;
+                    }
+                    div{
+                        display: flex;
+                        justify-content: center;
+                        table{
+                            border-collapse: collapse;
+                            margin: 30px;
+                        }
+                    } 
+                }
+                .lignetable{
+                    border: 1px solid black;
+                    font-size: 30px;
+                    tr{
+                        border-bottom: solid black 1px;
+                        td{
+                            width: 150px;
+                            a{
+                                font-size: 20px;
+                            }
+                            img{
+                                width: 150px;
+                            }
+                        }
+                        td:last-child{
+                            button{
+                            text-decoration: none;
+                            background-color: white;
+                            color: black;
+                            border: 2px solid black;
+                            border-radius: 10px;
+                            padding: 2px;
+                            font-size: 20px;
+                            }
+                            button:hover{
+                                opacity: 0.5;
+                            }
+                        }
+                    }
+                }
+                .créertypeobj{
+                    padding-bottom: 20px;
+                }
+                .retour{
+                    display: flex;
+                    height: 50px;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 20px;
+                    
+                }
+
+                /*-------------------Page formulaire----------------------*/
+                .listeform{
+                    background-color: gray;
+                    text-align: center;
+                    margin-top: 5vh;
+                    h1{
+                        font-size: 70px;
+                    }
+                }
+                .retourform{
+                    display: flex;
+                    justify-content: center;
+                   
+                    a{
+                        display: flex;
+                        height: 50px;
+                        align-items: center;
+                        font-size: 20px;
+                        text-decoration: none;
+                        background-color: white;
+                        border: 2px solid black;
+                        border-radius: 10px;
+                        padding: 2px;
+                        margin: 20px;
+                    }
+                }
+                .formim{
+                    .form2{
+                        display: flex;
+                        flex-direction: column;
+                        text-align: center;
+                        margin-left: 40%;
+                        div:first-child{
+                            width: 550px;
+                        }
+                        div{
+                            display: flex;
+                            margin: 15px;
+                            align-items: flex-start;
+                            justify-content: space-between;
+                            width: 300px;
+                            font-size: 25px;
+                            input{
+                                font-size: 20px;
+                            }
+                        }
+                    }
+                    button{
+                        height: 50px;
+                        font-size: 20px;
+                        text-decoration: none;
+                        border: 2px solid black;
+                        border-radius: 10px;
+                        padding: 2px;
+                        margin: 20px;
+                    }
+                }
+                .form{
+                    .form2{
+                        display: flex;
+                        flex-direction: column;
+                        text-align: center;
+                        margin-left: 35%;
+                        div{
+                            display: flex;
+                            margin: 15px;
+                            align-items: flex-start;
+                            justify-content: space-between;
+                            width: 500px;
+                            font-size: 25px;
+                            input{
+                                font-size: 20px;
+                            }
+                        }
+                    }
+                    button{
+                        height: 50px;
+                        font-size: 20px;
+                        text-decoration: none;
+                        border: 2px solid black;
+                        border-radius: 10px;
+                        padding: 2px;
+                        margin: 20px;
+                    }
+                }
+
+
 /*--------Création de nouveaux personnage------------*/
 
 #affcrepers{
@@ -217,7 +410,24 @@ h1{
 .imgfleche{
     width: 150px;
 }
-
+#dormir{
+    position: absolute;
+    left: 140vh;
+    top: 45vh;
+    background-image: url(../../public/img/dormir.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    a{
+        display: block;
+        text-decoration: none;
+        color: white;
+        width: 110px;
+        height: 35px;
+        font-size: 20px;
+        padding-left: 20px;
+        padding-top: 2px;
+    }
+}
 #backgroundMap{
     background-repeat: no-repeat; 
     background-size: cover; 
@@ -588,6 +798,7 @@ footer{
 }
 .stats-figure{
     padding-right: 15px;
+    margin-top: 10px!important;
 }
 
 /*-------------------popup inventaire -------------------------*/

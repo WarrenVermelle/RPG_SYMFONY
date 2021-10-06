@@ -3,32 +3,35 @@
 {% block title %}Liste des Genres{% endblock %}
 
 {% block body %}
+    <div class="liste">
+        <h1>Liste des Genres</h1>
 
-    <h1>Liste des Genres</h1>
+        <div><a href="{{ path("admin_createGender") }}" class="retour">Créer un nouveau genre</a></div>
+        <div><a href="{{ path("admin") }}" class="retour">Retour</a></div>
+        <div>
+            <table>
+                <thead class="lignetable">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Editer</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody class="lignetable">
+                {% for gender in genders %}
+                    <tr>
+                        <td>{{ gender.id }}</td>
+                        <td>{{ gender.nomGender }}</td>
+                        <td><a href="">Editer</a></td>
+                        <td>{{ include('admin/gender/_delete_gender.html.twig') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <a href="{{ path("admin_createGender") }}">Créer un nouveau genre</a>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Editer</th>
-                <th>Supprimer</th>
-            </tr>
-        </thead>
-        
-        <tbody>
-        {% for gender in genders %}
-            <tr>
-                <td>{{ gender.id }}</td>
-                <td>{{ gender.nomGender }}</td>
-                <td><a href="">Editer</a></td>
-                <td>{{ include('admin/gender/_delete_gender.html.twig') }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{{ path("admin") }}">Retour</a>
     
 
 

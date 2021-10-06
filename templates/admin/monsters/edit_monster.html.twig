@@ -3,45 +3,16 @@
 {% block title %}Editer le monstre{% endblock %}
 
 {% block body %}
-<div id="">
-    <h1 id="titremoncompte">Edit monster</h1>
+<div class="listeform">
+    <h1>Edit monster</h1>
 
-    <div id="">
-        {{ form_start(formMonster ) }}
-                {{ form_row(formMonster.monster , {
-                    label: 'Monster : '
-                }) }}
-                {{ form_row(formMonster.level , {
-                    label: 'Level : '
-                }) }}
-                {{ form_row(formMonster.hp, {
-                    label: 'HP : '
-                }) }}
-                {{ form_row(formMonster.hpMax, {
-                    label: 'hpMax : ' 
-                }) }}
-                {{ form_row(formMonster.mp, {
-                    label: 'MP : ' 
-                }) }}
-                {{ form_row(formMonster.intel, {
-                    label: 'Intel : ' 
-                }) }}
-                {{ form_row(formMonster.strength, {
-                    label: 'Strength : ' 
-                }) }}
-                {{ form_row(formMonster.agi, {
-                    label: 'Agi : ' 
-                }) }}
-                {{ form_row(formMonster.gold, {
-                    label: 'Gold : ' 
-                }) }}
-                {{ form_row(formMonster.xp, {
-                    label: 'XP : ' 
-                }) }}
-                <button type="submit" class="btn" id="">Editer</button>
+    <div>
+        {{ form_start(formMonster, {'attr': {'class': 'form'}}) }}
+                {{ form_widget(formMonster, {'attr': {'class': 'form2'}}) }}
+                <button type="submit" class="btn">Editer</button>
         {{ form_end(formMonster) }}
     </div>
-    <a href="{{ path("admin_listMonster") }}">Retour</a>
+    <div class="retourform"><a href="{{ path("admin_listMonster") }}">Retour</a></div>
 </div>
 
 {% endblock %}
