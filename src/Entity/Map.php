@@ -253,4 +253,8 @@ class Map
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->map_name;
+    }
 }

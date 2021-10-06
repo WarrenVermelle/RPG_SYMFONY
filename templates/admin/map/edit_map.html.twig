@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Édition de Map{% endblock %}
+
+{% block body %}
+<div class="listeform">
+    <h1>Éditer map</h1>
+
+    <div>
+        {{ form_start(formMap, {'attr': {'class': 'form'}}) }}
+                {{ form_widget(formMap, {'attr': {'class': 'form2'}}) }}
+                <button type="submit" class="btn">Éditer</button>
+        {{ form_end(formMap) }}
+    </div>
+    <div class="retourform"><a href="{{ path("admin_listMap") }}">Retour</a></div>
+</div>
+
+{% endblock %}

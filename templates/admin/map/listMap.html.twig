@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Maps{% endblock %}
+
+{% block body %}
+    <div class="liste">
+        <h1>Liste des Maps</h1>
+        <div><a href="{{ path("admin_createMap") }}" class="retour">Créer une nouvelle map</a></div>
+        <div><a href="{{ path("admin") }}" class="retour">Retour</a></div>
+        <div><p>Vous devez éditer la/les maps liées avec la map que vous voulez supprimer</p></div>
+        <div>
+            <table>
+                <thead class="lignetable">
+                    <tr>
+                        <th>Id</th>
+                        <th>Map</th>
+                        <th>IMG</th>
+                        <th>Shop</th>
+                        <th>Fight</th>
+                        <th>Marchand</th>
+                        <th>Map_Top</th>
+                        <th>Map_Right</th>
+                        <th>Map_Bottom</th>
+                        <th>Map_Left</th>
+                        <th>Éditer</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody class="lignetable">
+                {% for map in maps %}
+                    <tr>
+                        <td>{{ map.id }}</td>
+                        <td>{{ map.mapName }}</td>
+                        <td>{{ map.img }}</td>
+                        <td>{{ map.shop }}</td>
+                        <td>{{ map.fight }}</td>
+                        <td>{{ map.marchand }}</td>
+                        <td>{{ map.mapTop }}</td>
+                        <td>{{ map.mapRight }}</td>
+                        <td>{{ map.mapBottom }}</td>
+                        <td>{{ map.mapLeft }}</td>
+                        <td><a href="{{ path('map_edit', {"id":map.id}) }}">Editer</a></td>
+                        <td>{{ include('admin/map/_delete_map.html.twig') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
