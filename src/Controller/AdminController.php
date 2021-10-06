@@ -17,6 +17,7 @@ use App\Form\CreateItemType;
 use App\Form\CreateMonsterType;
 use App\Form\CreateRaceType;
 use App\Form\CreateTypeType;
+use App\Form\EditUserType;
 use App\Repository\FactionRepository;
 use App\Repository\GenderRepository;
 use App\Repository\ImgPersoRepository;
@@ -41,7 +42,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-//============================== Block User ==============================
+//============================== Block User ================================
 
     #[Route('/listusers', name: 'admin_userslist')]
     public function listUsers(UserRepository $userRepository): Response
@@ -50,6 +51,26 @@ class AdminController extends AbstractController
             "users" => $userRepository->findAll()
         ]);
     }
+
+    #[Route('/users/edit/{id}', name: 'user_edit', methods: ['POST', 'GET'])]
+    public function editUser(Request $request, User $user): Response
+    {
+        $form = $this->createForm(EditUserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $user->setRoles([$form["roles"]->getData()]);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_userslist');
+        }
+
+        return $this->render('admin/users/edit_user.html.twig', ['form' => $form->createView()]);
+
+    } 
 
     #[Route('/user/delete/{id}', name: 'user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user): Response
@@ -65,7 +86,7 @@ class AdminController extends AbstractController
 
 
 
-//============================= Block Monster =============================
+//============================== Block Monster =============================
 
     #[Route('/listMonster', name:'admin_listMonster')]
     public function listMonster(MonsterRepository $monster): Response
@@ -125,7 +146,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_listMonster', [], Response::HTTP_SEE_OTHER);
     }
 
-//============================== Block Type/Item =============================
+//============================== Block Type/Item ===========================
 
     #[Route('/listtypes', name: 'admin_items_listItems')]
     public function listItems(ItemRepository $itemRepository, TypeRepository $typeRepository): Response
@@ -175,6 +196,44 @@ class AdminController extends AbstractController
         return $this->render('admin/items/create-type.html.twig', ['formType' => $form->createView()]);
     }
 
+    #[Route('/type/edit/{id}', name: 'type_edit', methods: ['POST', 'GET'])]
+    public function editType(Request $request, Type $type): Response
+    {
+        $form = $this->createForm(CreateTypeType::class, $type);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($type);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_listType');
+        }
+
+        return $this->render('admin/items/edit_type.html.twig', ['formType' => $form->createView()]);
+
+    }
+
+    #[Route('/item/edit/{id}', name: 'item_edit', methods: ['POST', 'GET'])]
+    public function editItem(Request $request, Item $item): Response
+    {
+        $form = $this->createForm(CreateItemType::class, $item);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($item);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_items_listItems');
+        }
+
+        return $this->render('admin/items/edit_item.html.twig', ['formItem' => $form->createView()]);
+
+    } 
+
     #[Route('/type/delete/{id}', name: 'type_delete', methods: ['POST'])]
     public function deleteType(Request $request, Type $type): Response
     {
@@ -220,7 +279,6 @@ class AdminController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) 
         {   
-            // dd($form);
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($faction);
             $manager->flush();
@@ -231,11 +289,35 @@ class AdminController extends AbstractController
         return $this->render('admin/faction/create-faction.html.twig', ['formFaction' => $form->createView()]);
     }
 
+    #[Route('/faction/edit/{id}', name: 'faction_edit', methods: ['POST', 'GET'])]
+    public function editFaction(Request $request, Faction $faction): Response
+    {
+        $form = $this->createForm(CreateFactionType::class, $faction);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($faction);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_listFaction');
+        }
+
+        return $this->render('admin/faction/edit_faction.html.twig', ['formFaction' => $form->createView()]);
+
+    } 
 
     #[Route('/faction/delete/{id}', name: 'faction_delete', methods: ['POST'])]
     public function deleteFaction(Request $request, Faction $faction): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$faction->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$faction->getId(), $request->request->get('_token')))
+        {
+            $imgs = $faction->getImgPersos()->getValues();
+            foreach($imgs as $img)
+            {
+                $img->setImg("");
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($faction);
             $entityManager->flush();
@@ -244,7 +326,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_listFaction', [], Response::HTTP_SEE_OTHER);
     }
 
-//========================== Block Race ================================
+//============================== Block Race ================================
 
     #[Route('/listrace', name: 'admin_listRace')]
     public function listRaces(RaceRepository $raceRepository): Response
@@ -274,10 +356,35 @@ class AdminController extends AbstractController
         return $this->render('admin/race/create-race.html.twig', ['formRace' => $form->createView()]);
     }
 
+    #[Route('/race/edit/{id}', name: 'race_edit', methods: ['POST', 'GET'])]
+    public function editRace(Request $request, Race $race): Response
+    {
+        $form = $this->createForm(CreateRaceType::class, $race);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($race);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_listRace');
+        }
+
+        return $this->render('admin/race/edit_race.html.twig', ['formRace' => $form->createView()]);
+
+    } 
+
     #[Route('/race/delete/{id}', name: 'race_delete', methods: ['POST'])]
     public function deleteRace(Request $request, Race $race): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$race->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$race->getId(), $request->request->get('_token')))
+        {
+            $imgs = $race->getImgPersos()->getValues();
+            foreach($imgs as $img)
+            {
+                $img->setImg("");
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($race);
             $entityManager->flush();
@@ -286,7 +393,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_listRace', [], Response::HTTP_SEE_OTHER);
     }
 
-// ============================ Block Genre ==============================
+//============================== Block Genre ===============================
     #[Route('/listgenders', name: 'admin_listGender')]
     public function listGenders(GenderRepository $genderRepository): Response
     {
@@ -315,10 +422,35 @@ class AdminController extends AbstractController
         return $this->render('admin/gender/create-gender.html.twig', ['formGender' => $form->createView()]);
     }
 
+    #[Route('/gender/edit/{id}', name: 'gender_edit', methods: ['POST', 'GET'])]
+    public function editGender(Request $request, Gender $gender): Response
+    {
+        $form = $this->createForm(CreateGenderType::class, $gender);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($gender);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_listGender');
+        }
+
+        return $this->render('admin/gender/edit_gender.html.twig', ['formGender' => $form->createView()]);
+
+    } 
+
     #[Route('/gender/delete/{id}', name: 'gender_delete', methods: ['POST'])]
     public function deleteGender(Request $request, Gender $gender): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$gender->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$gender->getId(), $request->request->get('_token')))
+        {
+            $imgs = $gender->getImgPersos()->getValues();
+            foreach($imgs as $img)
+            {
+                $img->setImg("");
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($gender);
             $entityManager->flush();
@@ -327,7 +459,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_listGender', [], Response::HTTP_SEE_OTHER);
     }
 
-// ============================ Block ImgPerso ==============================
+//============================== Block ImgPerso ============================
     #[Route('/listimgPerso', name: 'admin_listImgPerso')]
     public function listImgPerso(ImgPersoRepository $imgPersoRepository): Response
     {
@@ -389,6 +521,8 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('admin_listImgPerso', [], Response::HTTP_SEE_OTHER);
     }
+
+
 
 
 }
