@@ -3,16 +3,16 @@
 {% block title %}Edition de Genre{% endblock %}
 
 {% block body %}
-<div id="">
-    <h1 id="titremoncompte">Editer le Genre</h1>
+<div class="listeform">
+    <h1>Editer le Genre</h1>
 
-    <div id="">
-        {{ form_start(formGender) }}
-                {{ form_widget(formGender) }}
+    <div>
+        {{ form_start(formGender, {'attr': {'class': 'form'}}) }}
+                {{ form_widget(formGender, {'attr': {'class': 'form2'}}) }}
                 <button type="submit" class="btn" id="">Editer</button>
         {{ form_end(formGender) }}
     </div>
-    <a href="{{ path("admin_listGender") }}">Retour</a>
+    <div class="retourform"><a href="{{ path("admin_listGender") }}">Retour</a></div>
 </div>
 
 {% endblock %}

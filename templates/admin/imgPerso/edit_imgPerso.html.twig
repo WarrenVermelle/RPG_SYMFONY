@@ -7,8 +7,8 @@
     <h1>Edite image pour personnage</h1>
 
     <div>
-        {{ form_start(formImgPerso) }}
-                {{ form_widget(formImgPerso) }}
+        {{ form_start(formImgPerso, {'attr': {'class': 'formim'}}) }}
+                {{ form_widget(formImgPerso, {'attr': {'class': 'form2'}}) }}
                 <button type="submit" class="btn" id="">Editer</button>
         {{ form_end(formImgPerso) }}
     </div>

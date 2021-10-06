@@ -3,16 +3,16 @@
 {% block title %}Edition faction{% endblock %}
 
 {% block body %}
-<div id="">
-    <h1 id="titremoncompte">Editer la faction</h1>
+<div class="listeform">
+    <h1>Editer la faction</h1>
 
-    <div id="">
-        {{ form_start(formFaction) }}
-                {{ form_widget(formFaction) }}
+    <div>
+        {{ form_start(formFaction, {'attr': {'class': 'form'}}) }}
+                {{ form_widget(formFaction, {'attr': {'class': 'form2'}}) }}
                 <button type="submit" class="btn" id="">Editer</button>
         {{ form_end(formFaction) }}
     </div>
-    <a href="{{ path("admin_listFaction") }}">Retour</a>
+    <div class="retourform"><a href="{{ path("admin_listFaction") }}">Retour</a></div>
 </div>
 
 {% endblock %}

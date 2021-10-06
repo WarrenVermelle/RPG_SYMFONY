@@ -3,18 +3,16 @@
 {% block title %}Edition de types{% endblock %}
 
 {% block body %}
-<div id="">
-    <h1 id="titremoncompte">Editer le type</h1>
+<div class="listeform">
+    <h1>Editer le type</h1>
 
-    <div id="">
-        {{ form_start(formType ) }}
-                {{ form_row(formType.type , {
-                    label: 'Type : '
-                }) }}
+    <div>
+        {{ form_start(formType, {'attr': {'class': 'form'}} ) }}
+                {{ form_widget(formType, {'attr': {'class': 'form2'}}) }}
                 <button type="submit" class="btn" id="">Editer</button>
         {{ form_end(formType) }}
     </div>
-    <a href="{{ path("admin_items_listItems") }}">Retour</a>
+    <div class="retourform"><a href="{{ path("admin_items_listItems") }}">Retour</a></div>
 </div>
 
 {% endblock %}
