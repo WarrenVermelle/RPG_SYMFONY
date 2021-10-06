@@ -12,7 +12,8 @@
             <tr>
                 <th>Id</th>
                 <th>Type</th>
-                <th>Suppression</th>
+                <th>Editer</th>
+                <th>Supprimer</th>
             </tr>
         </thead>
         <tbody class="lignetable">
@@ -20,6 +21,7 @@
             <tr>
                 <td>{{ type.id }}</td>
                 <td>{{ type.type }}</td>
+                <td><a href="{{ path('type_edit', {"id":type.id}) }}">Editer</a></td>
                 <td>{{ include('admin/items/_delete_type.html.twig') }}</td>
             </tr>
         {% endfor %}
@@ -46,7 +48,7 @@
                 <th>Prix</th>
                 <th>Level</th>
                 <th>Editer</th>
-                <th>Suppression</th>
+                <th>Supprimer</th>
             </tr>
         </thead>
         <tbody class="lignetable">
@@ -62,8 +64,7 @@
                 <td>{{ item.agi }}</td>
                 <td>{{ item.type }}</td>
                 <td>{{ item.price }}</td>
-                <td>{{ item.level }}</td>
-                <td>Edit</td>
+                <td><a href="{{ path('item_edit', {"id":item.id}) }}">Editer</a></td>
                 <td>{{ include('admin/items/_delete_item.html.twig') }}</td>
             </tr>
         {% endfor %}

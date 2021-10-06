@@ -33,7 +33,7 @@
                         <td>{{ race.ratioIntel }}</td>
                         <td>{{ race.ratioStrength }}</td>
                         <td>{{ race.ratioAgi }}</td>
-                        <td><a href="">Editer</a></td>
+                        <td><a href="{{ path('race_edit', {"id":race.id}) }}">Editer</a></td>
                         <td>{{ include('admin/race/_delete_race.html.twig') }}</td>
                     </tr>
                 {% endfor %}
@@ -41,9 +41,5 @@
             </table>
         </div>
     </div>
-
-    
-
-
 {% endblock %}
 

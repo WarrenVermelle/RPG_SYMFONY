@@ -23,7 +23,7 @@
                     <tr>
                         <td>{{ gender.id }}</td>
                         <td>{{ gender.nomGender }}</td>
-                        <td><a href="">Editer</a></td>
+                        <td><a href="{{ path('gender_edit', {"id":gender.id}) }}">Editer</a></td>
                         <td>{{ include('admin/gender/_delete_gender.html.twig') }}</td>
                     </tr>
                 {% endfor %}
@@ -31,9 +31,5 @@
             </table>
         </div>
     </div>
-
-    
-
-
 {% endblock %}
 

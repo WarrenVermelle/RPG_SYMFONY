@@ -50,12 +50,12 @@ class Faction
     private $coef_agi;
 
     /**
-     * @ORM\OneToMany(targetEntity=Champion::class, mappedBy="faction")
+     * @ORM\OneToMany(targetEntity=Champion::class, mappedBy="faction", cascade={"remove"})
      */
     private $champions;
 
     /**
-     * @ORM\OneToMany(targetEntity=ImgPerso::class, mappedBy="faction")
+     * @ORM\OneToMany(targetEntity=ImgPerso::class, mappedBy="faction", cascade={"remove"})
      */
     private $imgPersos;
 

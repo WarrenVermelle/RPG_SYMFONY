@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edition de l'utilisateur{% endblock %}
+
+{% block body %}
+<div id="">
+    <h1 id="titremoncompte">Editer l'utilisateur</h1>
+
+    <div id="">
+        {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn" id="">Editer</button>
+        {{ form_end(form) }}
+    </div>
+    <a href="{{ path("admin_userslist") }}">Retour</a>
+</div>
+
+{% endblock %}
