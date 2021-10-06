@@ -25,12 +25,12 @@ class Gender
     private $nom_gender;
 
     /**
-     * @ORM\OneToMany(targetEntity=Champion::class, mappedBy="gender")
+     * @ORM\OneToMany(targetEntity=Champion::class, mappedBy="gender", cascade={"remove"})
      */
     private $champions;
 
     /**
-     * @ORM\OneToMany(targetEntity=ImgPerso::class, mappedBy="gender")
+     * @ORM\OneToMany(targetEntity=ImgPerso::class, mappedBy="gender", cascade={"remove"})
      */
     private $imgPersos;
 

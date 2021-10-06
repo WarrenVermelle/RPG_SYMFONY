@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edition de Genre{% endblock %}
+
+{% block body %}
+<div class="listeform">
+    <h1>Editer le Genre</h1>
+
+    <div>
+        {{ form_start(formGender, {'attr': {'class': 'form'}}) }}
+                {{ form_widget(formGender, {'attr': {'class': 'form2'}}) }}
+                <button type="submit" class="btn" id="">Editer</button>
+        {{ form_end(formGender) }}
+    </div>
+    <div class="retourform"><a href="{{ path("admin_listGender") }}">Retour</a></div>
+</div>
+
+{% endblock %}

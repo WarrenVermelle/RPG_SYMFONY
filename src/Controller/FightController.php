@@ -51,7 +51,7 @@ class FightController extends AbstractController
             $manager->persist($champion);
             $manager->flush();
             // renvoi à la ville
-            return new JsonResponse($generator->generate('dynamic_map', ['id' => 1]));
+            return new JsonResponse($generator->generate('lose'));
         }
 
         // base de la prise de niveau
@@ -61,21 +61,27 @@ class FightController extends AbstractController
         if ($monster->getHp() <= 0) {
             // le champion obtient son xp
             $fight->xpWin($champion,$monster);
+            $xpFight = $monster->getXp();
             // le champion obtient son or
             $fight->goldWin($champion,$monster);
-
+            $goldFight = $monster->getGold();
+            $session->set('loot', ' ');
             // 1 chance sur 3 d'obtenir un loot
-            if(rand(0,2) === 0)
+            if(rand(0,0) === 0)
             {
                 $manager = $this->getDoctrine()->getManager();
                 $loots = $monster->getLoots()->getValues();
                 $loot = $loots[rand(0,count($loots)-1)];
-    
+
                 $champion->addLootToInventory($manager->find(Item::class, $loot->getItem()->getId()));
-                
+                $session->set('loot', $loot);
                 $manager->persist($champion);
                 $manager->flush();
             }
+
+            $session->set('xpFight', $xpFight);
+            $session->set('goldFight', $goldFight);
+            
 
             // si l'xp total du champion est supérieure ou égale à la base de prise de niveau
             if ($champion->getXp() >= $levelUp) {
@@ -88,7 +94,7 @@ class FightController extends AbstractController
                 $fight->xpReset($champion);
             }
             // renvoi à la forêt après le combat
-            return new JsonResponse($generator->generate('dynamic_map', ['id' => 4]));
+            return new JsonResponse($generator->generate('win'));
         }
 
         // si l'xp totale du champion est égale à la base de prise de niveau
@@ -130,7 +136,7 @@ class FightController extends AbstractController
             $manager->persist($champion);
             $manager->flush();
             // renvoi à la ville
-            return new JsonResponse($generator->generate('dynamic_map', ['id' => 4]));
+            return new JsonResponse($generator->generate('lose'));
         }
         
         return $this->render('fight/fightStart.html.twig',[

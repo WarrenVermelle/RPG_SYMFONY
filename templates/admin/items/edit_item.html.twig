@@ -1,15 +1,15 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Création d'objet{% endblock %}
+{% block title %}Edition d'objet{% endblock %}
 
 {% block body %}
 <div class="listeform">
-    <h1>Créer un nouvel objet</h1>
+    <h1>Editer l'objet</h1>
 
     <div>
         {{ form_start(formItem, {'attr': {'class': 'form'}} ) }}
                 {{ form_widget(formItem, {'attr': {'class': 'form2'}}) }}
-                <button type="submit" class="btn" id="">Créez !</button>
+                <button type="submit" class="btn" id="">Editer</button>
         {{ form_end(formItem) }}
     </div>
     <div class="retourform"><a href="{{ path("admin_items_listItems") }}">Retour</a></div>

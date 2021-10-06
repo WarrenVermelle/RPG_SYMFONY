@@ -1,15 +1,15 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Création de types{% endblock %}
+{% block title %}Edition de types{% endblock %}
 
 {% block body %}
 <div class="listeform">
-    <h1>Créer un nouveau type</h1>
+    <h1>Editer le type</h1>
 
     <div>
-        {{ form_start(formType , {'attr': {'class': 'form'}}) }}
+        {{ form_start(formType, {'attr': {'class': 'form'}} ) }}
                 {{ form_widget(formType, {'attr': {'class': 'form2'}}) }}
-                <button type="submit" class="btn">Créez !</button>
+                <button type="submit" class="btn" id="">Editer</button>
         {{ form_end(formType) }}
     </div>
     <div class="retourform"><a href="{{ path("admin_items_listItems") }}">Retour</a></div>

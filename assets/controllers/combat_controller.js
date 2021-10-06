@@ -30,17 +30,24 @@ export default class extends Controller
         await fetch(path).then((response)=>{
             return response.text()
         }).then((text)=>{
-            if(text.startsWith("\"\\"))
-            {
+            if(text.startsWith("\"\\")){
+                console.log(text)
                 let redirectPath = JSON.parse(text);
-                localStorage.removeItem('cbtStart');
-                window.location.href = redirectPath;
-            }
-            else
-            {
+                localStorage.removeItem('cbtStart')
+                console.log(redirectPath)
+                //window.location.href = redirectPath;
+                fetch(redirectPath).then((response)=>{
+                    return response.text()
+                }).then((text)=>{
+                    console.log(text)
+                    let parser = new DOMParser();
+                    let doc = parser.parseFromString(text, 'text/html');
+                    this.element.replaceWith(doc.querySelector('#endCombat'))
+                })
+            }else{
                 let parser = new DOMParser();
                 let doc = parser.parseFromString(text, 'text/html');
-                this.element.replaceWith(doc.querySelector('#startCombat'));
+                this.element.replaceWith(doc.querySelector('#startCombat'))
 
                 let hp_stats = document.querySelector('.hp_stats');
                 let target = document.querySelector('.currentHp');
@@ -49,7 +56,11 @@ export default class extends Controller
         });
     }
     
-   
+   async endFight()
+   {
+        //console.log('cc')
+        window.location.href = '/game/voyage/4';
+   }
 
     async fuite(event )
     {
