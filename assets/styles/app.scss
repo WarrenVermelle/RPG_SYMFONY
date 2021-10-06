@@ -783,7 +783,6 @@ footer{
 .iconestats{
     width: 25px;
     height: 25px;
-    margin-top: 14px;
     border: gray 2px solid;
     margin-right: 2px;
 }
@@ -792,13 +791,13 @@ footer{
 }
 .footer-stats{
     color: white;
+    align-items: center;
     display: flex;
     padding-top: 5px;
     padding-left: 10px;
 }
 .stats-figure{
     padding-right: 15px;
-    margin-top: 10px!important;
 }
 
 /*-------------------popup inventaire -------------------------*/
