@@ -31,15 +31,12 @@ export default class extends Controller
             return response.text()
         }).then((text)=>{
             if(text.startsWith("\"\\")){
-                console.log(text)
                 let redirectPath = JSON.parse(text);
                 localStorage.removeItem('cbtStart')
-                console.log(redirectPath)
                 //window.location.href = redirectPath;
                 fetch(redirectPath).then((response)=>{
                     return response.text()
                 }).then((text)=>{
-                    console.log(text)
                     let parser = new DOMParser();
                     let doc = parser.parseFromString(text, 'text/html');
                     this.element.replaceWith(doc.querySelector('#endCombat'))
@@ -54,9 +51,14 @@ export default class extends Controller
     
    async endFight()
    {
-        //console.log('cc')
-        window.location.href = '/game/voyage/4';
-   }
+    let btn = this.element.querySelector('button');
+    let path = btn.getAttribute('data-end');
+        if ( path === '/lose'){
+            window.location.href = '/game/voyage/1';
+        }else{
+            window.location.href = '/game/voyage/4';
+        }
+    }
 
     async fuite(event )
     {
