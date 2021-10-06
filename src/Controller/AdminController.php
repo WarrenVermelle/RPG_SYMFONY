@@ -42,7 +42,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-//============================== Block User ==============================
+//============================== Block User ================================
 
     #[Route('/listusers', name: 'admin_userslist')]
     public function listUsers(UserRepository $userRepository): Response
@@ -86,7 +86,7 @@ class AdminController extends AbstractController
 
 
 
-//============================= Block Monster =============================
+//============================== Block Monster =============================
 
     #[Route('/listMonster', name:'admin_listMonster')]
     public function listMonster(MonsterRepository $monster): Response
@@ -146,7 +146,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_listMonster', [], Response::HTTP_SEE_OTHER);
     }
 
-//============================== Block Type/Item =============================
+//============================== Block Type/Item ===========================
 
     #[Route('/listtypes', name: 'admin_items_listItems')]
     public function listItems(ItemRepository $itemRepository, TypeRepository $typeRepository): Response
@@ -326,7 +326,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_listFaction', [], Response::HTTP_SEE_OTHER);
     }
 
-//========================== Block Race ================================
+//============================== Block Race ================================
 
     #[Route('/listrace', name: 'admin_listRace')]
     public function listRaces(RaceRepository $raceRepository): Response
@@ -393,7 +393,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_listRace', [], Response::HTTP_SEE_OTHER);
     }
 
-// ============================ Block Genre ==============================
+//============================== Block Genre ===============================
     #[Route('/listgenders', name: 'admin_listGender')]
     public function listGenders(GenderRepository $genderRepository): Response
     {
@@ -459,7 +459,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_listGender', [], Response::HTTP_SEE_OTHER);
     }
 
-// ============================ Block ImgPerso ==============================
+//============================== Block ImgPerso ============================
     #[Route('/listimgPerso', name: 'admin_listImgPerso')]
     public function listImgPerso(ImgPersoRepository $imgPersoRepository): Response
     {
