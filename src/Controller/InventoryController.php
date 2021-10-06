@@ -33,12 +33,11 @@ class InventoryController extends AbstractController
         $equipedList = $request->getSession()->get('equipedList');
         
 
-        if($champion->getLevel() >= $clickedInventoryLine->getItem()->getLevel()){
-          
-        // si élément cliqué n'est pas équipé
-        if($clickedInventoryLine->getEquiped() === false)
+        if($champion->getLevel() >= $clickedInventoryLine->getItem()->getLevel())
         {
-            if($equipedList){
+            // si élément cliqué n'est pas équipé
+            if($clickedInventoryLine->getEquiped() === false)
+            {
                 // on compare dans la liste des élèments equipés
                 foreach($equipedList as $item)
                 {
@@ -61,7 +60,7 @@ class InventoryController extends AbstractController
                         $manager->flush();
                     }
                 }
-            }
+
                 // équipe l'élément cliqué
                 $clickedInventoryLine->setEquiped(true);
 
@@ -121,13 +120,15 @@ class InventoryController extends AbstractController
                 $champion->setStrength($champion->getStrength() - $clickedInventoryLine->getItem()->getStrength());
                 $champion->setAgi($champion->getAgi() - $clickedInventoryLine->getItem()->getAgi());
             }
-        }else{
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($clickedInventoryLine);
+            $manager->persist($champion);
+            $manager->flush();
             return $this->redirectToRoute('show_inventory');
         }
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($clickedInventoryLine);
-        $manager->persist($champion);
-        $manager->flush();
-        return $this->redirectToRoute('show_inventory');
+        else
+        {
+            return $this->redirectToRoute('show_inventory');
+        }
     }
 }

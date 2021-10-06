@@ -16,15 +16,15 @@ class AchatVenteController extends AbstractController
     public function achatvente(Request $request, ChampionRepository $championRepo): Response
     {
         // prend le champion dans la session
-        $champion = $request->getSession()->get('championActif');
+        $session = $request->getSession();
 
         return $this->render('achat_vente/index.html.twig',
         [
             'controller_name' => 'AchatVenteController',
-            'champion' => $champion,
+            'champion' => $session->get('championActif'),
             'InventMarch' => $championRepo->find(1)->getInventories()->getValues(),
-            'InventPlayer' => $champion->getInventories()->getValues(),
-            "affgold" => $champion->getGold()
+            'InventPlayer' => $session->get('nonEquipedList'),
+            "affgold" => $session->get('championActif')->getGold()
         ]);
     }
 

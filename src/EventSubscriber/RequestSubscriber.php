@@ -43,14 +43,20 @@ class RequestSubscriber implements EventSubscriberInterface
                 'champ' => $champion
             ]);
 
+            $nonEquipedList = $this->em->getRepository(Inventory::class)->findBy([
+                'champ' => $champion,
+                'equiped' => false
+            ]);
+
             $equipedList = $this->em->getRepository(Inventory::class)->findBy([
                 'champ' => $champion,
                 'equiped' => true
             ]);
-           
+
             $session = $event->getRequest()->getSession();
             $session->set('championActif', $champion);
-            $session->set('Item', $equipedList);
+            $session->set('nonEquipedList', $nonEquipedList);
+            $session->set('equipedList', $equipedList);
             $session->set('inventory', $inventory);
         }
     }

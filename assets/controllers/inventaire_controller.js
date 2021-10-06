@@ -63,8 +63,11 @@ export default class extends Controller
                         
                         let parser = new DOMParser();
                         let doc = parser.parseFromString(text, 'text/html');
-    
                         document.querySelector('#startCombat').replaceWith(doc.querySelector('#startCombat'))
+                        
+                        let hp_stats = document.querySelector('.hp_stats');
+                        let target = document.querySelector('.currentHp');
+                        hp_stats.innerHTML = target.getAttribute('data-hp') + ' / ' + target.getAttribute('data-max-hp');
                     }
                 })
             }else{
